@@ -30,19 +30,19 @@ void movimiento_t::salida(string numJ) {
             break;
     }
 
-    /* Si el movimiento es INMOVIL, terminar aquí */
+    /* Si el movimiento es INMOVIL, terminar aquÃ­ */
     if (tipo_movimiento == INMOVIL) {
         out << accion;
         out.close();
         return;
     }
 
-    /* Linea 2: Hexágono de destino */
+    /* Linea 2: HexÃ¡gono de destino */
     accion = accion + destino.stringPos() + "\n";
 
     /* Linea 3: Lado de destino */
     accion = accion + itoStr(lado) + "\n";
-    /* Si el movimiento es SALTAR, terminar aquí */
+    /* Si el movimiento es SALTAR, terminar aquÃ­ */
     if (tipo_movimiento == SALTAR) {
         out << accion;
         out.close();
@@ -59,7 +59,7 @@ void movimiento_t::salida(string numJ) {
             break;
     }
 
-    /* Linea 5: número de pasos */
+    /* Linea 5: nÃºmero de pasos */
     accion = accion + itoStr(pasos) + "\n";
 
     /* Para cada paso */
@@ -93,6 +93,10 @@ void movimiento_t::salida(string numJ) {
     out << accion;
     out.close();
 
+}
+
+reaccion_t::reaccion_t(){
+	encaramiento = 0;
 }
 
 void reaccion_t::salida(string numJ) {
@@ -151,22 +155,22 @@ void ataque_armas_t::salida(string numJ) {
             break;
     }
 
-    /* Si se coge un garrote, terminar aquí */
+    /* Si se coge un garrote, terminar aquÃ­ */
     if (coger_garrote == true) {
         out << accion;
         out.close();
         return;
     }
 
-    /* Linea 2: Hexágono objetivo primario */
+    /* Linea 2: HexÃ¡gono objetivo primario */
     accion = accion + objetivo.stringPos() + "\n";
 
-    /* Linea 3: Número de armas que se van a disparar */
+    /* Linea 3: NÃºmero de armas que se van a disparar */
     accion = accion + itoStr(num_armas) + "\n";
 
     /* Para cada arma a disparar */
     for (int i = 0; i < num_armas; ++i) {
-        /* Localización del arma */
+        /* LocalizaciÃ³n del arma */
         switch (armas_mech[i].localizacion) {
             case 0:
                 accion = accion + "BI\n";
@@ -197,7 +201,7 @@ void ataque_armas_t::salida(string numJ) {
                 break;
         }
 
-        /* Slot del arma dentro de la localización */
+        /* Slot del arma dentro de la localizaciÃ³n */
         accion = accion + itoStr(armas_mech[i].slot) + "\n";
 
         /* Doble cadencia */
@@ -210,7 +214,7 @@ void ataque_armas_t::salida(string numJ) {
                 break;
         }
 
-        /* Localización de la munición */
+        /* LocalizaciÃ³n de la municiÃ³n */
         switch (armas_mech[i].loc_municion) {
             case 0:
                 accion = accion + "BI\n";
@@ -243,10 +247,10 @@ void ataque_armas_t::salida(string numJ) {
                 accion = accion + "-1\n";
         }
 
-        /* Slot de la munición dentro de la localización */
+        /* Slot de la municiÃ³n dentro de la localizaciÃ³n */
         accion = accion + itoStr(armas_mech[i].slot_municion) + "\n";
 
-        /* Hexágono objetivo del arma */
+        /* HexÃ¡gono objetivo del arma */
         accion = accion + armas_mech[i].objetivo.stringPos() + "\n";
 
         /* Tipo de objetivo */
@@ -255,7 +259,7 @@ void ataque_armas_t::salida(string numJ) {
                 accion = accion + "Mech\n";
                 break;
             case HEXAGONO:
-                accion = accion + "Hexágono\n";
+                accion = accion + "HexÃ¡gono\n";
                 break;
             case NINGUNO:
                 accion = accion + "Ninguno\n";
@@ -274,12 +278,12 @@ void ataque_fisico_t::salida(string numJ) {
     ofstream out;
     out.open(cad.c_str());
 
-    /* Linea 1: Número de armas físicas que se van a usar */
+    /* Linea 1: NÃºmero de armas fÃ­sicas que se van a usar */
     accion = accion + itoStr(num_armas) + "\n";
 
     /* Para cada arma */
     for (int i = 0; i < num_armas; ++i) {
-        /* Localización del arma física */
+        /* LocalizaciÃ³n del arma fÃ­sica */
         switch (armas[i].localizacion) {
             case BI_A:
                 accion = accion + "BI\n";
@@ -298,10 +302,10 @@ void ataque_fisico_t::salida(string numJ) {
                 break;
         }
 
-        /* Slot del arma física */
+        /* Slot del arma fÃ­sica */
         accion = accion + itoStr(armas[i].slot) + "\n";
 
-        /* Hexágono objetivo del arma */
+        /* HexÃ¡gono objetivo del arma */
         accion = accion + armas[i].objetivo.stringPos() + "\n";
 
         /* Tipo de objetivo */
@@ -310,7 +314,7 @@ void ataque_fisico_t::salida(string numJ) {
                 accion = accion + "Mech\n";
                 break;
             case HEXAGONO:
-                accion = accion + "Hexágono\n";
+                accion = accion + "HexÃ¡gono\n";
                 break;
             case NINGUNO:
                 accion = accion + "Ninguno\n";
@@ -327,10 +331,10 @@ void final_t::salida(string numJ) {
     string accion;
     ofstream out;
     out.open(cad.c_str());
-    /* Linea 1: Número de radiadores a apagar */
+    /* Linea 1: NÃºmero de radiadores a apagar */
     accion = accion + itoStr(radiadores_off) + "\n";
 
-    /* Linea 2: Número de radiadores a encender */
+    /* Linea 2: NÃºmero de radiadores a encender */
     accion = accion + itoStr(radiadores_on) + "\n";
 
     /* Linea 3: Soltar garrote */
@@ -343,12 +347,12 @@ void final_t::salida(string numJ) {
             break;
     }
 
-    /* Linea 4: Número de municiones a expulsar */
+    /* Linea 4: NÃºmero de municiones a expulsar */
     accion = accion + itoStr(expulsar) + "\n";
 
-    /* Para cada munición a expulsar */
+    /* Para cada municiÃ³n a expulsar */
     for (int i = 0; i < expulsar; ++i) {
-        /* Localización de la munición */
+        /* LocalizaciÃ³n de la municiÃ³n */
         switch (expulsada[i].localizacion) {
             case 0:
                 accion = accion + "BI\n";
@@ -376,7 +380,7 @@ void final_t::salida(string numJ) {
                 break;
         }
 
-        /* Slot de la munición dentro de la localización */
+        /* Slot de la municiÃ³n dentro de la localizaciÃ³n */
         accion = accion + itoStr(expulsada[i].slot) + "\n";
     }
     /* Cerrar el archivo */
@@ -397,6 +401,49 @@ acciones::acciones(string numJ, infoMapa* mapa, infoMechs* mechs, OpcionesJuego*
 }
 
 acciones::acciones(const acciones& orig) {
+}
+
+void acciones::reaccion_accion(){
+	int colum_ene, colum_jug;
+	int fila_ene, fila_jug;
+	reaccion->encaramiento = informacion_mechs->mechJugador->encaramiento_mech;
+
+	objetivo_mech = objetivoArmas();
+	colum_jug=informacion_mechs->mechJugador->pos_Hexagono.columna;
+	fila_jug=informacion_mechs->mechJugador->pos_Hexagono.fila;
+	colum_ene=informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
+	fila_ene=informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
+
+	if(fila_ene > fila_jug && colum_ene == colum_jug){ //Hay que girarse hacia 5-4-3
+		if(colum_ene == colum_jug){ //Hay que girarse a 4
+
+		}
+		else if (colum_ene > colum_jug){ //Hay que girarse a 3
+
+		}else if(colum_ene < colum_jug){ //Hay que girarse hacia 5
+
+		}
+
+	}else if(fila_ene < fila_jug ){ //Hay que girarse hacia 6-1-2
+		if(colum_ene == colum_jug){
+
+		}else if(colum_ene > colum_jug){
+
+		}else if(colum_ene < colum_jug){
+
+		}
+
+
+	}else if(fila_ene == fila_jug){ //hay que girarse a 2-3 o 6-5
+		if(colum_ene > colum_jug){ //Hay que girarse a 2-3
+
+		}else if (colum_ene < colum_jug){ //Hay que girarse a 6-5
+
+		}
+
+	}
+
+
 }
 
 void acciones::ataque_arma(){
@@ -508,7 +555,7 @@ void acciones::ataque_arma(){
     /*Si no hay Mech adyacente desarrollamos estrategia disparo*/
    /* if(!adyacente){        
         num_mech_objetivo=objetivoArmas(); //seleccionamos objetivo4
-        //Calculamos el número de armas del mech
+        //Calculamos el nÃºmero de armas del mech
         int numero_armas=0;
         int contador=0;
         
@@ -566,7 +613,7 @@ void acciones::ataque_arma(){
         }
         numArmasDisparar = contador;
         armas->coger_garrote=false; //No cogemos garrote
-        armas->objetivo.pos=informacion_mechs->iMechVector[num_mech_objetivo]->pos_Hexagono.pos; //Hexágono objetivo
+        armas->objetivo.pos=informacion_mechs->iMechVector[num_mech_objetivo]->pos_Hexagono.pos; //HexÃ¡gono objetivo
         armas->num_armas = numArmasDisparar; //numero armas disparar
         
         int localizacionMun;
@@ -576,7 +623,7 @@ void acciones::ataque_arma(){
             armas->armas_mech[i].slot = obtenerSlotArma(informacion_mechs->mechJugador,armasDisparar[i]); //Slot del arma
             armas->armas_mech[i].doble_cadencia = false; //No usamos doble cadencia
             
-            if(armasDisparar[i].tipo == 2 || armasDisparar[i].tipo == 3){ //Si son armas que usan munición
+            if(armasDisparar[i].tipo == 2 || armasDisparar[i].tipo == 3){ //Si son armas que usan municiÃ³n
                 armas->armas_mech[i].loc_municion = obtenerLocalizacionMunicion(informacion_mechs->mechJugador,armasDisparar[i]);
             }else{  //Arma de energia
                 armas->armas_mech[i].loc_municion = -1;
@@ -680,7 +727,7 @@ int acciones::objetivoArmas(){
     int columnaJugador;
     int filaJugador;
     int mech_mas_debil;
-    int score_objetivo[informacion_mechs->nMechs-1]; //Aqui se guardará en cada dimensión el Score de cada objetivo para elegir el mejor al que disparar
+    int score_objetivo[informacion_mechs->nMechs-1]; //Aqui se guardarÃ¡ en cada dimensiÃ³n el Score de cada objetivo para elegir el mejor al que disparar
     int armaduraux=0; 
     int armaduraminima=100000;
     int objetivo;
@@ -720,7 +767,7 @@ int acciones::objetivoArmas(){
         armaduraux=0;
     }
     
-    score_objetivo[mech_mas_debil]-=1; //Si hay dos mechs a igual distancia pero uno esta mas dañado que otro disparamos a éste.
+    score_objetivo[mech_mas_debil]-=1; //Si hay dos mechs a igual distancia pero uno esta mas daÃ±ado que otro disparamos a Ã©ste.
     scoreaux=score_objetivo[0];
     
     for(int i=1; i<informacion_mechs->nMechs;i++){
@@ -760,7 +807,7 @@ int acciones::obtenerSlotArma(iMech mech, Componente_Mech arma){
    return -1;
 }
 //string acciones::mover(hexagono_pos destino) {
-//    //Añadir obstaculos mechs!
+//    //AÃ±adir obstaculos mechs!
 //    bool stop = false;
 //    int f_ini;
 //    int c_ini;
@@ -772,7 +819,7 @@ int acciones::obtenerSlotArma(iMech mech, Componente_Mech arma){
 //
 //    priority_queue<path_pos_t, vector<path_pos_t>, greater <vector<path_pos_t>::value_type> > l_abierta;
 //
-//    int adyacentes[6][2]; //6 hexágnos adyacentes como máximo
+//    int adyacentes[6][2]; //6 hexÃ¡gnos adyacentes como mÃ¡ximo
 //    int filas = informacion_mapa->filas;
 //    int columnas = informacion_mapa->columnas;
 //    path_pos_t path_map[filas][columnas];
@@ -794,7 +841,7 @@ int acciones::obtenerSlotArma(iMech mech, Componente_Mech arma){
 //        tmp=l_abierta.top();
 //        i_actual=l_abierta.top().fila;
 //        j_actual=l_abierta.top().columna;
-//        //salida=salida+"->"+tmp.posicion_h().stringPos();//No se puede reconstruir así el camino, elige posiciones incorrectas de la lista de abierta, adyacentes a posiciones anteriores.
+//        //salida=salida+"->"+tmp.posicion_h().stringPos();//No se puede reconstruir asÃ­ el camino, elige posiciones incorrectas de la lista de abierta, adyacentes a posiciones anteriores.
 //        l_abierta.pop();
 //        path_map[i_actual][j_actual].en_abierta = false;
 //        path_map[i_actual][j_actual].en_cerrada = true;
@@ -867,7 +914,7 @@ int comprueba_LV(int jugador, hexagono_pos cas_origen, int nivel_or, hexagono_po
     
     /* int snprintf(char *str, size_t size, const char *format,...)
          char *str: Cadena de destino.
-    size_t size: Número de bytes a escribir. Se suele poner el tamaño de la cadena destino.
+    size_t size: NÃºmero de bytes a escribir. Se suele poner el tamaÃ±o de la cadena destino.
     const char *format,... : Formato habitual de printf.
      */
     snprintf(orden, 99 , "./LDVyC.exe mapaJ%i.sbt %02i%02i %i %02i%02i %i", jugador, cas_origen.columna,
@@ -926,7 +973,7 @@ int acciones::angulo_mech(int mech_obj){
                         return FRONTAL;
                 }
             }
-            /* Mirar toda la línea de casillas que tiene detrás */
+            /* Mirar toda la lÃ­nea de casillas que tiene detrÃ¡s */
             for(int i=informacion_mechs->mechJugador->pos_Hexagono.fila+1; i < informacion_mapa->filas; ++i){
                 if( (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna == informacion_mechs->mechJugador->pos_Hexagono.columna) &&
                     (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i) )
@@ -956,14 +1003,14 @@ int acciones::angulo_mech(int mech_obj){
                         return TRASERO;
                 }
             }
-            /* Mirar si está en los laterales */
+            /* Mirar si estÃ¡ en los laterales */
             if(informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna > informacion_mechs->mechJugador->pos_Hexagono.columna)
                 return DERECHO;
             else
                 return IZQUIERDO;
             break;
         case 2:
-            /* Comprobar el ángulo frontal */
+            /* Comprobar el Ã¡ngulo frontal */
             for(int i=1; i < informacion_mechs->mechJugador->pos_Hexagono.fila; ++i){
                 if( (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna== informacion_mechs->mechJugador->pos_Hexagono.columna) &&
                     (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i) )
@@ -980,7 +1027,7 @@ int acciones::angulo_mech(int mech_obj){
                         return FRONTAL;
                 }
             }
-            /* Comprobar el ángulo trasero */
+            /* Comprobar el Ã¡ngulo trasero */
             if( (informacion_mechs->mechJugador->pos_Hexagono.columna % 2) == 0 )
                 fila_init=(informacion_mechs->mechJugador->pos_Hexagono.fila+1)*2;
             else
@@ -992,7 +1039,7 @@ int acciones::angulo_mech(int mech_obj){
                         return TRASERO;
                 }
             }
-            /* Comprobar los ángulos laterales */
+            /* Comprobar los Ã¡ngulos laterales */
             if( (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna > informacion_mechs->mechJugador->pos_Hexagono.columna) ||
                 (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.fila > informacion_mechs->mechJugador->pos_Hexagono.fila) )
                 return DERECHO;
@@ -1000,7 +1047,7 @@ int acciones::angulo_mech(int mech_obj){
                 return IZQUIERDO;
             break;
         case 3:
-            /* Comprobar el ángulo frontal */
+            /* Comprobar el Ã¡ngulo frontal */
             for(int i=informacion_mechs->mechJugador->pos_Hexagono.fila+1; i < informacion_mapa->filas; ++i){
                 if( (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna == informacion_mechs->mechJugador->pos_Hexagono.columna) &&
                     (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i) )
@@ -1017,7 +1064,7 @@ int acciones::angulo_mech(int mech_obj){
                         return FRONTAL;
                 }
             }
-            /* Comprobar el ángulo trasero */
+            /* Comprobar el Ã¡ngulo trasero */
             if( (informacion_mechs->mechJugador->pos_Hexagono.columna % 2) == 0 )
                 fila_init=informacion_mechs->mechJugador->pos_Hexagono.fila*2;
             else
@@ -1029,14 +1076,14 @@ int acciones::angulo_mech(int mech_obj){
                         return TRASERO;
                 }
             }
-            /* Comprobar los ángulos laterales */
+            /* Comprobar los Ã¡ngulos laterales */
             if(informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.fila < informacion_mechs->mechJugador->pos_Hexagono.fila)
                 return IZQUIERDO;
             else
                 return DERECHO;
             break;
         case 4:
-            /* Ángulo frontal */
+            /* Ã�ngulo frontal */
             for(int i=informacion_mechs->mechJugador->pos_Hexagono.fila+1; i < informacion_mapa->filas; ++i){
                 if( (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna == informacion_mechs->mechJugador->pos_Hexagono.columna) &&
                     (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i) )
@@ -1067,7 +1114,7 @@ int acciones::angulo_mech(int mech_obj){
                 }
             }
 
-            /* Ángulo trasero */
+            /* Ã�ngulo trasero */
             for(int i=1; i < informacion_mechs->mechJugador->pos_Hexagono.fila; ++i){
                 if( (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna == informacion_mechs->mechJugador->pos_Hexagono.columna) &&
                     (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i) )
@@ -1097,14 +1144,14 @@ int acciones::angulo_mech(int mech_obj){
                         return TRASERO;
                 }
             }
-            /* Ángulos laterales */
+            /* Ã�ngulos laterales */
             if(informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna > informacion_mechs->mechJugador->pos_Hexagono.columna)
                 return IZQUIERDO;
             else
                 return DERECHO;
             break;
         case 5:
-            /* Ángulo frontal */
+            /* Ã�ngulo frontal */
             for(int i=informacion_mechs->mechJugador->pos_Hexagono.fila+1; i < informacion_mapa->filas; ++i){
                 if( (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna == informacion_mechs->mechJugador->pos_Hexagono.columna) &&
                     (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i) )
@@ -1122,7 +1169,7 @@ int acciones::angulo_mech(int mech_obj){
                         return FRONTAL;
                 }
             }
-            /* Ángulo trasero */
+            /* Ã�ngulo trasero */
             if( (informacion_mechs->mechJugador->pos_Hexagono.columna % 2) == 0 )
                 fila_init=(informacion_mechs->mechJugador->pos_Hexagono.fila-1)*2 - 2;
             else
@@ -1134,14 +1181,14 @@ int acciones::angulo_mech(int mech_obj){
                         return TRASERO;
                 }
             }
-            /* Ángulos laterales */
+            /* Ã�ngulos laterales */
             if(informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna > informacion_mechs->mechJugador->pos_Hexagono.columna)
                 return IZQUIERDO;
             else
                 return DERECHO;
             break;
         case 6:
-            /* Ángulo frontal */
+            /* Ã�ngulo frontal */
             for(int i=1; i < informacion_mechs->mechJugador->pos_Hexagono.fila; ++i){
                 if( (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna == informacion_mechs->mechJugador->pos_Hexagono.columna) &&
                     (informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i) )
@@ -1159,7 +1206,7 @@ int acciones::angulo_mech(int mech_obj){
                         return FRONTAL;
                 }
             }
-            /* Ángulo trasero */
+            /* Ã�ngulo trasero */
             if( (informacion_mechs->mechJugador->pos_Hexagono.columna % 2) == 0 )
                 fila_init=(informacion_mechs->mechJugador->pos_Hexagono.columna+1)*2;
             else
@@ -1171,7 +1218,7 @@ int acciones::angulo_mech(int mech_obj){
                         return TRASERO;
                 }
             }
-            /* Ángulos laterales */
+            /* Ã�ngulos laterales */
             if(informacion_mechs->iMechVector[mech_obj]->pos_Hexagono.columna > informacion_mechs->mechJugador->pos_Hexagono.columna)
                 return DERECHO;
             else
@@ -1222,14 +1269,14 @@ int acciones::queda_municion(iMech mech, int codigo){
 int acciones::estrategia_movimiento(){
     informacion_mechs->mechJugador->dmj->Heridas_MW;
     iMech* mech=informacion_mechs->mechJugador;
-    /* Si el mech está en pie, el MechWarrior tiene pocas heridas, el
+    /* Si el mech estÃ¡ en pie, el MechWarrior tiene pocas heridas, el
        nivel de temperatura no es muy alto, los puntos de blindaje de la cabeza, 
        del torso central y de las piernas no son bajos y tenemos armas no traseras
-       con las que disparar, entonces la estrategia será de ataque */
+       con las que disparar, entonces la estrategia serÃ¡ de ataque */
 	   
     if( (mech->enElSuelo == FALSE) &&
         (informacion_mechs->mechJugador->dmj->Heridas_MW < 5) &&  /* Para que haya como mucho una prob. de 5/6 de perder la consciencia */
-        (mech->temp_actual < 13) &&  /* Para evitar la desconexión */
+        (mech->temp_actual < 13) &&  /* Para evitar la desconexiÃ³n */
         (mech->blindaje.CAB > 2) &&
         (mech->blindaje.TC > 2) &&
         (mech->blindaje.PI > 1) &&
@@ -1248,7 +1295,7 @@ void acciones::reglas_movimiento(){
 
     mechs=informacion_mechs->iMechVector;
     int num_jugador=atoi(this->numeroJugador.c_str());
-    int PM,                         /* Puntos de movimiento según el tipo de movimiento elegido */
+    int PM,                         /* Puntos de movimiento segÃºn el tipo de movimiento elegido */
         mech_objetivo,
         direccion,
         estrategia,
@@ -1280,38 +1327,38 @@ void acciones::reglas_movimiento(){
             break;
     }
 
-    /* 1- Intentar levantar el mech si está en el suelo y se puede levantar */
+    /* 1- Intentar levantar el mech si estÃ¡ en el suelo y se puede levantar */
     if( (mechJ->enElSuelo== TRUE) && (PM > 0) && mechJ->equilibrio_ok()){
         tiempo = time(&tiempo);
-        sprintf(f_log, "%s : El mech %i está en el suelo e intentará levantarse\n\n", ctime(&tiempo),num_jugador);
+        sprintf(f_log, "%s : El mech %i estÃ¡ en el suelo e intentarÃ¡ levantarse\n\n", ctime(&tiempo),num_jugador);
         flog+=f_log;
-        /* Si la estrategia es de ataque, nos levantamos mirando al mech más cercano */
+        /* Si la estrategia es de ataque, nos levantamos mirando al mech mÃ¡s cercano */
         mech_objetivo = mechJ->buscar_mech_cercano(mechs, num_jugador, informacion_mechs->nMechs);
         direccion = informacion_mapa->direccion_objetivo(mechJ->pos_Hexagono, mechs[mech_objetivo]->pos_Hexagono);
         mechJ->encaramiento_mech = direccion;
 
-        /* Guardar el movimiento de levantarse. Poner en pie al mech con la dirección calculada */
+        /* Guardar el movimiento de levantarse. Poner en pie al mech con la direcciÃ³n calculada */
         confirmar_mov(tipo_mov, mechJ->pos_Hexagono, direccion, FALSE, MOV_LEVANTARSE, 1);
 
         /* Actualizar los PM que llevamos usados */
-        /* Para simplificar, suponemos que tenemos ambos brazos y no están dañados */
+        /* Para simplificar, suponemos que tenemos ambos brazos y no estÃ¡n daÃ±ados */
         PM -= 2;
     }
 
-    /* 2- Si quedan puntos de movimiento y las piernas están bien,
+    /* 2- Si quedan puntos de movimiento y las piernas estÃ¡n bien,
      * realizar el resto de la fase de movimiento */
 
     /* Si tenemos alguna pierna bien comenzamos el bucle de movimiento */
     if(mechJ->equilibrio_ok()){
         if(estrategia == HUIR) {
                 tiempo = time(&tiempo);
-                sprintf(f_log, "%s : El mech %i está en condiciones de moverse y va a huir\n\n", ctime(&tiempo),num_jugador);
+                sprintf(f_log, "%s : El mech %i estÃ¡ en condiciones de moverse y va a huir\n\n", ctime(&tiempo),num_jugador);
                 flog+=f_log;
                 mov_huir(num_jugador, this->informacion_mechs->nMechs, PM, tipo_mov);
         }
 	else{
             tiempo = time(&tiempo);
-            sprintf(f_log, "%s : El mech %i está en condiciones de moverse y va a atacar\n\n", ctime(&tiempo),num_jugador);
+            sprintf(f_log, "%s : El mech %i estÃ¡ en condiciones de moverse y va a atacar\n\n", ctime(&tiempo),num_jugador);
             flog+=f_log;
             mov_atacar(num_jugador, this->informacion_mechs->nMechs, PM, tipo_mov);
 	}
@@ -1332,7 +1379,7 @@ void acciones::confirmar_mov(int tipo_movimiento, hexagono_pos destino, int lado
         mov->veces[0] = veces;
         }
     else {
-        /* Si el paso anterior fue en la misma dirección, tan solo tenemos que actualizar el destino y las veces */
+        /* Si el paso anterior fue en la misma direcciÃ³n, tan solo tenemos que actualizar el destino y las veces */
         if (mov->tipo[mov->pasos-1] == tipo) {
             mov->destino.columna=destino.columna;
             mov->destino.fila=destino.fila;
@@ -1355,26 +1402,26 @@ void acciones::mov_huir(int num_jugador, int num_jugadores, int PM_INI, int tipo
     infoMapa* mapa=informacion_mapa;
     iMech* mechJ=informacion_mechs->mechJugador;
 
-    int mech_objetivo,              /* Guarda el número del mech del que huimos */
-        fin_movimiento = FALSE,     /* TRUE->no se hacen más movimientos */
-        direccion=0,                /* Dirección hacia la que nos tenemos que mover */
+    int mech_objetivo,              /* Guarda el nÃºmero del mech del que huimos */
+        fin_movimiento = FALSE,     /* TRUE->no se hacen mÃ¡s movimientos */
+        direccion=0,                /* DirecciÃ³n hacia la que nos tenemos que mover */
         coste,                      /* Variable auxiliar */
-        candidatos[7],              /* candidatos[i]==TRUE -> podemos movernos en la dirección i */
+        candidatos[7],              /* candidatos[i]==TRUE -> podemos movernos en la direcciÃ³n i */
         dir_giro,
         coste_giro;
 	int PM = PM_INI;
         hexagono_pos hex_obj;
 
 
-    /* Obtener el número del mech que tenemos más cerca */
+    /* Obtener el nÃºmero del mech que tenemos mÃ¡s cerca */
     mech_objetivo = mechJ->buscar_mech_cercano(mechs, num_jugador, informacion_mechs->nMechs);
 
     /* Bucle de movimiento. El movimiento se realiza por pasos */
     while( (PM > 0) && (fin_movimiento == FALSE) ){
 	
-		/* Obtener el número del mech que tenemos más cerca */
+		/* Obtener el nÃºmero del mech que tenemos mÃ¡s cerca */
 		mech_objetivo = mechJ->buscar_mech_cercano(mechs, num_jugador, informacion_mechs->nMechs);
-		/* Ver a qué casillas nos podríamos mover */
+		/* Ver a quÃ© casillas nos podrÃ­amos mover */
 		actualizar_mov_candidatos(PM, mechJ->pos_Hexagono, candidatos, mechJ->defMechInfo->toneladas, tipo_mov);
         if( (mechJ->encaramiento_mech == direccion) && (candidatos[direccion] == FALSE) && PM <= PM_INI/5)
             direccion=-1;
@@ -1382,12 +1429,12 @@ void acciones::mov_huir(int num_jugador, int num_jugadores, int PM_INI, int tipo
             direccion = paso_huir(candidatos, num_jugador, mech_objetivo, PM == PM_INI);
 
         /* Si no podemos movernos a alguna direccion buena,
-		* esperaremos al siguiente turno para probar con más PM iniciales */
+		* esperaremos al siguiente turno para probar con mÃ¡s PM iniciales */
         if ( (direccion == -1) )
             fin_movimiento = TRUE;
-        /* Si podemos movernos hacia la dirección obtenida, lo intentamos */
+        /* Si podemos movernos hacia la direcciÃ³n obtenida, lo intentamos */
         else{
-        /* Si ya estamos encarados hacia esa dirección,
+        /* Si ya estamos encarados hacia esa direcciÃ³n,
 		* nos movemos hacia ella */ 
             if(mechJ->encaramiento_mech == direccion){
                 mapa->casilla_objetivo(mechJ->pos_Hexagono, direccion, hex_obj);
@@ -1401,18 +1448,18 @@ void acciones::mov_huir(int num_jugador, int num_jugadores, int PM_INI, int tipo
             /* Si no estabamos encarados hacia esa direccion y
              * es un movimiento posible, nos giramos */
             else {
-                /* Ver para qué lado nos tenemos que mover para
-                 * alcanzar antes esa dirección y hallar cuántos PM
-                 * costaría encararse a esa dirección */
+                /* Ver para quÃ© lado nos tenemos que mover para
+                 * alcanzar antes esa direcciÃ³n y hallar cuÃ¡ntos PM
+                 * costarÃ­a encararse a esa direcciÃ³n */
                 dir_giro = func_direccion_giro(mechJ->encaramiento_mech,direccion);
                 coste_giro = func_coste_giro(mechJ->encaramiento_mech, direccion, dir_giro);
-                /* Si tenemos PM para girar hacia esa dirección, lo hacemos */
+                /* Si tenemos PM para girar hacia esa direcciÃ³n, lo hacemos */
                 if(PM >= coste_giro ){
                     confirmar_mov(tipo_mov, mechJ->pos_Hexagono, direccion, FALSE, dir_giro, coste_giro);
                     mechJ->encaramiento_mech = direccion;
                     PM -= coste_giro; 
                 }
-                /* Si no, giramos hacia esa dirección tanto como podamos
+                /* Si no, giramos hacia esa direcciÃ³n tanto como podamos
                  * para acercarnos */
                 else {
                     //Podemos girar tantas veces como PM nos queden
@@ -1521,7 +1568,7 @@ int acciones::paso_huir(int* candidatos, int num_jugador, int mech_objetivo, int
 		dist = 0;
 
 
-    /* Obtener la dirección hacia la que nos queremos mover
+    /* Obtener la direcciÃ³n hacia la que nos queremos mover
 	y las dos casillas adyacentes a la direccion de huida en linea recta*/
     direccion = mapa->direccion_objetivo(mechJ->pos_Hexagono, mechs[mech_objetivo]->pos_Hexagono)+2;    
     direccion = direccion%6 +1;
@@ -1577,8 +1624,8 @@ int acciones::paso_huir(int* candidatos, int num_jugador, int mech_objetivo, int
 	}
 	
 	
-	/*Y tambien decidimos a qué casilla nos movemos, dandole preferencia a la
-	que no tenga linea de vision entre el atacante y el defensor y tenga más
+	/*Y tambien decidimos a quÃ© casilla nos movemos, dandole preferencia a la
+	que no tenga linea de vision entre el atacante y el defensor y tenga mÃ¡s
 	alto valor de obstaculos. En caso de que no podamos movernos a ninguna
 	comprobamos si es porque no quedan PM's o porque estamos bloqueados.
 	En el primer caso dejamos de movernos, y en el segundo probamos con las
@@ -1660,8 +1707,8 @@ int acciones::paso_huir(int* candidatos, int num_jugador, int mech_objetivo, int
 		}
 	}	
 	/*En este punto hemos devuelto ya la direccion hacia la que movernos, si no
-	es así, es porque no podemos ir a ninguna de las tres casillas que exploramos.
-	Así que exploramos las dos direcciones adyacentes a las casillasizquierda y 
+	es asÃ­, es porque no podemos ir a ninguna de las tres casillas que exploramos.
+	AsÃ­ que exploramos las dos direcciones adyacentes a las casillasizquierda y
 	derecha, y solo nos movemos a una de ellas si es mejor que la actual.
 	*/
 	dir1 = (((direccion-1)+(4))%6) + 1;
@@ -1710,7 +1757,7 @@ int acciones::paso_huir(int* candidatos, int num_jugador, int mech_objetivo, int
 				if (es_mejor(LV2, valor2, LV1, valor1) && candidatos[dir1])
 					return dir1;
 	}
-	/*Si no son mejores, comprobamos si estan más lejos del enemigo, y tenemos todos los PM's en cuyo caso tambien nos movemos*/
+	/*Si no son mejores, comprobamos si estan mÃ¡s lejos del enemigo, y tenemos todos los PM's en cuyo caso tambien nos movemos*/
 	dist = mapa->distancia(mechJ->pos_Hexagono.columna, mechJ->pos_Hexagono.fila, mechs[mech_objetivo]->pos_Hexagono.columna, mechs[mech_objetivo]->pos_Hexagono.fila);
 	if( candidatos[dir1]) 
 		dist1 = mapa->distancia(izquierda[0], izquierda[1], mechs[mech_objetivo]->pos_Hexagono.columna, mechs[mech_objetivo]->pos_Hexagono.fila);
@@ -1798,7 +1845,7 @@ int acciones::es_mejor(int LV1, int valor1, int LV2, int valor2)
 		return 0;
 }
 
-/* Devuelve TRUE si hay línea de visión entre el origen y el destino
+/* Devuelve TRUE si hay lÃ­nea de visiÃ³n entre el origen y el destino
  * y FALSE si no la hay */
 int acciones::linea_vision(int num_jugador, hexagono_pos origen, int nivel_origen,hexagono_pos destino, int nivel_destino)
 {
@@ -1822,34 +1869,35 @@ int acciones::linea_vision(int num_jugador, hexagono_pos origen, int nivel_orige
     else
         return FALSE;
 }
+
 void acciones::mov_atacar(int num_jugador, int num_jugadores, int PM, int tipo_mov)
 {
     iMech** mechs=informacion_mechs->iMechVector;
     iMech* mechJ=informacion_mechs->mechJugador;
     infoMapa* mapa=informacion_mapa;
     hexagono_pos hex_obj;
-    int mech_objetivo,              /* Guarda el número del mech al que nos queremos acercar */
-        fin_movimiento = FALSE,     /* TRUE->no se hacen más movimientos */
-        direccion=0,                /* Dirección hacia la que nos tenemos que mover */
+    int mech_objetivo,              /* Guarda el nÃºmero del mech al que nos queremos acercar */
+        fin_movimiento = FALSE,     /* TRUE->no se hacen mÃ¡s movimientos */
+        direccion=0,                /* DirecciÃ³n hacia la que nos tenemos que mover */
         coste,                      /* Variable auxiliar */
-        candidatos[7],              /* candidatos[i]==TRUE -> podemos movernos en la dirección i */
+        candidatos[7],              /* candidatos[i]==TRUE -> podemos movernos en la direcciÃ³n i */
         dir_giro,
         coste_giro;
 	int PM_INI = PM;
 
 
-    /* Obtener el número del mech que tenemos más cerca */
+    /* Obtener el nÃºmero del mech que tenemos mÃ¡s cerca */
     mech_objetivo = mechJ->buscar_mech_cercano(mechs, num_jugador, informacion_mechs->nMechs);
 
     /* Bucle de movimiento. El movimiento se realiza por pasos */
     while( (PM > 0) && (fin_movimiento == FALSE) ){
-        /* Ver a qué casillas nos podríamos mover */
+        /* Ver a quÃ© casillas nos podrÃ­amos mover */
         actualizar_mov_candidatos(PM, mechJ->pos_Hexagono, candidatos, mechJ->defMechInfo->toneladas, tipo_mov);
 
-        /* Si estamos encarados hacia la dirección que nos interesa pero
-         * no nos podemos mover a ella, no hacemos ningún movimiento más.
+        /* Si estamos encarados hacia la direcciÃ³n que nos interesa pero
+         * no nos podemos mover a ella, no hacemos ningÃºn movimiento mÃ¡s.
          * En caso contrario, buscamos de entre las direcciones candidatas
-         * la más adecuada para movernos */
+         * la mÃ¡s adecuada para movernos */
         if( (mechJ->encaramiento_mech == direccion) &&
             (candidatos[direccion] == FALSE) && (PM <= PM_INI/5) )
             direccion=-1;
@@ -1857,12 +1905,12 @@ void acciones::mov_atacar(int num_jugador, int num_jugadores, int PM, int tipo_m
             direccion = mov_acercarse(num_jugador, mech_objetivo, candidatos, PM);
 
         /* Si no podemos movernos a alguna direccion buena,
-         * esperaremos al siguiente turno para probar con más PM iniciales */
+         * esperaremos al siguiente turno para probar con mÃ¡s PM iniciales */
         if (direccion == -1)
             fin_movimiento = TRUE;
-        /* Si podemos movernos hacia la dirección obtenida, lo intentamos */
+        /* Si podemos movernos hacia la direcciÃ³n obtenida, lo intentamos */
         else{
-            /* Si ya estamos encarados hacia esa dirección,
+            /* Si ya estamos encarados hacia esa direcciÃ³n,
              * nos movemos hacia ella */
             if(mechJ->encaramiento_mech == direccion){
                 mapa->casilla_objetivo(mechJ->pos_Hexagono, direccion, hex_obj);
@@ -1887,12 +1935,12 @@ void acciones::mov_atacar(int num_jugador, int num_jugadores, int PM, int tipo_m
             /* Si no estabamos encarados hacia esa direccion y
              * es un movimiento posible, nos giramos */
             else {
-                /* Ver para qué lado nos tenemos que mover para
-                 * alcanzar antes esa dirección y hallar cuántos PM
-                 * costaría encararse a esa dirección */
+                /* Ver para quÃ© lado nos tenemos que mover para
+                 * alcanzar antes esa direcciÃ³n y hallar cuÃ¡ntos PM
+                 * costarÃ­a encararse a esa direcciÃ³n */
                 dir_giro = func_direccion_giro(mechJ->encaramiento_mech,direccion);
                 coste_giro = func_coste_giro(mechJ->encaramiento_mech, direccion, dir_giro);
-                /* Si tenemos PM para girar hacia esa dirección, lo hacemos */
+                /* Si tenemos PM para girar hacia esa direcciÃ³n, lo hacemos */
 
                
                 
@@ -1901,7 +1949,7 @@ void acciones::mov_atacar(int num_jugador, int num_jugadores, int PM, int tipo_m
                     mechJ->encaramiento_mech = direccion;
                     PM -= coste_giro; 
                 }
-                /* Si no, giramos hacia esa dirección tanto como podamos
+                /* Si no, giramos hacia esa direcciÃ³n tanto como podamos
                  * para acercarnos */
                 else {
                     //Podemos girar tantas veces como PM nos queden
@@ -1941,7 +1989,7 @@ int acciones::mov_acercarse(int num_jugador, int mech_objetivo, int *candidatos,
         hex_obj2;
 	int LV1, LV2, LV3;
         
-    /* Obtener la dirección hacia la que nos queremos mover */
+    /* Obtener la direcciÃ³n hacia la que nos queremos mover */
     direccion = informacion_mapa->direccion_objetivo(mechJ->pos_Hexagono, mechs[mech_objetivo]->pos_Hexagono);
 	mapa->casilla_objetivo(mechJ->pos_Hexagono, direccion, hex_obj);
 
@@ -1952,7 +2000,7 @@ int acciones::mov_acercarse(int num_jugador, int mech_objetivo, int *candidatos,
     if(candidatos[direccion] && LV1 )
         return direccion;
     
-    /* Si no hay PM suficientes para hacer el movimiento en línea recta, 
+    /* Si no hay PM suficientes para hacer el movimiento en lÃ­nea recta,
      * tenemos que buscar una ruta alternativa */
     else {
         /* Si no es el primer paso del movimiento, 
@@ -1968,7 +2016,7 @@ int acciones::mov_acercarse(int num_jugador, int mech_objetivo, int *candidatos,
             dir2 = (((direccion-1)+i)%6) + 1;
 			
             /* Si las dos direcciones llevan a casillas candidatas, 
-             * nos movemos a la que nos deje más cerca del objetivo */
+             * nos movemos a la que nos deje mÃ¡s cerca del objetivo */
             if( (candidatos[dir1] == TRUE) && (candidatos[dir2] == TRUE) ){
                 mapa->casilla_objetivo(mechJ->pos_Hexagono, dir1, hex_obj);
                 mapa->casilla_objetivo(mechJ->pos_Hexagono, dir2, hex_obj2);
@@ -2011,7 +2059,7 @@ int acciones::mov_acercarse(int num_jugador, int mech_objetivo, int *candidatos,
 		if(candidatos[direccion])
         return direccion;
     
-	    /* Si no hay PM suficientes para hacer el movimiento en línea recta, 
+	    /* Si no hay PM suficientes para hacer el movimiento en lÃ­nea recta,
 	     * tenemos que buscar una ruta alternativa */
 	    else {
 	        /* Si no es el primer paso del movimiento, 
@@ -2027,7 +2075,7 @@ int acciones::mov_acercarse(int num_jugador, int mech_objetivo, int *candidatos,
 	            dir2 = (((direccion-1)+i)%6) + 1;
 
 	            /* Si las dos direcciones llevan a casillas candidatas, 
-	             * nos movemos a la que nos deje más cerca del objetivo */
+	             * nos movemos a la que nos deje mÃ¡s cerca del objetivo */
 	            if( (candidatos[dir1] == TRUE) && (candidatos[dir2] == TRUE) ){
 	                mapa->casilla_objetivo(mechJ->pos_Hexagono, dir1, hex_obj);
 	                mapa->casilla_objetivo(mechJ->pos_Hexagono, dir2, hex_obj2);
@@ -2052,8 +2100,8 @@ int acciones::mov_acercarse(int num_jugador, int mech_objetivo, int *candidatos,
 
 /*Esta funcion devuelve un entero con la direccion por la que hemos llegado a la 
   casilla actual en caso de que no sea el primer movimiento. Para ello va recorriendo la estructura
-  de movimientos y teniendo en cuenta en el encaramiento del mech, va ajustándolo según los pasos
-  que se hayan hecho, hasta que se encuentre un movimiento adelante o hacia atrás, en cuyo
+  de movimientos y teniendo en cuenta en el encaramiento del mech, va ajustÃ¡ndolo segÃºn los pasos
+  que se hayan hecho, hasta que se encuentre un movimiento adelante o hacia atrÃ¡s, en cuyo
   caso devuelve la direccion contraria a la del movimiento*/
 int acciones::obt_paso_anterior(int direccion)
 {

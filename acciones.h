@@ -158,8 +158,7 @@ class reaccion_t {
 public:
     int encaramiento;
 
-    reaccion_t() {
-    };
+    reaccion_t();
     void salida(string numJ);
 };
 
@@ -222,6 +221,7 @@ public:
     virtual ~acciones();
     void salida(string cad);
     string mover(hexagono_pos destino);
+    void reaccion_accion();
     void ataque_arma();
     int objetivoArmas();
     int obtenerLocalizacionMunicion(iMech mech, Componente_Mech arma);
@@ -239,13 +239,13 @@ public:
     int func_coste_giro (int encaramiento, int dir_objetivo, int dir_giro);
     int lado_final_giro (int enc_ini, int dir_giro, int veces);
     int paso_huir(int* candidatos, int num_jugador, int mech_objetivo, int primer_mov);
-int obt_valor_obstaculos(hexagono_pos pos);
-int es_mejor(int LV1, int valor1, int LV2, int valor2);
-int linea_vision(int num_jugador, hexagono_pos origen, int nivel_origen,hexagono_pos destino, int nivel_destino);
-void mov_atacar(int num_jugador, int num_jugadores, int PM, int tipo_mov);
-int casilla_ocupada(int num_jugadores, hexagono_pos casilla);
-int mov_acercarse(int num_jugador, int mech_objetivo, int *candidatos, int PM);
-int obt_paso_anterior(int direccion);
+	int obt_valor_obstaculos(hexagono_pos pos);
+	int es_mejor(int LV1, int valor1, int LV2, int valor2);
+	int linea_vision(int num_jugador, hexagono_pos origen, int nivel_origen,hexagono_pos destino, int nivel_destino);
+	void mov_atacar(int num_jugador, int num_jugadores, int PM, int tipo_mov);
+	int casilla_ocupada(int num_jugadores, hexagono_pos casilla);
+	int mov_acercarse(int num_jugador, int mech_objetivo, int *candidatos, int PM);
+	int obt_paso_anterior(int direccion);
 
  
 
