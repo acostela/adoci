@@ -406,6 +406,7 @@ acciones::acciones(const acciones& orig) {
 void acciones::reaccion_accion(){
 	int colum_ene, colum_jug;
 	int fila_ene, fila_jug;
+	int objetivo_mech;
 	reaccion->encaramiento = informacion_mechs->mechJugador->encaramiento_mech;
 
 	objetivo_mech = objetivoArmas();
@@ -416,29 +417,69 @@ void acciones::reaccion_accion(){
 
 	if(fila_ene > fila_jug && colum_ene == colum_jug){ //Hay que girarse hacia 5-4-3
 		if(colum_ene == colum_jug){ //Hay que girarse a 4
-
+			if(reaccion->encaramiento < 4)
+				reaccion->encaramiento = ENC_DERECHA;
+			else if(reaccion->encaramiento == 4)
+				reaccion->encaramiento = ENC_IGUAL;
+			else
+				reaccion->encaramiento = ENC_IZQUIERDA;
 		}
 		else if (colum_ene > colum_jug){ //Hay que girarse a 3
-
+			if(reaccion->encaramiento == 3)
+				reaccion->encaramiento = ENC_IGUAL;
+			else if(reaccion->encaramiento > 3){
+				reaccion->encaramiento = ENC_DERECHA;
+			}
+			else{
+				reaccion->encaramiento = ENC_IZQUIERDA;
+			}
 		}else if(colum_ene < colum_jug){ //Hay que girarse hacia 5
-
+			if(reaccion->encaramiento== 5)
+				reaccion->encaramiento = ENC_IGUAL;
+			else if(reaccion->encaramiento == 6 || reaccion->encaramiento == 1)
+				reaccion->encaramiento = ENC_IZQUIERDA;
+			else
+				reaccion->encaramiento = ENC_DERECHA;
 		}
 
 	}else if(fila_ene < fila_jug ){ //Hay que girarse hacia 6-1-2
-		if(colum_ene == colum_jug){
-
-		}else if(colum_ene > colum_jug){
-
-		}else if(colum_ene < colum_jug){
-
+		if(colum_ene == colum_jug){ //Hay que girarse hacia 1
+			if(reaccion->encaramiento ==1)
+				reaccion->encaramiento = ENC_IGUAL;
+			else if(reaccion->encaramiento == 2 || reaccion->encaramiento == 3)
+				reaccion->encaramiento = ENC_IZQUIERDA;
+			else
+				reaccion->encaramiento = ENC_DERECHA;
+		}else if(colum_ene > colum_jug){ //Hay que girarse hacia 2
+			if(reaccion->encaramiento ==2)
+				reaccion->encaramiento = ENC_IGUAL;
+			else if(reaccion->encaramiento == 3 || reaccion->encaramiento == 4)
+				reaccion->encaramiento = ENC_IZQUIERDA;
+			else
+				reaccion->encaramiento = ENC_DERECHA;
+		}else if(colum_ene < colum_jug){ //Hay que girarse hacia 6
+			if(reaccion->encaramiento ==6)
+				reaccion->encaramiento = ENC_IGUAL;
+			else if(reaccion->encaramiento == 1 || reaccion->encaramiento == 2)
+				reaccion->encaramiento = ENC_IZQUIERDA;
+			else
+				reaccion->encaramiento = ENC_DERECHA;
 		}
-
-
 	}else if(fila_ene == fila_jug){ //hay que girarse a 2-3 o 6-5
 		if(colum_ene > colum_jug){ //Hay que girarse a 2-3
-
+			if(reaccion->encaramiento ==2 || reaccion->encaramiento == 3)
+				reaccion->encaramiento = ENC_IGUAL;
+			else if(reaccion->encaramiento == 4 || reaccion->encaramiento == 5)
+				reaccion->encaramiento = ENC_IZQUIERDA;
+			else
+				reaccion->encaramiento = ENC_DERECHA;
 		}else if (colum_ene < colum_jug){ //Hay que girarse a 6-5
-
+			if(reaccion->encaramiento == 6 || reaccion->encaramiento == 5)
+				reaccion->encaramiento = ENC_IGUAL;
+			else if(reaccion->encaramiento == 1 || reaccion->encaramiento == 2)
+				reaccion->encaramiento = ENC_IZQUIERDA;
+			else
+				reaccion->encaramiento = ENC_DERECHA;
 		}
 
 	}
