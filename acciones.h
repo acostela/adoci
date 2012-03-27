@@ -72,14 +72,6 @@ enum booleanos{
     FALSE=0,
     TRUE
 };
-class node{
-public:
-    int g;
-    int h;
-    int f(){return g+h;}
-    node* padre;
-    bool walkable;
-};
 
 
 /* Datos para el disparo de un arma */
