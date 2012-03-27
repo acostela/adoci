@@ -11,45 +11,45 @@
 #include "acciones.h"
 #include <fstream>
 #include <cstdlib>
+#include "movimiento.h"
 
 /*
  * 
  */
-    ofstream out_log;
-    string flog;
+ofstream out_log;
+string flog;
 
 string cadtoStr(char* cad) {
-        string s(cad);
-        return s;
+    string s(cad);
+    return s;
 }
 
 int main(int argc, char** argv) {
 
-
-    if(argc!=3){
-        cerr<<"Error, numero de argumentos incorrecto."<<endl;
+    if (argc != 3) {
+        cerr << "Error, numero de argumentos incorrecto." << endl;
         return (EXIT_FAILURE);
     }
-    
-    flog="";
+
+    flog = "";
     char cad[50];
     ofstream out_log;
     out_log.open("flog.txt");
-    
-    
+
+
     //    f_log = fopen("log.txt","a");
-        time_t tiempo;
-        time(&tiempo);
-        sprintf(cad,"%s : Inicio fase \n",ctime(&tiempo));
-        flog+=cad;
+    time_t tiempo;
+    time(&tiempo);
+    sprintf(cad, "%s : Inicio fase \n", ctime(&tiempo));
+    flog += cad;
 
     string numJ = argv[1]; //Leido desde la linea de comandos
     string nombreFase = argv[2];
-            
-        time(&tiempo);
-        sprintf(cad,"%s : Fase: %s \n",ctime(&tiempo),nombreFase.c_str());
-        flog+=cad;
-    
+
+    time(&tiempo);
+    sprintf(cad, "%s : Fase: %s \n", ctime(&tiempo), nombreFase.c_str());
+    flog += cad;
+
 
     string f_mechs = "mechsJ";
     string f_map = "mapaJ";
@@ -63,14 +63,23 @@ int main(int argc, char** argv) {
     infoMechs inf_mechs(atoi(numJ.c_str()));
     infoMapa inf_mapa;
 
-    acciones acs(numJ,&inf_mapa,&inf_mechs,&inf_juego);
+    acciones acs(numJ, &inf_mapa, &inf_mechs, &inf_juego);
 
     inf_mechs.leeFich(f_mechs);
 
     inf_juego.leeFich(f_config);
 
     inf_mapa.leeFich(f_map);
+    node destino(14, 9,1, &inf_mapa, inf_mechs.mechJugador->defMechInfo->toneladas);
 
+    printf("Dest: %i\n",&destino);
+    node inicio(14, 8,2,&destino, &inf_mapa, inf_mechs.mechJugador->defMechInfo->toneladas);
+    aStar(&inicio,&destino,&inf_mapa, inf_mechs.mechJugador->defMechInfo->toneladas);
+    //inicio.expand();
+
+
+
+    /*
     acs.salida(nombreFase);
  //   usleep(2000000);
 
@@ -84,7 +93,7 @@ int main(int argc, char** argv) {
     cout<<"Fin"<<endl;
     cin.get();
 
-
+     */
     return (EXIT_SUCCESS);
 }
 

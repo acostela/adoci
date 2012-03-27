@@ -85,8 +85,8 @@ void infoMapa::leeFich(string fichero) {
     if (!mapa)
         inicializarMapa();
     
-    for (int i = 1; i < filas; i++)
-        for (int j = 1; j < columnas; j++) {
+    for (int j = 1; j < columnas; j++)
+        for (int i = 1; i < filas; i++) {
             fich >> mapa[i][j]->nivel;
             fich >> mapa[i][j]->terreno;
             fich >> mapa[i][j]->objetoTerreno;
@@ -158,7 +158,7 @@ int infoMapa::direccion_objetivo(hexagono_pos origen, hexagono_pos destino)
     return 0;
 }
 /* Devuelve el coste del cambio de casilla. Si el movimiento es prohibido
- * devuelve -1
+ * devuelve 99999
  */
 int infoMapa::coste_mov_ady(int f_origen,int c_origen,int f_objetivo,int c_objetivo, int toneladas)
 {
@@ -196,6 +196,14 @@ int infoMapa::coste_mov_ady(int f_origen,int c_origen,int f_objetivo,int c_objet
             break;
     }
     /* Coste de objetos en el terreno */
+    mapa[15][17]->nivel;
+        mapa[17][14]->nivel;
+    mapa[16][15]->nivel;
+    mapa[16][14]->nivel;
+        this->filas;
+        this->columnas;
+
+
     switch(mapa[fil_obj][col_obj]->objetoTerreno){
          //0-escombros, 1-bosque ligero, 2-bosque denso,
     //3-edificio ligero,4-edificio medio, 5-edificio pesado,
@@ -215,7 +223,7 @@ int infoMapa::coste_mov_ady(int f_origen,int c_origen,int f_objetivo,int c_objet
         case 6://E_REFORZADO:
         case 7://BUNKER:
             if(mapa[fil_obj][col_obj]->FCE < toneladas)
-                return -1;
+                return 99999;
             break;
     }
     /* Coste del cambio de elevación */
@@ -230,7 +238,7 @@ int infoMapa::coste_mov_ady(int f_origen,int c_origen,int f_objetivo,int c_objet
             coste+=2;
             break;
         default:
-            return -1;
+            return 99999;
     }
     return coste;
 }

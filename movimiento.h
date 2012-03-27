@@ -14,8 +14,13 @@ using namespace std;
 class node {
 public:
     node();
-    node(node & padr, int fila, int columna, int orienta, float heur);
-    node(node & ini, node & dest, infoMapa* map, int pesoMech);
+    node(node * padr, int fila, int columna, int orienta, float heur);
+    node(int fila,int columna,int orienta,infoMapa* map,int pesoMech);
+    node(int fila,int columna,int orienta,node * destino,infoMapa* map,int pesoMech);
+    node(node * ini, node * dest, infoMapa* map, int pesoMech);
+    void showInfo();
+    void showPath();
+    void showInfoHijos();
     //node(const node& orig);
     vector <node *> hijos;
     void expand();
@@ -24,6 +29,9 @@ public:
     float g();
     float h();
     bool operator==(const node & nodo);
+    node& operator=(const node & nodo);
+    node * padre;
+
 private:
     node * inicio;
     node * destino;
@@ -34,7 +42,6 @@ private:
     int fil;
     int col;
     int orientacion;
-    node * padre;
     float costeDesdePadre();
 
 
@@ -42,7 +49,7 @@ private:
 
 void nodoEnEsaDireccion(int fila, int columna, int direccion, int & filaSiguiente, int & colSiguiente);
 
-void aStar(node & inicio, node & destino, infoMapa *mapa, int tonelaje);
+void aStar(node * inicio, node * destino, infoMapa *mapa, int tonelaje);
 
 
 #endif	/* MOVIMIENTO_H */
