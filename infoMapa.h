@@ -14,26 +14,6 @@
 #include <cstdlib>
 #include "infoMechs.h"
 
-
-enum{
-    ABIERTO,
-    PAVIMENTADO,
-    AGUA,
-    PANTANO
-};
-
-enum{
-    ESCOMBROS,
-    B_LIGERO,
-    B_DENSO,
-    E_LIGERO,
-    E_MEDIO,
-    E_PESADO,
-    E_REFORZADO,
-    BUNKER,
-    NADA=255
-};
-
 using namespace std;
 class hexagono_t {
 public:
@@ -53,12 +33,7 @@ public:
     bool rioCentroCara[6]; //NOTA: numero de cara<=>indice+1
     bool carreteraCentroCara[6]; //NOTA: numero de cara<=>indice+1
     //////
-    int f(){return g+h;};
-    int g;
-    int h;
-    hexagono_t* padre;
-    //////
-private:
+
 
 };
 
@@ -76,6 +51,7 @@ public:
     void inicializarMapa();
     void leeFich(string fichero);
     int coste_mov_ady(int f_origen,int c_origen,int f_objetivo,int c_objetivo, int toneladas);
+    int coste_mov_giro(int f,int c);
     int distancia_casillas(hexagono_pos casilla_ini, hexagono_pos casilla_obj);
     float distancia(int col_ini, int fil_ini, int col_obj, int fil_obj);
 

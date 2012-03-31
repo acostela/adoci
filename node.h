@@ -4,12 +4,14 @@
  *
  * Created on 29 de febrero de 2012, 14:50
  */
-#include <vector>
-#include "infoMapa.h"
-using namespace std;
 
 #ifndef MOVIMIENTO_H
 #define	MOVIMIENTO_H
+
+#include <vector>
+#include "fase_movimiento.h"
+#include "infoMapa.h"
+using namespace std;
 
 class node {
 public:
@@ -21,6 +23,7 @@ public:
     void showInfo();
     void showPath();
     void showInfoHijos();
+    string getSecuencia(float PM,movimiento_t * mov);
     //node(const node& orig);
     vector <node *> hijos;
     void expand();

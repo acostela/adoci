@@ -11,7 +11,7 @@
 #include "acciones.h"
 #include <fstream>
 #include <cstdlib>
-#include "movimiento.h"
+#include "node.h"
 
 /*
  * 
@@ -79,9 +79,11 @@ int main(int argc, char** argv) {
 
 
 
-    /*
+    
     acs.salida(nombreFase);
- //   usleep(2000000);
+ /*
+  
+  //   usleep(2000000);
 
 
     

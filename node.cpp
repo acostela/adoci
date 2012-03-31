@@ -5,7 +5,7 @@
  * Created on 29 de febrero de 2012, 14:50
  */
 
-#include "movimiento.h"
+#include "node.h"
 
 node::node(int fila, int columna, int orient, infoMapa* map, int pesoMech) {
     fil = fila;
@@ -54,16 +54,17 @@ node::node(node * ini, node * dest, infoMapa* map, int pesoMech) {
     padre = 0;
     hijos.clear();
 }
-void node::showPath(){
+
+void node::showPath() {
     node* nodePointer;
-    nodePointer=this;
+    nodePointer = this;
     printf("\n\nCamino->\n");
-    while(nodePointer->padre!=0){
+    while (nodePointer->padre != 0) {
         nodePointer->showInfo();
-        nodePointer=nodePointer->padre;
+        nodePointer = nodePointer->padre;
     }
     printf("Fin de camino--------------------\n\n");
-    
+
 }
 
 float distanciaNodos(int forigen, int corigen, int fdestino, int cdestino) {
@@ -100,8 +101,8 @@ void nodoEnEsaDireccion(int fil, int col, int direccion, int & filaSiguiente, in
                 colSiguiente = col - 1;
                 break;
             default:
-                cout << "OrientaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n invalida!!" << endl;
-                cout << "OrientaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n: " << direccion << endl;
+                cout << "OrientaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n invalida!!" << endl;
+                cout << "OrientaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n: " << direccion << endl;
                 exit(0);
         }
 
@@ -124,7 +125,7 @@ void nodoEnEsaDireccion(int fil, int col, int direccion, int & filaSiguiente, in
                 colSiguiente = col - 1;
                 break;
             default:
-                cout << "OrientaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n invalida!!" << endl;
+                cout << "OrientaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n invalida!!" << endl;
                 exit(0);
         }
     }
@@ -140,11 +141,11 @@ void node::showInfo() {
     printf("Fila: %i\nColumna: %i\nOrientacion: %i\nNum. Hijos: %i\n", fil, col, orientacion, hijos.size());
     printf("f: %f, g: %f, h: %f\n", f(), g(), h());
 
-//    if (padre != 0) {
-//        printf("----------------------------\nInfo. Padre:\n");
-//        padre->showInfo();
-//        printf("----------------------------\n\n");
-//    }
+    //    if (padre != 0) {
+    //        printf("----------------------------\nInfo. Padre:\n");
+    //        padre->showInfo();
+    //        printf("----------------------------\n\n");
+    //    }
 
 }
 
@@ -195,6 +196,7 @@ void node::showInfoHijos() {
 //    //showInfoHijos();
 //
 //}
+
 void node::expand() {
     hijos.resize(3);
     int anterior = orientacion - 1;
@@ -209,11 +211,11 @@ void node::expand() {
 
     //printf("Vamos a crear los hijos...\n");
     nodoEnEsaDireccion(fil, col, anterior, filhijo, colhijo);
-    hijos[0] = new node(this, fil, col, anterior,-1);
+    hijos[0] = new node(this, fil, col, anterior, -1);
     //printf("Creado hijo 0\n");
-    
+
     nodoEnEsaDireccion(fil, col, siguiente, filhijo, colhijo);
-    hijos[1] = new node(this, fil, col, siguiente,-1);
+    hijos[1] = new node(this, fil, col, siguiente, -1);
     //printf("Creado hijo 1\n");
 
 
@@ -231,7 +233,7 @@ void node::expand() {
 }
 
 float node::g() {
-    if(padre==0)
+    if (padre == 0)
         return 0;
     else
         return costeDesdePadre() + padre->g();
@@ -241,10 +243,46 @@ float node::costeDesdePadre() {
     float valor = 0;
     if (padre == 0)
         return 0;
-    if (*padre == *this)//es un movimiento de giro en un hexÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡gono
-        return 1;
+    if (padre->fil == fil && padre->col == col)//es un movimiento de giro en un hexÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡gono
+        return mapa->coste_mov_giro(fil, col);
     valor = mapa->coste_mov_ady(padre->fil, padre->col, this->fil, this->col, peso);
     return valor;
+}
+
+string node::getSecuencia(float PM, movimiento_t* mov) {
+    node* nodePointer;
+    node* destinoAlcanzado;
+    destinoAlcanzado = this;
+
+    while (destinoAlcanzado->g() > PM) {
+        destinoAlcanzado = destinoAlcanzado->padre;
+    }
+    mov->destino.fila = destinoAlcanzado->fil;
+    mov->destino.columna = destinoAlcanzado->col;
+    mov->destino.pos = destinoAlcanzado->orientacion;
+    int veces[20];
+    mov->pasos = 0;//Pasos en los que se divide el movimiento
+    mov->tipo[0] = MOV_ADELANTE; //ADELANTE,ATRÃ�S,IZQ,DERE,LEVANTARSE, CUERPO A TIERRA
+    //mov->veces[]=;//NÃºmero de veces que se realiza cada paso
+
+    ////mov->MASC=; Rellenar fuera
+    ////mov->tipo_movimiento=; Rellenar fuera
+    nodePointer = destinoAlcanzado;
+
+    //Vamos de fin a inicio
+    while (nodePointer->padre != 0) {
+        if(nodePointer->fil==nodePointer->padre->fil &&
+           nodePointer->col==nodePointer->padre->col)
+            veces[mov->pasos]++;//incrementamos las veces del paso actual
+        else
+            mov->pasos++;//Incrementamos el paso actual
+        nodePointer = nodePointer->padre;
+    }
+    mov->pasos++;//El num de pasos serÃ¡ el paso actual +1 (empiezan en )
+    
+    //invertimos el orden de los pasos
+    for(int i=0;i<mov->pasos;i++)
+        mov->veces[i]=veces[mov->pasos-1-i];
 }
 
 float node::h() {
@@ -260,17 +298,18 @@ float node::f() {
     float fV = gV + hV;
     return fV;
 }
-node& node::operator=(const node & nodo){
-    this->col=nodo.col;
-    this->fil=nodo.fil;
-    this->destino=nodo.destino;
-    this->hVal=nodo.hVal;
-    this->hijos=nodo.hijos;
-    this->inicio=nodo.inicio;
-    this->mapa=nodo.mapa;
-    this->orientacion=nodo.orientacion;
-    this->padre=nodo.padre;
-    this->peso=nodo.peso;
+
+node& node::operator=(const node & nodo) {
+    this->col = nodo.col;
+    this->fil = nodo.fil;
+    this->destino = nodo.destino;
+    this->hVal = nodo.hVal;
+    this->hijos = nodo.hijos;
+    this->inicio = nodo.inicio;
+    this->mapa = nodo.mapa;
+    this->orientacion = nodo.orientacion;
+    this->padre = nodo.padre;
+    this->peso = nodo.peso;
 }
 
 bool node::operator==(const node & nodo) {
@@ -288,16 +327,16 @@ int buscarMejor(vector<node*> nodos) {//busca menor f
             ind = i;
         }
     }
-//    printf("\nContenido del buffer de nodos:\n");
-//    for (int i = 0; i < nodos.size(); i++) {
-//        nodos[i]->showInfo();
-//        printf("f: %i\n",nodos[i]->f());
-//        printf("g: %i\n",nodos[i]->g());
-//        printf("h: %i\n",nodos[i]->h());
-//    }
-//printf("\nFin de contenido del buffer\n");
+    //    printf("\nContenido del buffer de nodos:\n");
+    //    for (int i = 0; i < nodos.size(); i++) {
+    //        nodos[i]->showInfo();
+    //        printf("f: %i\n",nodos[i]->f());
+    //        printf("g: %i\n",nodos[i]->g());
+    //        printf("h: %i\n",nodos[i]->h());
+    //    }
+    //printf("\nFin de contenido del buffer\n");
     return ind;
-    
+
 }
 
 int contenidoEn(vector<node*> nodos, const node& n) {
@@ -318,35 +357,34 @@ void aStar(node * inicio, node * destino, infoMapa *mapa, int tonelaje) {
     int nInd;
     while (!fin) {
         mejor = buscarMejor(abiertos);
-//        cout<<"Elegido Nodo ..."<<endl;
-//        abiertos[mejor]->showInfo();
-//        cout<<"----------"<<endl;
-//        cout<<"de entre los siguientes: -->"<<endl;
-//        for(int i=0;i<abiertos.size();i++){
-//            abiertos[i]->showInfo();
-//        }
-//                cout<<"-----------------------------\n"<<endl;
+        //        cout<<"Elegido Nodo ..."<<endl;
+        //        abiertos[mejor]->showInfo();
+        //        cout<<"----------"<<endl;
+        //        cout<<"de entre los siguientes: -->"<<endl;
+        //        for(int i=0;i<abiertos.size();i++){
+        //            abiertos[i]->showInfo();
+        //        }
+        //                cout<<"-----------------------------\n"<<endl;
 
 
-        
+
         //cin.get();
-        if (*abiertos[mejor] == *destino){
+        if (*abiertos[mejor] == *destino) {
             fin = true;
             printf("Alcanzado destino:\n-->\n");
             abiertos[mejor]->showPath();
-        }
-        else {
+        } else {
             abiertos[mejor]->expand();
             cerrados.push_back(abiertos[mejor]);
             for (int i = 0; i < abiertos[mejor]->hijos.size(); i++) {
                 if (abiertos[mejor]->hijos[i] != 0) {
                     if ((nInd = contenidoEn(abiertos, *abiertos[mejor]->hijos[i])) != 0) {
                         //insertarlo manteniendo info del mejor padre.
-                        if (abiertos[nInd]->f() > abiertos[mejor]->hijos[i]->f()){
+                        if (abiertos[nInd]->f() > abiertos[mejor]->hijos[i]->f()) {
                             //abiertos[nInd]->showInfo();
                             //abiertos[mejor]->hijos[i]->showInfo();
                             abiertos[nInd] = abiertos[mejor]->hijos[i];
-                            
+
                         }
                     } else if ((nInd = contenidoEn(cerrados, *abiertos[mejor]->hijos[i])) != 0) {
                         //insertarlo manteniendo info del mejor padre y actualizar info de descendientes
@@ -360,12 +398,12 @@ void aStar(node * inicio, node * destino, infoMapa *mapa, int tonelaje) {
                     }
                 }
             }
-            abiertos.erase(abiertos.begin()+mejor);
-            
+            abiertos.erase(abiertos.begin() + mejor);
+
         }
-        if(abiertos.empty()){
-            fin=true;
-            printf("No se ha alcanzado destino...\nNo se converge a la soluciÃƒÂ³n.\n");
+        if (abiertos.empty()) {
+            fin = true;
+            printf("No se ha alcanzado destino...\nNo se converge a la soluciÃƒÆ’Ã‚Â³n.\n");
         }
     }
 

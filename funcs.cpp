@@ -7,8 +7,10 @@
 
 #include "funcs.h"
 
+
 string itoStr(int num){
     stringstream ss;
     ss << num;
     return ss.str();
 }
+

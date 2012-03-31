@@ -18,66 +18,10 @@
 #include "funcs.h"
 
 using namespace std;
-
-enum tipo_movimiento {
-    INMOVIL,
-    ANDAR,
-    CORRER,
-    SALTAR
-};
-
-enum localizacion_t {
-    BI, BD, PI, PD, TC, TI, TD, CAB
-};
-
-//Para las clases componentes
-enum {
-    VACIO,
-    ARMA,
-    MUNICION,
-    EQUIPO,
-    ACTUADOR,
-    ARMADURA,
-    ARMAFISICA
-};
-
-//Para los tipos de armas 
-enum{
-    ENERGIA=1,
-    BALISTICA=2,
-    MISILES=3
-};
-
-
-struct l_blindaje {
-    int BI;
-    int TI;
-    int PI;
-    int BD;
-    int TD;
-    int PD;
-    int TC;
-    int CAB;
-    int PATD;
-    int PATI;
-    int PATC;
-};
-
-struct l_interna {
-    int BI;
-    int TI;
-    int PI;
-    int BD;
-    int TD;
-    int PD;
-    int TC;
-    int CAB;
-};
-
 struct Componente_Mech{
     int codigo; // Codigo del componente
     string nombre;      // Nombre del arma
-    int clase;
+    componente_t clase;
     bool trasera;
     int localizacion;
     int localizacion2;
@@ -121,46 +65,28 @@ struct Localizacion_Mech{
     Slot_Mech *slots;                   // El nmero de slots es de 12
 };
 
-class hexagono_pos {
-public:
-    string pos;
-    int fila;
-    int columna;
-
-    void ini(string cad) {
-        pos=cad;
-        columna = atoi(cad.substr(0,2).c_str());
-        fila = atoi(cad.substr(2,2).c_str());
-    }
-
-    string stringPos() {
-        string cad;
-        if (columna < 10)//1 cifra
-            cad = cad + "0";
-        cad = cad + itos(columna);
-        if (fila < 10)//1 cifra
-            cad = cad + "0";
-        cad = cad + itos(fila);
-
-        return cad;
-    }
-    bool operator==(const hexagono_pos & orig){
-        return (this->columna==orig.columna && this->fila==orig.fila);
-    }
-    bool operator!=(const hexagono_pos & orig){
-        return (!(*this==orig));
-    }
-
-private:
-    string itos(int num) {
-    stringstream ss;
-    ss << num;
-    return ss.str();
-}
+struct l_blindaje {
+    int BI;
+    int TI;
+    int PI;
+    int BD;
+    int TD;
+    int PD;
+    int TC;
+    int CAB;
+    int PATD;
+    int PATI;
+    int PATC;
 };
-struct municion {
-    localizacion_t localizacion; /* (BI,BD,PI,PD,TC,TI,TD o CAB) */
-    int slot; /* (0-5) si PI,PD o CAB. (0-11) en otro caso */
+struct l_interna {
+    int BI;
+    int TI;
+    int PI;
+    int BD;
+    int TD;
+    int PD;
+    int TC;
+    int CAB;
 };
 typedef struct{
          
@@ -190,10 +116,11 @@ typedef struct{
     int Heridas_MW; //>=0
     bool MW_consciente;
     bool slots_impactados[78]; /* (TRUE-FALSE) indica para cada slot si fue impactado */
-    bool local_disparo_arma[8]; /* (TRUE-FALSE) Ejemplo: disparo[CABEZA] => Se disparó un arma de la cabeza */
+    bool local_disparo_arma[8]; /* (TRUE-FALSE) Ejemplo: disparo[CABEZA] => Se disparÃ³ un arma de la cabeza */
     int municiones_expulsar; //>0
     municion* expulsada;
 } datosMechJugador;
+
 class iMech {
 public:
 
@@ -232,8 +159,10 @@ iMech(){
     delete dmj;
   delete defMechInfo;
 }
-/* Devuelve TRUE si el mech que se pasa como parámetro tiene
- * munición para el arma cuyo código se pasa como parámetro */
+
+
+/* Devuelve TRUE si el mech que se pasa como parÃ¡metro tiene
+ * municiÃ³n para el arma cuyo cÃ³digo se pasa como parÃ¡metro */
 bool municion_ok(int codigo)
 {
     int i;
@@ -246,6 +175,7 @@ bool municion_ok(int codigo)
     }
     return false;
 }
+
 bool armas_ok(){
     int i;
     //std::cout<<"Comp:"<<defMechInfo->num_componentes<<std::endl;
@@ -284,7 +214,7 @@ bool equilibrio_ok(){
                 break;}
         }
     }
-    /* Hay que mirar también los actuadores */
+    /* Hay que mirar tambiÃ©n los actuadores */
     if( (this->puntosEstructuraInterna.PI == 0) ||
         (this->puntosEstructuraInterna.PD == 0) ||
         ((this->actuador_ok(PI, "Cadera") == false) &&
@@ -292,7 +222,12 @@ bool equilibrio_ok(){
         return false;
     return true;
 }
-
+enum tipo_movimiento {
+    INMOVIL,
+    ANDAR,
+    CORRER,
+    SALTAR
+};
 int tipo_movimiento()
 {
     if(dmj->PM_correr > 0)
@@ -304,13 +239,13 @@ int tipo_movimiento()
 int buscar_mech_cercano(iMech** mechs, int num_jugador, int num_jugadores)
 {
     int micol, mifil,               /* columna y fila de nuestro mech */ 
-        objetivo=-1;                /* número del mech objetivo. Si error, entonces -1 */
+        objetivo=-1;                /* nÃºmero del mech objetivo. Si error, entonces -1 */
 
-    float min_d = 10000,    /* Mínima distancia encontrada */
+    float min_d = 10000,    /* MÃ­nima distancia encontrada */
           dist;                     /* variable auxiliar */
 
-    /* Estrategia: Hallar la distancia en línea recta entre el mech num_jugador
-       y el resto de mechs y devolver el número del mech con menor distancia
+    /* Estrategia: Hallar la distancia en lÃ­nea recta entre el mech num_jugador
+       y el resto de mechs y devolver el nÃºmero del mech con menor distancia
     */
     micol=pos_Hexagono.columna;
     mifil=pos_Hexagono.fila;
@@ -327,7 +262,7 @@ int buscar_mech_cercano(iMech** mechs, int num_jugador, int num_jugadores)
     }
     return objetivo;
 }
-/* Devuelve la mejor distancia para disparar con el arma más potente
+/* Devuelve la mejor distancia para disparar con el arma mÃ¡s potente
  * que tiene el mech */
 int dist_disparo()
 {
@@ -366,7 +301,7 @@ public:
     void leeDatosComponentes(ifstream &in, iMech *mech); //Lee los componentes de cada Mech
     void leeDatosCalor(ifstream &in, iMech *mech);
     void leeDatosNarc(ifstream & in, iMech* mech);
-    void leeDatosMech(ifstream & in, iMech* mech); //Lee los datos de una estructura iMech, menos numJ, que habrá sido leido previamente.
+    void leeDatosMech(ifstream & in, iMech* mech); //Lee los datos de una estructura iMech, menos numJ, que habrÃ¡ sido leido previamente.
     void leeDatosPPal(ifstream & in);
     void leeDatosMechVector(ifstream & in, int indice, int numJMech);
     void leeFich(string fichero);

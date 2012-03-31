@@ -30,14 +30,7 @@ infoMapa::~infoMapa() {
     delete[] mapa;
 }
 
-void infoMapa::inicializarPath(){
-    for (int i = 1; i < filas; i++)
-        for (int j = 1; j < columnas; j++){
-            mapa[i][j]->g=0;
-            mapa[i][j]->h=0;
-            mapa[i][j]->padre=0;
-        }
-}
+
 
 void infoMapa::inicializarMapa() {
 
@@ -156,6 +149,11 @@ int infoMapa::direccion_objetivo(hexagono_pos origen, hexagono_pos destino)
         }
     }
     return 0;
+}
+int infoMapa::coste_mov_giro(int f,int c){
+    if(mapa[f][c]->terreno==PANTANO)
+        return 2;
+    return 1;//adaptar a cada hexágono
 }
 /* Devuelve el coste del cambio de casilla. Si el movimiento es prohibido
  * devuelve 99999
