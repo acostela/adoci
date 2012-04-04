@@ -11,7 +11,7 @@ void movimiento_t::salida(string numJ) {
     /* Crear el archivo de salida */
     string cad = "accionJ" + numJ + ".sbt";
     string accion;
-    ofstream out;
+    ofstream out(cad.c_str());
     out.open(cad.c_str());
     /* Linea 1: tipo de movimiento */
     switch (tipo_movimiento) {

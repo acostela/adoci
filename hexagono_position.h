@@ -10,6 +10,7 @@
 using namespace std;
 #include <iostream>
 #include <sstream>
+#include <stdlib.h>
 class hexagono_pos {
 public:
     string pos;

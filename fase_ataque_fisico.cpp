@@ -11,7 +11,7 @@ void ataque_fisico_t::salida(string numJ) {
 
     string cad = "accionJ" + numJ + ".sbt";
     string accion;
-    ofstream out;
+    ofstream out(cad.c_str());
     out.open(cad.c_str());
 
     /* Linea 1: NÃºmero de armas fÃ­sicas que se van a usar */
