@@ -114,6 +114,8 @@ enum booleanos{
 
 string itoStr(int num);
 
+//int strtoInt(string cadena);
+
 
 
 #endif	/* FUNCS_H */

@@ -14,3 +14,10 @@ string itoStr(int num){
     return ss.str();
 }
 
+/*int strtoInt(string cadena){
+    stringstream salida;
+    
+    salida << cadena;
+    salida.
+    return salida.int();
+}*/
