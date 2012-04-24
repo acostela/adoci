@@ -36,7 +36,7 @@ void acciones::reaccion_accion() {
     colum_ene = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
     fila_ene = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
 
-    if (fila_ene > fila_jug && colum_ene == colum_jug) { //Hay que girarse hacia 5-4-3
+    if (fila_ene > fila_jug) { //Hay que girarse hacia 5-4-3
         if (colum_ene == colum_jug) { //Hay que girarse a 4
             if (reaccion->encaramiento < 4)
                 reaccion->encaramiento = ENC_DERECHA;
@@ -321,6 +321,7 @@ void acciones::salida(string cad) {
     }
     if (cad == "Reaccion") {
         reaccion = new reaccion_t;
+        reaccion_accion();
         reaccion->salida(numeroJugador);
     }
     if (cad == "AtaqueArmas") {

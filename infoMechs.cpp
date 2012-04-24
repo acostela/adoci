@@ -314,6 +314,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
             getline(in,auxiliar,'\n');
             mech->defMechInfo->localizaciones[i].slots[j].cantidad = atoi(auxiliar.c_str());
             // Leemos el codigo
+            getline(in,auxiliar,'\n');
             mech->defMechInfo->localizaciones[i].slots[j].codigo = atoi(auxiliar.c_str());
             // Leemos el nombre
             getline(in,auxiliar,'\n');
