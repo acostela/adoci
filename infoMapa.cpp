@@ -30,8 +30,6 @@ infoMapa::~infoMapa() {
     delete[] mapa;
 }
 
-
-
 void infoMapa::inicializarMapa() {
 
     mapa = new hexagono_t**[filas];

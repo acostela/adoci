@@ -31,7 +31,7 @@ void infoMechs::leeDatosNarc(ifstream & in, iMech* mech) {
     mech->narc = new bool[nMechs];
 
     for (int i = 0; i < nMechs; i++) {
-        in >> cad;
+        getline (in,cad,'\n');
         mech->narc[i] = s2bool(cad);
     }
 
@@ -40,7 +40,7 @@ void infoMechs::leeDatosNarc(ifstream & in, iMech* mech) {
     mech->inarc = new bool[nMechs];
 
     for (int i = 0; i < nMechs; i++) {
-        in >> cad;
+        getline (in,cad,'\n');
         mech->inarc[i] = s2bool(cad);
     }
 }
@@ -54,31 +54,24 @@ void infoMechs::leeDatosDefMech(int numJ,int numM,iMech* mech){
 
         defmech.open(nombre_defmech.c_str());
         if(!defmech){
-                cerr << "\nNo es posible abrir " << nombre_defmech << "\n";
-                exit(1);
+            cerr << "\nNo es posible abrir " << nombre_defmech << "\n";
+            exit(1);
         }
         leeDatosComponentes(defmech,mech);
         defmech.close();
 }
+
 void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los componentes de cada Mech
     string auxiliar;
     
     getline(in,auxiliar,'\n');
-    //in >> auxiliar;
-
     /* El nombre y el modelo del mech no los necesitamos*/
    getline(in,auxiliar,'\n');
    getline(in,auxiliar,'\n');
-    // in >> auxiliar;
-   // in >> auxiliar;
     
-
-    //in.ignore(1000, '\n');
-    //in.ignore(1000, '\n');
     // Leemos las toneladas del mech
     getline(in,auxiliar,'\n');
     mech->defMechInfo->toneladas = atoi(auxiliar.c_str());
-    //in >> mech->defMechInfo->toneladas;
 
     // Leemos la potencia del mech
     getline(in,auxiliar,'\n');
@@ -92,7 +85,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
     // Leemos si tiene MASC
     getline(in,auxiliar,'\n');  
     mech->defMechInfo->MASC = s2bool(auxiliar);//STRING TO BOOL
-    // Las siguientes 3 líneas no nos hacen falta
+    // Las siguientes 3 lÃ­neas no nos hacen falta
 
     getline(in,auxiliar,'\n');  
     getline(in,auxiliar,'\n');  
@@ -128,7 +121,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         //Leemos el nombre
         getline(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].nombre = auxiliar;
-        /* Leemos la clase, almacenándola de la siguiente forma
+        /* Leemos la clase, almacenÃ¡ndola de la siguiente forma
          * VACIO = 0
          * ARMA = 1
          * MUNICION = 2
@@ -157,7 +150,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         getline(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].trasera = s2bool(auxiliar);
 
-        /* Leemos la localización del componente, codificada de la siguiente forma
+        /* Leemos la localizaciÃ³n del componente, codificada de la siguiente forma
          * BRAZO IZQ = 0
          * TORSO IZQ = 1
          * PIERNA IZQ = 2
@@ -172,14 +165,14 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         */
         getline(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].localizacion=atoi(auxiliar.c_str());
-        // Leemos la localiación secundaria codificada igual que la anterior
+        // Leemos la localiaciÃ³n secundaria codificada igual que la anterior
         getline(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].localizacion2=atoi(auxiliar.c_str());
        
         /* Leemos el tipo de arma, codificada de la siguiente forma
          * Nada = 0
-         * Energía = 1
-         * Balística = 2
+         * EnergÃ­a = 1
+         * BalÃ­stica = 2
          * Misiles = 3
         */
         getline(in,auxiliar,'\n');
@@ -195,7 +188,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         // Leemos el calor que genera el arma
         getline(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].calor = atoi(auxiliar.c_str());
-        // Leemos el daño que produce el arma
+        // Leemos el daÃ±o que produce el arma
         getline(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].danio = atoi(auxiliar.c_str());
         // Leemos los disparos por turno del arma
@@ -219,10 +212,10 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         // Leemos el codigo del arma para el que se utiliza la municion
         getline(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].codigoArma = atoi(auxiliar.c_str());
-        // Leemos la cantidad de munición
+        // Leemos la cantidad de municiÃ³n
         getline(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].cantidad = atoi(auxiliar.c_str());
-        // Leemos si es munición especial
+        // Leemos si es municiÃ³n especial
         getline(in,auxiliar,'\n');
         if (auxiliar.compare("No")==0){
             mech->defMechInfo->componentes[i].especial = false;
@@ -252,7 +245,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         getline(in,auxiliar,'\n');
         mech->defMechInfo->actuadores[i].nombre = auxiliar;
         //getline(in,mech->defMechInfo->actuadores[i].nombre);
-       /* Leemos la localización del actuador, codificada de la siguiente forma
+       /* Leemos la localizaciÃ³n del actuador, codificada de la siguiente forma
         * BRAZO IZQ = 0
         * TORSO IZQ = 1
         * PIERNA IZQ = 2
@@ -270,7 +263,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         // Leemos si esta operativo
         getline(in,auxiliar,'\n');
         mech->defMechInfo->actuadores[i].operativo = s2bool(auxiliar);
-       // Leemos el número de impactos
+       // Leemos el nÃºmero de impactos
         getline(in,auxiliar,'\n');
         mech->defMechInfo->actuadores[i].num_impactos = atoi(auxiliar.c_str());
     }  // Fin de lectura de los activadores
@@ -325,7 +318,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
             // Leemos el indice del actuador
             getline(in,auxiliar,'\n');
             mech->defMechInfo->localizaciones[i].slots[j].indice_actuador = atoi(auxiliar.c_str());
-            // Leemos el daño de la municion
+            // Leemos el daÃ±o de la municion
             getline(in,auxiliar,'\n');
             mech->defMechInfo->localizaciones[i].slots[j].danio_municion = atoi(auxiliar.c_str());
         }
@@ -337,32 +330,41 @@ void infoMechs::leeDatosPPal(ifstream & in) {
     string cad;
     leeDatosMech(in, mechJugador);
 
-    in >> mechJugador->dmj->PM_andar;
-    in >> mechJugador->dmj->PM_correr;
-    in >> mechJugador->dmj->PM_saltar;
-    in >> mechJugador->dmj->Radiadores_operativos_encendidos;
-    in >> mechJugador->dmj->Radiadores_operativos_apagados;
-    in >> mechJugador->dmj->Heridas_MW;
-    in >> cad;
+    getline (in,cad,'\n');
+    mechJugador->dmj->PM_andar = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mechJugador->dmj->PM_correr = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mechJugador->dmj->PM_saltar = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mechJugador->dmj->Radiadores_operativos_encendidos = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mechJugador->dmj->Radiadores_operativos_apagados = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mechJugador->dmj->Heridas_MW = atoi(cad.c_str());
+    getline (in,cad,'\n');
     mechJugador->dmj->MW_consciente = s2bool(cad);
+    
     for (int i = 0; i < 78; i++) {
-        in >> cad;
+        getline (in,cad,'\n');
         mechJugador->dmj->slots_impactados[i] = s2bool(cad);
     }
     for (int i = 0; i < 8; i++) {
-        in >> cad;
+        getline (in,cad,'\n');
         mechJugador->dmj->local_disparo_arma[i] = s2bool(cad);
     }
-    in >> mechJugador->dmj->municiones_expulsar;
+    getline (in,cad,'\n');
+    mechJugador->dmj->municiones_expulsar = atoi(cad.c_str());
     if (mechJugador->dmj->expulsada)
         delete mechJugador->dmj->expulsada;
     mechJugador->dmj->expulsada = new municion[mechJugador->dmj->municiones_expulsar];
     int tmp;
     for (int i = 0; i < mechJugador->dmj->municiones_expulsar; i++) {
-
-        in >> tmp;
+        getline (in,cad,'\n');
+        tmp = atoi(cad.c_str());
         mechJugador->dmj->expulsada[i].localizacion = (localizacion_t) tmp;
-        in >> mechJugador->dmj->expulsada[i].slot;
+        getline(in,cad,'\n');
+        mechJugador->dmj->expulsada[i].slot = atoi(cad.c_str());
     }
 
     leeDatosNarc(in, mechJugador);
@@ -373,59 +375,81 @@ void infoMechs::leeDatosPPal(ifstream & in) {
 
 void infoMechs::leeDatosMech(ifstream & in, iMech* mech) {
     string cad;    
-    in >> cad;
+    getline (in,cad,'\n');
     mech->operativo = s2bool(cad);
 
-    in >> cad;
+    getline (in,cad,'\n');
     mech->desconectado = s2bool(cad);
 
-    in >> cad;
+    getline (in,cad,'\n');
     mech->atascadoEnPantano = s2bool(cad);
 
-    in >> cad;
+    getline (in,cad,'\n');
     if(strcmp(cad.c_str(),"True")==0)
-        mech->enElSuelo = TRUE;
+        mech->enElSuelo = true;
     else
-        mech->enElSuelo = FALSE;
+        mech->enElSuelo = false;
 
-    in >> cad;
-
+    getline (in,cad,'\n');
     mech->pos_Hexagono.ini(cad);
 
-    in >> mech->encaramiento_mech;
+    getline (in,cad,'\n');
+    mech->encaramiento_mech = atoi(cad.c_str());
 
-    in >> mech->encaramiento_torso;
+    getline(in,cad,'\n');
+    mech->encaramiento_torso = atoi(cad.c_str());
+    
+    getline (in,cad,'\n');
+    mech->temp_actual = atoi(cad.c_str());
 
-    in >> mech->temp_actual;
-
-    in >> cad;
+    getline (in,cad,'\n');
     mech->ardiendo = s2bool(cad);
 
-    in >> cad;
+    getline (in,cad,'\n');
     mech->con_garrote = s2bool(cad);
 
-    in >> mech->tipo_garrote;
+    getline (in,cad,'\n');
+    mech->tipo_garrote = atoi(cad.c_str());
 
-    in >> mech->blindaje.BI;
-    in >> mech->blindaje.TI;
-    in >> mech->blindaje.PI;
-    in >> mech->blindaje.PD;
-    in >> mech->blindaje.TD;
-    in >> mech->blindaje.BD;
-    in >> mech->blindaje.TC;
-    in >> mech->blindaje.CAB;
-    in >> mech->blindaje.PATI;
-    in >> mech->blindaje.PATD;
-    in >> mech->blindaje.PATC;
-
-    in >> mech->puntosEstructuraInterna.BI;
-    in >> mech->puntosEstructuraInterna.TI;
-    in >> mech->puntosEstructuraInterna.PI;
-    in >> mech->puntosEstructuraInterna.PD;
-    in >> mech->puntosEstructuraInterna.TD;
-    in >> mech->puntosEstructuraInterna.BD;
-    in >> mech->puntosEstructuraInterna.TC;
-    in >> mech->puntosEstructuraInterna.CAB;
+    getline (in,cad,'\n');
+    mech->blindaje.BI = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->blindaje.TI = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->blindaje.PI = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->blindaje.PD = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->blindaje.TD = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->blindaje.BD = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->blindaje.TC = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->blindaje.CAB = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->blindaje.PATI = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->blindaje.PATD = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->blindaje.PATC = atoi(cad.c_str());
+    
+    getline (in,cad,'\n');
+    mech->puntosEstructuraInterna.BI = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->puntosEstructuraInterna.TI = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->puntosEstructuraInterna.PI = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->puntosEstructuraInterna.PD = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->puntosEstructuraInterna.TD = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->puntosEstructuraInterna.BD = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->puntosEstructuraInterna.TC = atoi(cad.c_str());
+    getline (in,cad,'\n');
+    mech->puntosEstructuraInterna.CAB = atoi(cad.c_str());
 }
 
 void infoMechs::leeDatosMechVector(ifstream & in, int indice, int numJMech) {
@@ -443,7 +467,7 @@ void infoMechs::leeFich(string fichero) {
         exit(1);
     }
 
-    fich.ignore(1000, '\n'); //Ignoramos número mágico
+    fich.ignore(1000, '\n'); //Ignoramos nÃºmero mÃ¡gico
     fich >> nMechs;
     if (iMechVector == 0)
         iMechVector = new iMech*[nMechs - 1];

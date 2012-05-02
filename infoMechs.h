@@ -128,7 +128,7 @@ public:
     bool operativo;
     bool desconectado;
     bool atascadoEnPantano;
-    int enElSuelo;
+    bool enElSuelo;
     hexagono_pos pos_Hexagono;
     int encaramiento_mech; //1 a 6
     int encaramiento_torso; //1 a 6

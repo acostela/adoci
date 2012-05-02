@@ -18,63 +18,64 @@ OpcionesJuego::~OpcionesJuego() {
 
 void OpcionesJuego::leeFich(string fichero){
     string cad;
-     ifstream fich(fichero.c_str());//Creacion y apertura
-		if(!fich){
-			cerr << "\nNo es posible abrir " << fichero <<"\n";
-                        exit(1);
-		}
-    
-    fich.ignore(1000,'\n');//Ignoramos número mágico
-    fich >> cad;
+    ifstream fich(fichero.c_str());//Creacion y apertura
+    if(!fich){
+        cerr << "\nNo es posible abrir " << fichero <<"\n";
+        exit(1);
+    }
+    getline(fich,cad,'\n');
+    //fich.ignore(1000,'\n');//Ignoramos número mágico
+    getline (fich,cad,'\n');
     incendios_permitidos=s2bool(cad);
 
-    fich >> cad;
+    getline (fich,cad,'\n');
     viento_permitido=s2bool(cad);
 
-    fich >> direccion_viento;//INT 1 y 6 o -1
+    getline (fich,cad,'\n');
+    direccion_viento = atoi(cad.c_str());//INT 1 y 6 o -1
+
     if(direccion_viento!=-1 && (direccion_viento<1 || direccion_viento>6)){
         cerr << "\nValor de dirección del viento incorrecto, debe de estar entre 1 y 6 o ser -1"<<endl;
         exit(1);
     }
-    fich >>cad;
+    getline (fich,cad,'\n');
     ataques_fisicos_permitidos=s2bool(cad);
 
-    fich >> cad;
+    getline (fich,cad,'\n');
     fase_calor=s2bool(cad);
 
-    fich >>cad;
+    getline (fich,cad,'\n');
     devastar_bosques=s2bool(cad);
 
-    fich >>cad;
+    getline (fich,cad,'\n');
     derrumbar_edificios=s2bool(cad);
 
-    fich >>cad;
+    getline (fich,cad,'\n');
     chequeos_pilotaje=s2bool(cad);
 
-    fich >>cad;
+    getline (fich,cad,'\n');
     chequeo_danho=s2bool(cad);
 
-    fich >>cad;
+    getline (fich,cad,'\n');
     chequeo_desconexion=s2bool(cad);
 
-    fich >>cad;
+    getline (fich,cad,'\n');
     impactos_criticos=s2bool(cad);
 
-    fich >>cad;
+    getline (fich,cad,'\n');
     explosion_municion=s2bool(cad);
 
-    fich >>cad;
+    getline (fich,cad,'\n');
     apagar_radiadores=s2bool(cad);
 
-    fich >>cad;
+    getline (fich,cad,'\n');
     limitar_tiempo_respuesta=s2bool(cad);
 
-    fich >> valor_limite_tiempo;//entero positivo o -1
+    getline (fich,cad,'\n');
+    valor_limite_tiempo = atoi(cad.c_str());//entero positivo o -1
     if(valor_limite_tiempo!=-1 && valor_limite_tiempo<0){
         cerr << "\nValor de tiempo incorrecto, debe ser entero positivo o -1"<<endl;
         exit(1);
     }
-
-
 }
 
