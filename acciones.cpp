@@ -326,6 +326,7 @@ void acciones::salida(string cad) {
     }
     if (cad == "AtaqueArmas") {
         armas = new ataque_armas_t;
+        ataque_arma();
         armas->salida(numeroJugador);
     }
     if (cad == "AtaqueFisico") {

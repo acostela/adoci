@@ -461,20 +461,25 @@ void infoMechs::leeDatosMechVector(ifstream & in, int indice, int numJMech) {
 
 void infoMechs::leeFich(string fichero) {
     int numJ_leido;
+    string cad;
     ifstream fich(fichero.c_str()); //Creacion y apertura
     if (!fich) {
         cerr << "\nNo es posible abrir " << fichero << "\n";
         exit(1);
     }
 
-    fich.ignore(1000, '\n'); //Ignoramos nÃºmero mÃ¡gico
-    fich >> nMechs;
+    getline(fich,cad,'\n');
+    //fich.ignore(1000, '\n'); //Ignoramos nÃºmero mÃ¡gico
+    getline(fich, cad, '\n');
+    nMechs = atoi(cad.c_str());
+   // fich >> nMechs;
     if (iMechVector == 0)
         iMechVector = new iMech*[nMechs - 1];
     for (int i = 0; i < nMechs - 1; i++)//Inicializamos el vector de iMechs
         iMechVector[i] = new iMech;
 
-    fich >> numJ_leido;
+    getline(fich,cad,'\n');
+    numJ_leido = atoi(cad.c_str());
 
     int indice = 0;
     bool leido_ppal = false; //leido mech principal
@@ -489,8 +494,10 @@ void infoMechs::leeFich(string fichero) {
         }
         if (indice == nMechs - 1 && leido_ppal == true)
             fin = true;
-        else
-            fich >> numJ_leido;
+        else{
+            getline(fich,cad,'\n');
+            numJ_leido = atoi(cad.c_str());
+        }
 
     }
 }
