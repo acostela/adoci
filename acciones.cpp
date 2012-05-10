@@ -107,8 +107,53 @@ void acciones::reaccion_accion() {
 }
 
 void acciones::ataque_arma() {
-
-    int fila, columna, angulo, objetivo_mech, localizacion;
+    int filaux,colaux;
+    int col_jugador = informacion_mechs->mechJugador->pos_Hexagono.columna;
+    int fil_jugador = informacion_mechs->mechJugador->pos_Hexagono.fila;
+    int adyacentes [6][2];
+    bool ene_adyacente = false;
+    int objetivo_mech, angulo;
+    
+    posiciones_adyacentes(fil_jugador,col_jugador,adyacentes);
+    
+    //Consideramos enemigo adyacente si está en una casilla al lado y el desnivel no es mayor que 1 (Le podemos pegar cuerpo a cuerpo).
+    for (int i=0; i<informacion_mechs->nMechs-1; i++){
+        filaux=informacion_mechs->iMechVector[i]->pos_Hexagono.fila;
+        colaux=informacion_mechs->iMechVector[i]->pos_Hexagono.columna;
+        for(int j=0; j<6; j++){
+            if(adyacentes[j][0] == filaux && adyacentes[j][1] == colaux)
+                if(abs(informacion_mapa->mapa[fil_jugador][col_jugador]->nivel - informacion_mapa->mapa[filaux][colaux]->nivel)<=1)
+                    ene_adyacente = true;
+        }
+    }
+    //NUEVA estrategia armas
+    if(ene_adyacente){
+        armas->coger_garrote=false;
+        armas->objetivo.columna=0;
+        armas->objetivo.fila=0;
+        armas->num_armas=0;
+    }else{  //Si no vamos a pegar físicamente usamos armas
+        objetivo_mech = objetivoArmas();
+        armas->objetivo.fila = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
+        armas->objetivo.columna = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
+    
+        angulo = angulo_mech(objetivo_mech);
+        
+        filaux = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
+        colaux = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
+        int sum_nivel_or = 0;
+        int sum_nivel_dest = 0;
+        
+        if(!informacion_mechs->mechJugador->enElSuelo)
+            sum_nivel_or = 1;
+        if(!informacion_mechs->iMechVector[objetivo_mech]->enElSuelo)
+            sum_nivel_dest = 1;
+        
+         // Llamamos al programa auxiliar LDVyC
+         // LDVyC.exe <nombre_fichero_mapa> <hexágono_origen> <suma_de_nivel_origen> <hexágono_destino> <suma_de_nivel_destino>
+               
+    }
+    /*int fila, columna, angulo, objetivo_mech, localizacion;
     armas->coger_garrote = false; //ES de la clase ataque_armas
 
     objetivo_mech = objetivoArmas();
@@ -122,7 +167,7 @@ void acciones::ataque_arma() {
     int comprueba_LV(int jugador, hexagono_pos cas_origen, int nivel_or, hexagono_pos cas_destino, int nivel_des);
 
     if (comprueba_LV(informacion_mechs->mechJugador->numJ, informacion_mechs->mechJugador->pos_Hexagono, informacion_mapa->mapa[informacion_mechs->mechJugador->pos_Hexagono.columna][informacion_mechs->mechJugador->pos_Hexagono.fila]->nivel + 1 % 2,
-            informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono, informacion_mapa->mapa[informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna][informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila]->nivel + 1 % 2) == TRUE &&
+            informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono, informacion_mapa->mapa[informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna][informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila]->nivel + 1 % 2) == true &&
             (informacion_mechs->mechJugador->temp_actual < 10)) {
 
         for (int i = 0; i < informacion_mechs->mechJugador->defMechInfo->num_componentes; ++i) {
@@ -175,7 +220,7 @@ void acciones::ataque_arma() {
                 }
             }
         }
-    }
+    }*/
 
     //ESCRIBE FICHERO DE SALIDA
     string jugador;
