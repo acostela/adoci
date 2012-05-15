@@ -1505,30 +1505,27 @@ int acciones::es_mejor(int LV1, int valor1, int LV2, int valor2) {
 /* Devuelve TRUE si hay lÃ­nea de visiÃ³n entre el origen y el destino
  * y FALSE si no la hay */
 bool acciones::linea_vision(int num_jugador, hexagono_pos origen, int nivel_origen, hexagono_pos destino, int nivel_destino) {
- char orden[100], linea[50];
-    FILE *fichero_LDV = NULL;
-
-    /* int snprintf(char *str, size_t size, const char *format,...)
-         char *str: Cadena de destino.
-    size_t size: NÃºmero de bytes a escribir. Se suele poner el tamaÃ±o de la cadena destino.
-    const char *format,... : Formato habitual de printf.
-     */
-    //string ejecucion_LDVyC = "LDVyC.exe mapaJ" + (string) num_jugador + ".sbt " + hexagono_char_origen + " " + suma_de_nivel_origen + " " + hexagono_char_destino + " " + suma_de_nivel_destino;
-
-//system (ejecucion_LDVyC.c_str());
+    char orden[100];
+    string linea;
+    ifstream fichero_LDV;
+    
     snprintf(orden, 99, "LDVyC.exe mapaJ%i.sbt %02i%02i %i %02i%02i %i", num_jugador, origen.columna,
-            origen.fila, nivel_origen, destino.columna, destino.fila, nivel_destino);
+        origen.fila, nivel_origen, destino.columna, destino.fila, nivel_destino);
+    
     system(orden);
 
-//    do {
-//        fichero_LDV = fopen("LDV.sbt", "r");
-//    } while (fichero_LDV == NULL);
+    do {
+        fichero_LDV.open("LDV.sbt");
+        //fichero_LDV = fopen("LDV.sbt", "r");
+    } while (fichero_LDV == NULL);
 
-    fgets(linea, 50, fichero_LDV);
-    fgets(linea, 50, fichero_LDV);
-    fclose(fichero_LDV);
-    if (strstr(linea, "True") != NULL)
-        return true;
+    getline(fichero_LDV,linea,'\n');
+    getline(fichero_LDV,linea,'\n');
+   
+    fichero_LDV.close();
+    
+    if (linea.compare("True")==0)
+         return true;
     else
         return false;
 }
