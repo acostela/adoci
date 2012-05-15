@@ -148,10 +148,15 @@ void acciones::ataque_arma() {
             sum_nivel_or = 1;
         if(!informacion_mechs->iMechVector[objetivo_mech]->enElSuelo)
             sum_nivel_dest = 1;
+        if(linea_vision(informacion_mechs->mechJugador->numJ, informacion_mechs->mechJugador->pos_Hexagono, sum_nivel_or, informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono,sum_nivel_dest) == true && (informacion_mechs->mechJugador->temp_actual < 10));
+        //comprueba_LV(int jugador, hexagono_pos cas_origen, int nivel_or, hexagono_pos cas_destino, int nivel_des)
         
-         // Llamamos al programa auxiliar LDVyC
-         // LDVyC.exe <nombre_fichero_mapa> <hexágono_origen> <suma_de_nivel_origen> <hexágono_destino> <suma_de_nivel_destino>
-               
+     // Llamamos al programa auxiliar LDVyC
+     // LDVyC.exe <nombre_fichero_mapa> <hexágono_origen> <suma_de_nivel_origen> <hexágono_destino> <suma_de_nivel_destino>
+        /*if(linea_vision(informacion_mechs->mechJugador->numJ, informacion_mechs->mechJugador->pos_Hexagono, informacion_mapa->mapa[informacion_mechs->mechJugador->pos_Hexagono.columna][informacion_mechs->mechJugador->pos_Hexagono.fila]->nivel + 1 % 2, 
+                informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono,informacion_mapa->mapa[informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna][informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila]->nivel + 1 % 2) == true && (informacion_mechs->mechJugador->temp_actual < 10)){
+            
+        }*/    
     }
     /*int fila, columna, angulo, objetivo_mech, localizacion;
     armas->coger_garrote = false; //ES de la clase ataque_armas
@@ -221,7 +226,7 @@ void acciones::ataque_arma() {
             }
         }
     }*/
-
+      
     //ESCRIBE FICHERO DE SALIDA
     string jugador;
     jugador = itoStr(informacion_mechs->mechJugador->numJ);
@@ -613,33 +618,6 @@ int acciones::obtenerSlotArma(iMech mech, Componente_Mech arma) {
 //    h = -1;
 //    f = -1;
 //}
-
-/*Comrpueba la linea de vision entre el origen*/
-int comprueba_LV(int jugador, hexagono_pos cas_origen, int nivel_or, hexagono_pos cas_destino, int nivel_des) {
-    char orden[100], linea[50];
-    FILE *fichero_LDV = NULL;
-
-    /* int snprintf(char *str, size_t size, const char *format,...)
-         char *str: Cadena de destino.
-    size_t size: NÃºmero de bytes a escribir. Se suele poner el tamaÃ±o de la cadena destino.
-    const char *format,... : Formato habitual de printf.
-     */
-    snprintf(orden, 99, "./LDVyC.exe mapaJ%i.sbt %02i%02i %i %02i%02i %i", jugador, cas_origen.columna,
-            cas_origen.fila, nivel_or, cas_destino.columna, cas_destino.fila, nivel_des);
-    system(orden);
-
-    do {
-        fichero_LDV = fopen("LDV.sbt", "r");
-    } while (fichero_LDV == NULL);
-
-    fgets(linea, 50, fichero_LDV);
-    fgets(linea, 50, fichero_LDV);
-    fclose(fichero_LDV);
-    if (strstr(linea, "True") != NULL)
-        return TRUE;
-    else
-        return FALSE;
-}
 
 int acciones::angulo_mech(int mech_obj) {
     int alto, ancho, fila, columna, fila_init;
@@ -1526,26 +1504,33 @@ int acciones::es_mejor(int LV1, int valor1, int LV2, int valor2) {
 
 /* Devuelve TRUE si hay lÃ­nea de visiÃ³n entre el origen y el destino
  * y FALSE si no la hay */
-int acciones::linea_vision(int num_jugador, hexagono_pos origen, int nivel_origen, hexagono_pos destino, int nivel_destino) {
-    char orden[100], linea[50];
-    FILE *file_LDV = NULL;
-    snprintf(orden, 99, "./LDVyC.exe mapaJ%i.sbt %02i%02i %i %02i%02i %i",
-            num_jugador, origen.columna, origen.fila, nivel_origen, destino.columna, destino.fila, nivel_destino);
-    system(orden);
-    system("pwd");
-    do {
-        cout << "Leyendo LDV" << endl;
-        file_LDV = fopen("LDV.sbt", "r");
-    } while (file_LDV == NULL);
-    system("rm LDV.sbt");
+bool acciones::linea_vision(int num_jugador, hexagono_pos origen, int nivel_origen, hexagono_pos destino, int nivel_destino) {
+ char orden[100], linea[50];
+    FILE *fichero_LDV = NULL;
 
-    fgets(linea, 50, file_LDV);
-    fgets(linea, 50, file_LDV);
-    fclose(file_LDV);
+    /* int snprintf(char *str, size_t size, const char *format,...)
+         char *str: Cadena de destino.
+    size_t size: NÃºmero de bytes a escribir. Se suele poner el tamaÃ±o de la cadena destino.
+    const char *format,... : Formato habitual de printf.
+     */
+    //string ejecucion_LDVyC = "LDVyC.exe mapaJ" + (string) num_jugador + ".sbt " + hexagono_char_origen + " " + suma_de_nivel_origen + " " + hexagono_char_destino + " " + suma_de_nivel_destino;
+
+//system (ejecucion_LDVyC.c_str());
+    snprintf(orden, 99, "LDVyC.exe mapaJ%i.sbt %02i%02i %i %02i%02i %i", num_jugador, origen.columna,
+            origen.fila, nivel_origen, destino.columna, destino.fila, nivel_destino);
+    system(orden);
+
+//    do {
+//        fichero_LDV = fopen("LDV.sbt", "r");
+//    } while (fichero_LDV == NULL);
+
+    fgets(linea, 50, fichero_LDV);
+    fgets(linea, 50, fichero_LDV);
+    fclose(fichero_LDV);
     if (strstr(linea, "True") != NULL)
-        return TRUE;
+        return true;
     else
-        return FALSE;
+        return false;
 }
 
 void acciones::mov_atacar(int num_jugador, int num_jugadores, int PM, int tipo_mov) {

@@ -28,8 +28,8 @@ ataque_armas_t::ataque_armas_t() {
 void ataque_armas_t::salida(string numJ) {
     /* Crear el archivo de salida */
     string cad = "accionJ" + numJ + ".sbt";
-    string accion;
-    ofstream out(cad.c_str());
+    string accion="";
+    ofstream out;
     out.open(cad.c_str());
     /* Linea 1: Coger garrote */
     switch (coger_garrote) {
