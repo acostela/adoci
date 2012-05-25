@@ -7,9 +7,14 @@
 
 #ifndef FASE_MOVIMIENTO_H
 #define	FASE_MOVIMIENTO_H
-#include "funcs.h"
 #include <fstream>
 #include <iostream>
+#include <vector>
+#include "node.h"
+#include "funcs.h"
+#include "infoMapa.h"
+#include "infoMechs.h"
+
 using namespace std;
 /* Datos para la fase de movimiento */
 class movimiento_t {
@@ -21,20 +26,17 @@ public:
     int pasos;
     int tipo[20];
     int veces[20];
+    infoMapa* mapa;
+    infoMechs * mechs;
 
-    movimiento_t() {
-        tipo_movimiento = 0;
-        destino.fila = 0;
-        destino.columna = 0;
-        lado = 0;
-        MASC = false;
-        pasos = 0;
-        for (int i = 0; i < 20; ++i) {
-            tipo[i] = 0;
-            veces[i] = 0;
-        }
-    }
+    movimiento_t(infoMapa* inf_mapa, infoMechs * inf_mechs);
+    
+ void getDestino(int& fil_dest,int & col_dest,int & lado_dest);
     void salida(string numJ);
+    void logica_movimiento();
+    int getTipoMov(const node & n1, const node & n2);
+    void getSecuenciaPasos(const vector<node> & nodos);
+
 };
 
 #endif	/* FASE_MOVIMIENTO_H */

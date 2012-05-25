@@ -22,6 +22,7 @@
 #include "fase_final.h"
 #include "fase_movimiento.h"
 #include "fase_reaccion.h"
+#include "node.h"
 
 using namespace std;
 

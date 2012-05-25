@@ -9,21 +9,27 @@
 #define	MOVIMIENTO_H
 
 #include <vector>
-#include "fase_movimiento.h"
 #include "infoMapa.h"
 using namespace std;
 
 class node {
 public:
+    int fil;
+    int col;
+    int orientacion;
     node();
+    node(const node & orig);
     node(node * padr, int fila, int columna, int orienta, float heur);
     node(int fila,int columna,int orienta,infoMapa* map,int pesoMech);
     node(int fila,int columna,int orienta,node * destino,infoMapa* map,int pesoMech);
     node(node * ini, node * dest, infoMapa* map, int pesoMech);
+    void show();
     void showInfo();
     void showPath();
+    void storeRoute(vector<node>& nodos);
+    void storeRoute(node *nodoDestino);
     void showInfoHijos();
-    string getSecuencia(float PM,movimiento_t * mov);
+    //void getSecuencia(float PM,movimiento_t * mov);
     //node(const node& orig);
     vector <node *> hijos;
     void expand();
@@ -31,7 +37,10 @@ public:
     float f();
     float g();
     float h();
+    float coste;
     bool operator==(const node & nodo);
+    bool mismo_hexagono(const node & nodo)const;
+
     node& operator=(const node & nodo);
     node * padre;
 
@@ -42,9 +51,6 @@ private:
     float hVal;
 
     int peso;
-    int fil;
-    int col;
-    int orientacion;
     float costeDesdePadre();
 
 
@@ -52,7 +58,7 @@ private:
 
 void nodoEnEsaDireccion(int fila, int columna, int direccion, int & filaSiguiente, int & colSiguiente);
 
-void aStar(node * inicio, node * destino, infoMapa *mapa, int tonelaje);
+void aStar(node * inicio, node * destino,vector<node>& nodos, infoMapa *mapa, int tonelaje);
 
 
 #endif	/* MOVIMIENTO_H */

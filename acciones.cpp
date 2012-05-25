@@ -8,7 +8,6 @@
 #include "acciones.h"
 using namespace std;
 
-
 acciones::acciones(string numJ, infoMapa* mapa, infoMechs* mechs, OpcionesJuego* opts) {
     informacion_mapa = mapa;
     informacion_mechs = mechs;
@@ -107,56 +106,56 @@ void acciones::reaccion_accion() {
 }
 
 void acciones::ataque_arma() {
-    int filaux,colaux;
+    int filaux, colaux;
     int col_jugador = informacion_mechs->mechJugador->pos_Hexagono.columna;
     int fil_jugador = informacion_mechs->mechJugador->pos_Hexagono.fila;
     int adyacentes [6][2];
     bool ene_adyacente = false;
     int objetivo_mech, angulo;
-    
-    posiciones_adyacentes(fil_jugador,col_jugador,adyacentes);
-    
+
+    posiciones_adyacentes(fil_jugador, col_jugador, adyacentes);
+
     //Consideramos enemigo adyacente si está en una casilla al lado y el desnivel no es mayor que 1 (Le podemos pegar cuerpo a cuerpo).
-    for (int i=0; i<informacion_mechs->nMechs-1; i++){
-        filaux=informacion_mechs->iMechVector[i]->pos_Hexagono.fila;
-        colaux=informacion_mechs->iMechVector[i]->pos_Hexagono.columna;
-        for(int j=0; j<6; j++){
-            if(adyacentes[j][0] == filaux && adyacentes[j][1] == colaux)
-                if(abs(informacion_mapa->mapa[fil_jugador][col_jugador]->nivel - informacion_mapa->mapa[filaux][colaux]->nivel)<=1)
+    for (int i = 0; i < informacion_mechs->nMechs - 1; i++) {
+        filaux = informacion_mechs->iMechVector[i]->pos_Hexagono.fila;
+        colaux = informacion_mechs->iMechVector[i]->pos_Hexagono.columna;
+        for (int j = 0; j < 6; j++) {
+            if (adyacentes[j][0] == filaux && adyacentes[j][1] == colaux)
+                if (abs(informacion_mapa->mapa[fil_jugador][col_jugador]->nivel - informacion_mapa->mapa[filaux][colaux]->nivel) <= 1)
                     ene_adyacente = true;
         }
     }
     //NUEVA estrategia armas
-    if(ene_adyacente){
-        armas->coger_garrote=false;
-        armas->objetivo.columna=0;
-        armas->objetivo.fila=0;
-        armas->num_armas=0;
-    }else{  //Si no vamos a pegar físicamente usamos armas
+    if (ene_adyacente) {
+        armas->coger_garrote = false;
+        armas->objetivo.columna = 0;
+        armas->objetivo.fila = 0;
+        armas->num_armas = 0;
+    } else { //Si no vamos a pegar físicamente usamos armas
         objetivo_mech = objetivoArmas();
         armas->objetivo.fila = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
         armas->objetivo.columna = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
-    
+
         angulo = angulo_mech(objetivo_mech);
-        
+
         filaux = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
         colaux = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
         int sum_nivel_or = 0;
         int sum_nivel_dest = 0;
-        
-        if(!informacion_mechs->mechJugador->enElSuelo)
+
+        if (!informacion_mechs->mechJugador->enElSuelo)
             sum_nivel_or = 1;
-        if(!informacion_mechs->iMechVector[objetivo_mech]->enElSuelo)
+        if (!informacion_mechs->iMechVector[objetivo_mech]->enElSuelo)
             sum_nivel_dest = 1;
-        if(linea_vision(informacion_mechs->mechJugador->numJ, informacion_mechs->mechJugador->pos_Hexagono, sum_nivel_or, informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono,sum_nivel_dest) == true && (informacion_mechs->mechJugador->temp_actual < 10));
+        if (linea_vision(informacion_mechs->mechJugador->numJ, informacion_mechs->mechJugador->pos_Hexagono, sum_nivel_or, informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono, sum_nivel_dest) == true && (informacion_mechs->mechJugador->temp_actual < 10));
         //comprueba_LV(int jugador, hexagono_pos cas_origen, int nivel_or, hexagono_pos cas_destino, int nivel_des)
-        
-     // Llamamos al programa auxiliar LDVyC
-     // LDVyC.exe <nombre_fichero_mapa> <hexágono_origen> <suma_de_nivel_origen> <hexágono_destino> <suma_de_nivel_destino>
+
+        // Llamamos al programa auxiliar LDVyC
+        // LDVyC.exe <nombre_fichero_mapa> <hexágono_origen> <suma_de_nivel_origen> <hexágono_destino> <suma_de_nivel_destino>
         /*if(linea_vision(informacion_mechs->mechJugador->numJ, informacion_mechs->mechJugador->pos_Hexagono, informacion_mapa->mapa[informacion_mechs->mechJugador->pos_Hexagono.columna][informacion_mechs->mechJugador->pos_Hexagono.fila]->nivel + 1 % 2, 
                 informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono,informacion_mapa->mapa[informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna][informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila]->nivel + 1 % 2) == true && (informacion_mechs->mechJugador->temp_actual < 10)){
             
-        }*/    
+        }*/
     }
     /*int fila, columna, angulo, objetivo_mech, localizacion;
     armas->coger_garrote = false; //ES de la clase ataque_armas
@@ -226,7 +225,7 @@ void acciones::ataque_arma() {
             }
         }
     }*/
-      
+
     //ESCRIBE FICHERO DE SALIDA
     string jugador;
     jugador = itoStr(informacion_mechs->mechJugador->numJ);
@@ -365,8 +364,12 @@ acciones::~acciones() {
 void acciones::salida(string cad) {
 
     if (cad == "Movimiento") {
-        mov = new movimiento_t;
-        reglas_movimiento();
+        mov = new movimiento_t(informacion_mapa,informacion_mechs);
+        mov->logica_movimiento();
+        //reglas_movimiento();
+
+        //destino->getSecuencia(20, mov);
+        //mov->tipo_movimiento=CORRER;
         mov->salida(numeroJugador);
     }
     if (cad == "Reaccion") {
@@ -1124,7 +1127,7 @@ void acciones::mov_huir(int num_jugador, int num_jugadores, int PM_INI, int tipo
                 mechJ->pos_Hexagono.columna = hex_obj.columna;
                 mechJ->pos_Hexagono.fila = hex_obj.fila;
                 PM -= coste;
-            }                /* Si no estabamos encarados hacia esa direccion y
+            }/* Si no estabamos encarados hacia esa direccion y
              * es un movimiento posible, nos giramos */
             else {
                 /* Ver para quÃ© lado nos tenemos que mover para
@@ -1137,7 +1140,7 @@ void acciones::mov_huir(int num_jugador, int num_jugadores, int PM_INI, int tipo
                     confirmar_mov(tipo_mov, mechJ->pos_Hexagono, direccion, FALSE, dir_giro, coste_giro);
                     mechJ->encaramiento_mech = direccion;
                     PM -= coste_giro;
-                }                    /* Si no, giramos hacia esa direcciÃ³n tanto como podamos
+                }/* Si no, giramos hacia esa direcciÃ³n tanto como podamos
                  * para acercarnos */
                 else {
                     //Podemos girar tantas veces como PM nos queden
@@ -1508,10 +1511,10 @@ bool acciones::linea_vision(int num_jugador, hexagono_pos origen, int nivel_orig
     char orden[100];
     string linea;
     ifstream fichero_LDV;
-    
+
     snprintf(orden, 99, "LDVyC.exe mapaJ%i.sbt %02i%02i %i %02i%02i %i", num_jugador, origen.columna,
-        origen.fila, nivel_origen, destino.columna, destino.fila, nivel_destino);
-    
+            origen.fila, nivel_origen, destino.columna, destino.fila, nivel_destino);
+
     system(orden);
 
     do {
@@ -1519,13 +1522,13 @@ bool acciones::linea_vision(int num_jugador, hexagono_pos origen, int nivel_orig
         //fichero_LDV = fopen("LDV.sbt", "r");
     } while (fichero_LDV == NULL);
 
-    getline(fichero_LDV,linea,'\n');
-    getline(fichero_LDV,linea,'\n');
-   
+    getline(fichero_LDV, linea, '\n');
+    getline(fichero_LDV, linea, '\n');
+
     fichero_LDV.close();
-    
-    if (linea.compare("True")==0)
-         return true;
+
+    if (linea.compare("True") == 0)
+        return true;
     else
         return false;
 }
@@ -1588,7 +1591,7 @@ void acciones::mov_atacar(int num_jugador, int num_jugadores, int PM, int tipo_m
                     mechJ->pos_Hexagono.fila = hex_obj.fila;
                     PM -= coste;
                 }
-            }                /* Si no estabamos encarados hacia esa direccion y
+            }/* Si no estabamos encarados hacia esa direccion y
              * es un movimiento posible, nos giramos */
             else {
                 /* Ver para quÃ© lado nos tenemos que mover para
@@ -1604,7 +1607,7 @@ void acciones::mov_atacar(int num_jugador, int num_jugadores, int PM, int tipo_m
                     confirmar_mov(tipo_mov, mechJ->pos_Hexagono, direccion, FALSE, dir_giro, coste_giro);
                     mechJ->encaramiento_mech = direccion;
                     PM -= coste_giro;
-                }                    /* Si no, giramos hacia esa direcciÃ³n tanto como podamos
+                }/* Si no, giramos hacia esa direcciÃ³n tanto como podamos
                  * para acercarnos */
                 else {
                     //Podemos girar tantas veces como PM nos queden

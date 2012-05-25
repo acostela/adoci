@@ -70,16 +70,8 @@ int main(int argc, char** argv) {
     inf_juego.leeFich(f_config);
 
     inf_mapa.leeFich(f_map);
- //   node destino(14, 9,1, &inf_mapa, inf_mechs.mechJugador->defMechInfo->toneladas);
-
-  //  printf("Dest: %i\n",&destino);
-  //  node inicio(14, 8,2,&destino, &inf_mapa, inf_mechs.mechJugador->defMechInfo->toneladas);
-  //  aStar(&inicio,&destino,&inf_mapa, inf_mechs.mechJugador->defMechInfo->toneladas);
-    //inicio.expand();
 
 
-
-    
     acs.salida(nombreFase);
  /*
   
