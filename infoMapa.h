@@ -61,7 +61,7 @@ public:
 private:
 
     bool s2bool(string cad) {
-        if (cad == "True")
+        if (cad.compare(0,4,"True")==0)
             return true;
         else
             return false;

@@ -55,6 +55,7 @@ private:
 
 
 };
+float distanciaNodos(int forigen, int corigen, int fdestino, int cdestino);
 
 void nodoEnEsaDireccion(int fila, int columna, int direccion, int & filaSiguiente, int & colSiguiente);
 

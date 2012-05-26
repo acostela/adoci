@@ -131,19 +131,19 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
          * ARMAFISICA = 6
          */
         getline(in,auxiliar,'\n');
-        if (auxiliar.compare("NADA")==0)
+        if (auxiliar.compare(0,4,"NADA")==0)
             mech->defMechInfo->componentes[i].clase=VACIO;
-        else if (auxiliar.compare("ARMA")==0)
+        if (auxiliar.compare(0,4,"ARMA")==0)
             mech->defMechInfo->componentes[i].clase=ARMA;
-        else if (auxiliar.compare("MUNICION")==0)
+        if (auxiliar.compare(0,8,"MUNICION")==0)
             mech->defMechInfo->componentes[i].clase=MUNICION;
-        else if (auxiliar.compare("EQUIPO")==0)
+        if (auxiliar.compare(0,6,"EQUIPO")==0)
             mech->defMechInfo->componentes[i].clase=EQUIPO;
-        else if (auxiliar.compare("ACTUADOR")==0)
+        if (auxiliar.compare(0,8,"ACTUADOR")==0)
             mech->defMechInfo->componentes[i].clase=ACTUADOR;
-        else if (auxiliar.compare("ARMADURA")==0)
+        if (auxiliar.compare(0,8,"ARMADURA")==0)
             mech->defMechInfo->componentes[i].clase=ARMADURA;
-        else if (auxiliar.compare("ARMAFISICA")==0)
+        if (auxiliar.compare(0,10,"ARMAFISICA")==0)
             mech->defMechInfo->componentes[i].clase=ARMAFISICA;
         
         // Leemos si el arma esta montada en la parte trasera
@@ -176,13 +176,13 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
          * Misiles = 3
         */
         getline(in,auxiliar,'\n');
-        if (auxiliar.compare("Nada")==0)
+        if (auxiliar.compare(0,4,"Nada")==0)
             mech->defMechInfo->componentes[i].tipo = 0;
         else if(auxiliar.compare(0,3,"Ene")==0)
             mech->defMechInfo->componentes[i].tipo = 1;
         else if(auxiliar.compare(0,3,"Bal")==0)
             mech->defMechInfo->componentes[i].tipo = 2;
-        else if(auxiliar.compare("Misiles")==0){
+        else if(auxiliar.compare(0,7,"Misiles")==0){
             mech->defMechInfo->componentes[i].tipo = 3;
         }
         // Leemos el calor que genera el arma
@@ -217,7 +217,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         mech->defMechInfo->componentes[i].cantidad = atoi(auxiliar.c_str());
         // Leemos si es municiÃ³n especial
         getline(in,auxiliar,'\n');
-        if (auxiliar.compare("No")==0){
+        if (auxiliar.compare(0,2,"No")==0){
             mech->defMechInfo->componentes[i].especial = false;
         }else{
             mech->defMechInfo->componentes[i].especial = true;
@@ -288,19 +288,19 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
              * ARMAFISICA = 6
             */
             getline(in, auxiliar,'\n');
-            if(auxiliar.compare("NADA")==0)
+            if(auxiliar.compare(0,4,"NADA")==0)
                 mech->defMechInfo->localizaciones[i].slots[j].clase = 0;
-            else if (auxiliar.compare("ARMA")==0)
+            if (auxiliar.compare(0,4,"ARMA")==0)
                 mech->defMechInfo->localizaciones[i].slots[j].clase = 1;
-            else if (auxiliar.compare("MUNICION")==0)
+            if (auxiliar.compare(0,8,"MUNICION")==0)
                 mech->defMechInfo->localizaciones[i].slots[j].clase = 2;
-            else if (auxiliar.compare("EQUIPO")==0)
+            if (auxiliar.compare(0,6,"EQUIPO")==0)
                 mech->defMechInfo->localizaciones[i].slots[j].clase = 3;
-            else if (auxiliar.compare("ACTUADOR")==0)
+            if (auxiliar.compare(0,8,"ACTUADOR")==0)
                 mech->defMechInfo->localizaciones[i].slots[j].clase = 4;
-            else if (auxiliar.compare("ARMADURA")==0)
+            if (auxiliar.compare(0,8,"ARMADURA")==0)
                 mech->defMechInfo->localizaciones[i].slots[j].clase = 5;
-            else if (auxiliar.compare("ARMAFISICA")==0)
+            if (auxiliar.compare(0,10,"ARMAFISICA")==0)
                 mech->defMechInfo->localizaciones[i].slots[j].clase = 6;
 
             // Leemos la cantidad

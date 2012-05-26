@@ -90,6 +90,8 @@ void infoMapa::leeFich(string fichero) {
             mapa[i][j]->humo = s2bool(cad);
             fich >> mapa[i][j]->num_garrotes;
             for (int k = 0; k < 6; k++) {
+//                if(cad.compare(0,4,"True")==0)
+//                    cout<< cad <<endl;
                 fich >> cad;
                 mapa[i][j]->rioCentroCara[k] = s2bool(cad);
             }

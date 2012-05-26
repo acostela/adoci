@@ -16,6 +16,7 @@
 #include "infoMechs.h"
 
 using namespace std;
+
 /* Datos para la fase de movimiento */
 class movimiento_t {
 public:
@@ -30,12 +31,16 @@ public:
     infoMechs * mechs;
 
     movimiento_t(infoMapa* inf_mapa, infoMechs * inf_mechs);
-    
- void getDestino(int& fil_dest,int & col_dest,int & lado_dest);
+    int tipo_movim(const vector<node>& nodos);
+    int estrategia_movimiento();
+    void getDestino(int& fil_dest, int & col_dest, int & lado_dest, int estrategia);
     void salida(string numJ);
     void logica_movimiento();
     int getTipoMov(const node & n1, const node & n2);
-    void getSecuenciaPasos(const vector<node> & nodos);
+    void getSecuenciaPasos(const vector<node> & nodos,int PM);
+private:
+    bool check_mov_correr(const vector<node>& nodos);
+
 
 };
 
