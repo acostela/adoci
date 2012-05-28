@@ -24,7 +24,7 @@ public:
     int terreno; //0-ABIERTO, 1-PAVIMENTADO, 2-AGUA, 3-PANTANOSO
     int objetoTerreno; //0-escombros, 1-bosque ligero, 2-bosque denso,
     //3-edificio ligero,4-edificio medio, 5-edificio pesado,
-    //6-edificio reforzado, 7-búnker, 255-nada
+    //6-edificio reforzado, 7-bÃºnker, 255-nada
     int FCE; //>=0
     bool derrumbado;
     bool fuego;
@@ -42,9 +42,10 @@ public:
     int filas; //alto
     int columnas; //ancho
     int modo;
+    infoMechs* info_mechs;
     hexagono_t*** mapa; //Matriz de punteros a hexagonos
 
-    infoMapa();
+    infoMapa(infoMechs* info_mechs);
     infoMapa(const infoMapa& orig);
     virtual ~infoMapa();
     void inicializarPath();

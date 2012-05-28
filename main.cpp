@@ -18,6 +18,7 @@
  */
 ofstream out_log;
 string flog;
+time_t tiempo;
 
 string cadtoStr(char* cad) {
     string s(cad);
@@ -34,21 +35,19 @@ int main(int argc, char** argv) {
     flog = "";
     char cad[50];
     ofstream out_log;
-    out_log.open("flog.txt");
+    out_log.open("log.txt",ios_base::app);
 
 
     //    f_log = fopen("log.txt","a");
-    time_t tiempo;
+    
     time(&tiempo);
-    sprintf(cad, "%s : Inicio fase \n", ctime(&tiempo));
+    sprintf(cad, "--------------------------------------------------\n");
+    flog += cad;
+    sprintf(cad, "%s : Inicio fase %s \n\n", ctime(&tiempo),argv[2]);
     flog += cad;
 
     string numJ = argv[1]; //Leido desde la linea de comandos
     string nombreFase = argv[2];
-
-    time(&tiempo);
-    sprintf(cad, "%s : Fase: %s \n", ctime(&tiempo), nombreFase.c_str());
-    flog += cad;
 
 
     string f_mechs = "mechsJ";
@@ -61,7 +60,7 @@ int main(int argc, char** argv) {
     f_config = f_config + numJ + ".sbt";
     OpcionesJuego inf_juego;
     infoMechs inf_mechs(atoi(numJ.c_str()));
-    infoMapa inf_mapa;
+    infoMapa inf_mapa(&inf_mechs);
 
     acciones acs(numJ, &inf_mapa, &inf_mechs, &inf_juego);
 
@@ -88,6 +87,16 @@ int main(int argc, char** argv) {
     cin.get();
 
      */
+    
+    time(&tiempo);
+    sprintf(cad,"%s : Fin de fase %s.\n",ctime(&tiempo),nombreFase.c_str());
+        flog += cad;
+
+    sprintf(cad, "--------------------------------------------------\n");
+
+    flog+=cad;
+    out_log<<flog;
+    out_log.close();
     return (EXIT_SUCCESS);
 }
 

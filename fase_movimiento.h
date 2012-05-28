@@ -14,8 +14,12 @@
 #include "funcs.h"
 #include "infoMapa.h"
 #include "infoMechs.h"
+#include "nodoArea.h"
 
 using namespace std;
+
+extern string flog;
+extern time_t tiempo;
 
 /* Datos para la fase de movimiento */
 class movimiento_t {
@@ -37,7 +41,9 @@ public:
     void salida(string numJ);
     void logica_movimiento();
     int getTipoMov(const node & n1, const node & n2);
-    void getSecuenciaPasos(const vector<node> & nodos,int PM);
+    void getSecuenciaPasos(const vector<node> & nodos, int PM);
+    void getArea(int n, int f, int c, vector<nodoArea> & pos_vector);
+
 private:
     bool check_mov_correr(const vector<node>& nodos);
 
