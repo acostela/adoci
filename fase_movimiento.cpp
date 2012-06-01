@@ -104,53 +104,84 @@ void movimiento_t::salida(string numJ) {
     }
 
     /* Cerrar el archivo */
+    //cout <<accion;
+    //cin.get();
     out << accion;
 
     out.close();
 }
 
-void movimiento_t::getDestino(int & fil_dest, int & col_dest, int & lado_dest, int estrategia) {
+void movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & col_dest, int & lado_dest, int estrategia) {
+
+
     char cad[255];
     int f, c, lado;
-    int ind_objetivo = mechs->mechJugador->buscar_mech_cercano(mechs->iMechVector, mechs->mechJugador->numJ, mechs->nMechs);
+    int ind_objetivo = mechs->mechJugador->buscar_objetivo(mechs->iMechVector, mechs->mechJugador->numJ, mechs->nMechs);
     int f_obj = mechs->iMechVector[ind_objetivo]->pos_Hexagono.fila;
     int c_obj = mechs->iMechVector[ind_objetivo]->pos_Hexagono.columna;
     int enc_obj = mechs->iMechVector[ind_objetivo]->encaramiento_mech;
 
+    int pm_corriendo = mechs->mechJugador->dmj->PM_correr;
+    int niveles = pm_corriendo / 4;
+    if(niveles == 1 && estrategia==HUIR){
+        fil_dest=-1;
+        col_dest=-1;
+        lado_dest=-1;
+        return;
+    }
+    vector<nodeVector> anillos;
+
+
+
     sprintf(cad, "%s : Posición mech objetivo: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), f_obj, c_obj, enc_obj);
     flog += cad;
-    nodoEnEsaDireccion(f_obj, c_obj, enc_obj, f, c);
-    switch (enc_obj) {
-        case 1:
-            lado = 4;
-            break;
-        case 2:
-            lado = 5;
-            break;
-        case 3:
-            lado = 6;
-            break;
-        case 4:
-            lado = 1;
-            break;
-        case 5:
-            lado = 2;
-            break;
-        case 6:
-            lado = 3;
-            break;
-    }
+//    switch (enc_obj) {
+//        case 1:
+//            lado = 4;
+//            break;
+//        case 2:
+//            lado = 5;
+//            break;
+//        case 3:
+//            lado = 6;
+//            break;
+//        case 4:
+//            lado = 1;
+//            break;
+//        case 5:
+//            lado = 2;
+//            break;
+//        case 6:
+//            lado = 3;
+//            break;
+//    }
+
     switch (estrategia) {
         case ATACAR:
+
+                nodoEnEspalda(f_obj, c_obj, enc_obj, f, c);
+
             fil_dest = f;
             col_dest = c;
-            lado_dest = lado;
+            lado_dest = enc_obj;
             //Pos mas cercana al mas cercano
             break;
         case HUIR:
-            fil_dest = 1;
-            col_dest = 1;
-            lado_dest = 3;
+            anillos = getAnillos(nodoArea(fil_mech, col_mech, -1),mapa);
+
+            cobertura(niveles, anillos, fil_dest, col_dest, f_obj, c_obj,enc_obj);
+
+            
+            if (f_obj < fil_dest) {//Los de arriba
+                if (c_obj < col_dest) //los de la izq
+                    lado = 6;
+                else lado = 2;
+            } else {//los de abajo
+                if (c_obj < col_dest) //los de la izq
+                    lado = 5;
+                else lado = 3;
+            }
+            lado_dest = lado;
             //Huimos del mas fuerte
             break;
     }
@@ -161,6 +192,9 @@ void movimiento_t::getDestino(int & fil_dest, int & col_dest, int & lado_dest, i
 }
 
 int movimiento_t::estrategia_movimiento() {
+    int estrat;
+    cin >> estrat;
+    return estrat;
     char cad[255];
     mechs->mechJugador->dmj->Heridas_MW;
     iMech* mech = mechs->mechJugador;
@@ -186,22 +220,23 @@ int movimiento_t::estrategia_movimiento() {
         return HUIR;
     }
 }
-void movimiento_t::getArea(int n,int f,int c, vector<nodoArea> & pos_vector){
-    int min_f=f-n,
-        max_f=f+n,
-        min_c=c-n,
-        max_c=c+n;
-    if(min_f <= 0) min_f=1;
-    if(max_f >= mapa->filas ) max_f = mapa->filas-1;
-    if(min_c <= 0) min_c=1;
-    if(max_c >= mapa->columnas ) max_c = mapa->columnas-1;
-    
-    for(int i=min_f;i<=max_f;i++)
-        for(int j=min_c;j<=max_c;j++)
-            pos_vector.push_back(nodoArea(i,j,distanciaNodos(f,c,i,j)));
 
-    showNodosArea(pos_vector);
-}
+//void movimiento_t::getArea(int n, int f, int c, vector<nodoArea> & pos_vector) {
+//    int min_f = f - n,
+//            max_f = f + n,
+//            min_c = c - n,
+//            max_c = c + n;
+//    if (min_f <= 0) min_f = 1;
+//    if (max_f >= mapa->filas) max_f = mapa->filas - 1;
+//    if (min_c <= 0) min_c = 1;
+//    if (max_c >= mapa->columnas) max_c = mapa->columnas - 1;
+//
+//    for (int i = min_f; i <= max_f; i++)
+//        for (int j = min_c; j <= max_c; j++)
+//            pos_vector.push_back(nodoArea(i, j, distanciaNodos(f, c, i, j)));
+//
+//    showNodosArea(pos_vector);
+//}
 
 bool movimiento_t::check_mov_correr(const vector<node>& nodos) {
 
@@ -211,7 +246,6 @@ bool movimiento_t::check_mov_correr(const vector<node>& nodos) {
                 mapa->mapa[nodos[i].fil][nodos[i].col]->terreno == AGUA &&
                 nodos[i].coste < PM) return false;
     }
-
     return true;
 
 }
@@ -219,10 +253,10 @@ bool movimiento_t::check_mov_correr(const vector<node>& nodos) {
 int movimiento_t::tipo_movim(const vector<node>& nodos) {
     char cad[255];
     int tipo_mov;
-    if (mechs->mechJugador->dmj->PM_correr > mechs->mechJugador->dmj->PM_andar)
-        tipo_mov = CORRER;
-    else
+    if (nodos.back().coste <= mechs->mechJugador->dmj->PM_andar)
         tipo_mov = ANDAR;
+    else
+        tipo_mov = CORRER;
 
     if (tipo_mov == CORRER) {
         if (check_mov_correr(nodos)) {
@@ -235,6 +269,7 @@ int movimiento_t::tipo_movim(const vector<node>& nodos) {
             return ANDAR;
         }
     }
+    return tipo_mov;
 }
 
 void movimiento_t::logica_movimiento() {
@@ -244,6 +279,7 @@ void movimiento_t::logica_movimiento() {
     int PM;
     int estrategia = estrategia_movimiento(); //ATACAR o HUIR
 
+    cout << "En el suelo: "<<mechs->mechJugador->enElSuelo<<endl;
     int tons = mechs->mechJugador->defMechInfo->toneladas;
     int col_mech = mechs->mechJugador->pos_Hexagono.columna;
     int fil_mech = mechs->mechJugador->pos_Hexagono.fila;
@@ -251,9 +287,16 @@ void movimiento_t::logica_movimiento() {
     int col_dest, fil_dest, lado_dest;
 
 
-    vector<nodoArea> pos_vector;
-    getArea(2,fil_mech,col_mech, pos_vector);
 
+    //    vector<nodeVector> anillos= getAnillos(nodoArea(5,5,-1));
+    //    showNodosArea(anillos[0]);
+    //    showNodosArea(anillos[1]);
+    //    showNodosArea(anillos[2]);
+    //    showNodosArea(anillos[6]);
+
+
+    //anillo.push_back(nodoArea(5,5,-1));
+    //showNodosArea(getAnillo(anillo,anilloInterior));
     //Si esta  en el suelo intentar levantarse
 
     //ATACAR O HUIR
@@ -261,39 +304,45 @@ void movimiento_t::logica_movimiento() {
     sprintf(cad, "%s : Posición mech jugador: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_mech, col_mech, lado_mech);
     flog += cad;
 
-    getDestino(fil_dest, col_dest, lado_dest, estrategia);
+    getDestino(fil_mech, col_mech, fil_dest, col_dest, lado_dest, estrategia);
+    if(fil_dest==-1 && col_dest==-1 && lado_dest==-1){
+           sprintf(cad, "El jugador no tiene PM asi que permanecera inmovil.\n");
+    flog += cad; 
+    tipo_movimiento=INMOVIL;
+    return;
+    }
+        
     sprintf(cad, "%s : Destino final de movimiento: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_dest, col_dest, lado_dest);
     flog += cad;
 
+        printf("Destino final de movimiento: fila: %i,columna: %i,lado: %i \n\n", fil_dest, col_dest, lado_dest);
+        cin.get();
+        cin.get();
 
     node *destino = new node(fil_dest, col_dest, lado_dest, mapa, tons);
     node *inicio = new node(fil_mech, col_mech, lado_mech, destino, mapa, tons);
 
-    if (distanciaNodos(fil_mech, col_mech, fil_dest, col_dest) < 5 && estrategia == ATACAR)
-        tipo_movimiento = INMOVIL; //Ya estamos cerca así que no desperdiciamos puntos
-    else {
 
-        aStar(inicio, destino, nodos, mapa, tons);
+    aStar(inicio, destino, nodos, mapa, tons);
 
 
+    int tipo_mov = tipo_movim(nodos);
+    tipo_movimiento = tipo_mov;
+    switch (tipo_mov) {
+        case ANDAR:
+            PM = mechs->mechJugador->dmj->PM_andar;
+            break;
+        case CORRER:
+            PM = mechs->mechJugador->dmj->PM_correr;
+            break;
+    }//Añadir saltar
 
-        int tipo_mov = tipo_movim(nodos);
-        tipo_movimiento = tipo_mov;
-        switch (tipo_mov) {
-            case ANDAR:
-                PM = mechs->mechJugador->dmj->PM_andar;
-                break;
-            case CORRER:
-                PM = mechs->mechJugador->dmj->PM_correr;
-                break;
-        }//Añadir saltar
+    getSecuenciaPasos(nodos, PM);
+    sprintf(cad, "%s : Destino alcanzado: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), this->destino.fila, this->destino.columna, this->lado);
+    flog += cad;
 
-        getSecuenciaPasos(nodos, PM);
-        sprintf(cad, "%s : Destino alcanzado: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), this->destino.fila, this->destino.columna, this->lado);
-        flog += cad;
+    cin.get();
 
-
-    }
 }
 
 int movimiento_t::getTipoMov(const node & n1, const node & n2) {
@@ -309,7 +358,6 @@ int movimiento_t::getTipoMov(const node & n1, const node & n2) {
             return MOV_IZQUIERDA;
         else {
             cout << "Problema en getTipoMov, pulse uan tecla para continuar ...\n";
-            cin.get();
             return 0;
         }
         //IZQ O DER

@@ -11,6 +11,9 @@
 #include <sstream>
 #include "hexagono_position.h" 
 //#include "node.h"
+
+#define MOVIMIENTO_INVALIDO 99999
+
 using namespace std;
 //Para las clases componentes
 enum localizacion_t {
@@ -71,7 +74,7 @@ enum local_arma{
     TI_A,             /* Torso izquierda */
     TD_A,             /* Torso derecha */
     CAB_A,            /* Cabeza */
-    BIBD_A            /* Brazo izquierdo + Brazo derecho                    (sÃ³lo para ataque fÃ­sico con garrote) */
+    BIBD_A            /* Brazo izquierdo + Brazo derecho                    (sÃƒÂ³lo para ataque fÃƒÂ­sico con garrote) */
 };
 
 enum estrat_mov{

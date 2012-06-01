@@ -57,8 +57,6 @@ private:
 };
 float distanciaNodos(int forigen, int corigen, int fdestino, int cdestino);
 
-void nodoEnEsaDireccion(int fila, int columna, int direccion, int & filaSiguiente, int & colSiguiente);
-
 void aStar(node * inicio, node * destino,vector<node>& nodos, infoMapa *mapa, int tonelaje);
 
 

@@ -13,6 +13,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "infoMechs.h"
+#include "funcs.h"
 
 using namespace std;
 class hexagono_t {
@@ -24,7 +25,7 @@ public:
     int terreno; //0-ABIERTO, 1-PAVIMENTADO, 2-AGUA, 3-PANTANOSO
     int objetoTerreno; //0-escombros, 1-bosque ligero, 2-bosque denso,
     //3-edificio ligero,4-edificio medio, 5-edificio pesado,
-    //6-edificio reforzado, 7-bÃºnker, 255-nada
+    //6-edificio reforzado, 7-bÃƒÂºnker, 255-nada
     int FCE; //>=0
     bool derrumbado;
     bool fuego;
@@ -74,5 +75,9 @@ private:
 
 };
 
+void nodoEnEsaDireccion(int fila, int columna, int direccion, int & filaSiguiente, int & colSiguiente);
+void nodoEnEspalda(int fila, int columna, int direccion, int & filaAnterior, int & colAnterior);
+
+bool adyacente(int fila,int columna,int fila2, int columna2);
 #endif	/* _INFOMAPA_H */
 
