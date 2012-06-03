@@ -37,11 +37,13 @@ public:
     movimiento_t(infoMapa* inf_mapa, infoMechs * inf_mechs);
     int tipo_movim(const vector<node>& nodos);
     int estrategia_movimiento();
-    void getDestino(int fil_mech, int col_mech,int& fil_dest, int & col_dest, int & lado_dest, int estrategia);
+    int getDestino(int fil_mech, int col_mech,int& fil_dest, int & col_dest, int & lado_dest, int estrategia);
     void salida(string numJ);
     void logica_movimiento();
     int getTipoMov(const node & n1, const node & n2);
     void getSecuenciaPasos(const vector<node> & nodos, int PM);
+    void encarar_objetivo(int f, int c, int f_obj, int c_obj, int & lado);
+int estrategiaPorPeso();
 //    void getArea(int n, int f, int c, vector<nodoArea> & pos_vector);
 
 private:

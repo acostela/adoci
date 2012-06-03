@@ -11,6 +11,7 @@
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
+#include "funcs.h"
 using namespace std;
 
 class OpcionesJuego {

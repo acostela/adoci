@@ -26,16 +26,16 @@ public:
     void show();
     void showInfo();
     void showPath();
-    void storeRoute(vector<node>& nodos);
+    void storeRoute(vector<node>& nodos,int mode);
     void storeRoute(node *nodoDestino);
     void showInfoHijos();
     //void getSecuencia(float PM,movimiento_t * mov);
     //node(const node& orig);
     vector <node *> hijos;
-    void expand();
+    void expand(int mode);
     virtual ~node();
-    float f();
-    float g();
+    float f(int mode);
+    float g(int mode);
     float h();
     float coste;
     bool operator==(const node & nodo);
@@ -51,13 +51,13 @@ private:
     float hVal;
 
     int peso;
-    float costeDesdePadre();
+    float costeDesdePadre(int mode);
 
 
 };
 float distanciaNodos(int forigen, int corigen, int fdestino, int cdestino);
 
-void aStar(node * inicio, node * destino,vector<node>& nodos, infoMapa *mapa, int tonelaje);
+void aStar(node * inicio, node * destino,vector<node>& nodos, infoMapa *mapa, int tonelaje,int mode = DEFAULT);
 
 
 #endif	/* MOVIMIENTO_H */

@@ -11,6 +11,8 @@
 #include <vector>
 #include "infoMapa.h"
 #include "funcs.h"
+#include "hexagono_position.h"
+#include <sstream>
 
 
 class nodoArea {
@@ -35,10 +37,16 @@ private:
 typedef vector<nodoArea> nodeVector;
 
 
-void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc);
+void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc,infoMapa * mapa);
+void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc,infoMapa * mapa);
 vector<nodoArea> adyacentes(const vector<nodoArea> & anillo,infoMapa * mapa);
 vector<nodoArea> getAnillo(const vector<nodoArea> & anillo,const vector<nodoArea> & anillo_interior,infoMapa * mapa);
 vector<nodeVector> getAnillos(const nodoArea & centro,infoMapa * mapa);//5 anillos
+vector<nodoArea> check_linea(const nodoArea & ini, const nodoArea & dest, int numJ);
+bool check_mov_salto(const vector<nodoArea>& nodos,int PS,infoMapa * mapa);
+bool check_salto(const nodoArea & ini, const nodoArea & dest, infoMapa *mapa);
+
+
 void showNodosArea(const std::vector<nodoArea> & nodosArea);
 #endif	/* NODOAREA_H */
 
