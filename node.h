@@ -23,7 +23,7 @@ public:
     node(int fila,int columna,int orienta,infoMapa* map,int pesoMech);
     node(int fila,int columna,int orienta,node * destino,infoMapa* map,int pesoMech);
     node(node * ini, node * dest, infoMapa* map, int pesoMech);
-    void show();
+    void show()const;
     void showInfo();
     void showPath();
     void storeRoute(vector<node>& nodos,int mode);
@@ -56,7 +56,7 @@ private:
 
 };
 float distanciaNodos(int forigen, int corigen, int fdestino, int cdestino);
-
+void show(const vector<node> & nodos);
 void aStar(node * inicio, node * destino,vector<node>& nodos, infoMapa *mapa, int tonelaje,int mode = DEFAULT);
 
 

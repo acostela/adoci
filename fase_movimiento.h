@@ -48,6 +48,8 @@ int estrategiaPorPeso();
 
 private:
     bool check_mov_correr(const vector<node>& nodos);
+    int fil_enemigo;
+    int col_enemigo;
 
 
 };

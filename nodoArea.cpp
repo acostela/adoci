@@ -121,18 +121,18 @@ void nodoArea::evaluaHuir(int f, int c, int enc) {
     evaluacionHuir = d;
 }
 
-void posAtaque(int niveles, vector<nodeVector> & anillosJugador, vector<nodeVector> & anillosObjetivo, int & fil_dest, int & col_dest,infoMapa * mapa) {
+void posAtaque(int niveles, vector<nodeVector> & anillosJugador, vector<nodeVector> & anillosObjetivo, int & fil_dest, int & col_dest, infoMapa * mapa) {
     int toneladas = mapa->info_mechs->mechJugador->defMechInfo->toneladas;
 
-    fil_dest=anillosJugador[0][0].fila;
-    col_dest=anillosJugador[0][0].columna;
+    fil_dest = anillosJugador[0][0].fila;
+    col_dest = anillosJugador[0][0].columna;
     int f = -1, c = -1;
     for (int i = anillosObjetivo.size() - 1; i > 0; i--)
         for (int j = 0; j < anillosObjetivo[i].size(); j++) {
             if (mapa->pos_valida(anillosObjetivo[i][j].fila, anillosObjetivo[i][j].columna, toneladas)) {
                 fil_dest = anillosObjetivo[i][j].fila;
                 col_dest = anillosObjetivo[i][j].columna;
-                if (perteneceAnillos(niveles, anillosJugador,fil_dest,col_dest)) {
+                if (perteneceAnillos(niveles, anillosJugador, fil_dest, col_dest)) {
                     f = fil_dest;
                     c = col_dest;
                 }
@@ -144,10 +144,10 @@ void posAtaque(int niveles, vector<nodeVector> & anillosJugador, vector<nodeVect
     }
 }
 
-bool perteneceAnillos(int niveles, vector<nodeVector> & anillos,int f, int c) {
+bool perteneceAnillos(int niveles, vector<nodeVector> & anillos, int f, int c) {
     if (niveles > anillos.size() - 1)
         niveles = anillos.size() - 1;
-    nodoArea n(f,c,-1);
+    nodoArea n(f, c, -1);
     for (int i = 0; i <= niveles; i++)
         if (n.pertenece(anillos[i]))
             return true;
@@ -167,9 +167,12 @@ bool perteneceAnillos(int niveles, vector<nodeVector> & anillos,int f, int c) {
  */
 void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc, infoMapa * mapa) {
     int toneladas = mapa->info_mechs->mechJugador->defMechInfo->toneladas;
-    fil_dest=anillos[0][0].fila;
-            col_dest=anillos[0][0].columna;
-    float mayor = 0;
+    fil_dest = anillos[0][0].fila;
+    col_dest = anillos[0][0].columna;
+    anillos[0][0].evaluaHuir(f_obj, c_obj, enc);
+
+    float mayor = anillos[0][0].evaluacionHuir;
+
     for (int i = 1; i <= niveles; i++) {
         for (int j = 0; j < anillos[i].size(); j++) {
 
@@ -191,11 +194,12 @@ void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & 
 
 void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc, infoMapa * mapa) {
 
-    fil_dest=anillos[0][0].fila;
-            col_dest=anillos[0][0].columna;
+    fil_dest = anillos[0][0].fila;
+    col_dest = anillos[0][0].columna;
+    anillos[0][0].evaluaHuir(f_obj, c_obj, enc);
 
-    
-    float mayor = 0;
+
+    float mayor = anillos[0][0].evaluacionHuir;
     for (int i = 1; i <= niveles; i++) {
         for (int j = 0; j < anillos[i].size(); j++) {
 

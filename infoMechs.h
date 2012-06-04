@@ -251,7 +251,7 @@ public:
         mifil = pos_Hexagono.fila;
         for (int i = 0; i < num_jugadores - 1; ++i) {
             if (mechs[i]->operativo) {
-                dist = distancia_hexagonal(mifil,mechs[i]->pos_Hexagono.fila,micol,mechs[i]->pos_Hexagono.columna);
+                dist = distancia_hexagonal(mifil,micol,mechs[i]->pos_Hexagono.fila,mechs[i]->pos_Hexagono.columna);
                 if (dist < min_d) {
                     objetivo = i;
                     min_d = dist;
@@ -277,11 +277,9 @@ public:
 
         for (int i = 0; i < num_jugadores - 1; ++i) {
             if (mechs[i]->operativo) {
-                dist = distancia_hexagonal(mifil,mechs[i]->pos_Hexagono.fila,micol,mechs[i]->pos_Hexagono.columna);
-                    cout<< "Distancia a J"<<mechs[i]->numJ<<" d ="<<dist<<endl;
+                dist = distancia_hexagonal(mifil,micol,mechs[i]->pos_Hexagono.fila,mechs[i]->pos_Hexagono.columna);
 
                 if (dist < min_d) {
-                    cout<< "Distancia min a numJ"<<mechs[i]->numJ<<" d ="<<dist<<" < min_d = "<<min_d<<endl;
                     min_d = dist;
                 }
             }
@@ -289,7 +287,7 @@ public:
         int max_peso = 0;
         for (int i = 0; i < num_jugadores - 1; ++i) {
             if (mechs[i]->operativo) {
-                dist = distancia_hexagonal(mifil,mechs[i]->pos_Hexagono.fila,micol,mechs[i]->pos_Hexagono.columna);
+                dist = distancia_hexagonal(mifil,micol,mechs[i]->pos_Hexagono.fila,mechs[i]->pos_Hexagono.columna);
                 if ((dist < (min_d + 2)) && (mechs[i]->defMechInfo->toneladas > max_peso)) {
                     max_peso = mechs[i]->defMechInfo->toneladas;
                     objetivo = i;
