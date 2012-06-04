@@ -121,8 +121,54 @@ void nodoArea::evaluaHuir(int f, int c, int enc) {
     evaluacionHuir = d;
 }
 
-void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc,infoMapa * mapa) {
+void posAtaque(int niveles, vector<nodeVector> & anillosJugador, vector<nodeVector> & anillosObjetivo, int & fil_dest, int & col_dest,infoMapa * mapa) {
     int toneladas = mapa->info_mechs->mechJugador->defMechInfo->toneladas;
+
+    fil_dest=anillosJugador[0][0].fila;
+    col_dest=anillosJugador[0][0].columna;
+    int f = -1, c = -1;
+    for (int i = anillosObjetivo.size() - 1; i > 0; i--)
+        for (int j = 0; j < anillosObjetivo[i].size(); j++) {
+            if (mapa->pos_valida(anillosObjetivo[i][j].fila, anillosObjetivo[i][j].columna, toneladas)) {
+                fil_dest = anillosObjetivo[i][j].fila;
+                col_dest = anillosObjetivo[i][j].columna;
+                if (perteneceAnillos(niveles, anillosJugador,fil_dest,col_dest)) {
+                    f = fil_dest;
+                    c = col_dest;
+                }
+            }
+        }
+    if (f != -1 && c != -1) {
+        fil_dest = f;
+        col_dest = c;
+    }
+}
+
+bool perteneceAnillos(int niveles, vector<nodeVector> & anillos,int f, int c) {
+    if (niveles > anillos.size() - 1)
+        niveles = anillos.size() - 1;
+    nodoArea n(f,c,-1);
+    for (int i = 0; i <= niveles; i++)
+        if (n.pertenece(anillos[i]))
+            return true;
+    return false;
+}
+
+/**
+ * 
+ * @param niveles Niveles de anillos a examinar
+ * @param anillos anillos que rodean al mech jugador
+ * @param fil_dest Devolverá fila dentro de estos anillos
+ * @param col_dest Devolverá columna dentro de estos anillos
+ * @param f_obj fila del mech objetivo
+ * @param c_obj columna del mech objetivo
+ * @param enc encaramiento del mech objetivo
+ * @param mapa en el que nos movemos
+ */
+void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc, infoMapa * mapa) {
+    int toneladas = mapa->info_mechs->mechJugador->defMechInfo->toneladas;
+    fil_dest=anillos[0][0].fila;
+            col_dest=anillos[0][0].columna;
     float mayor = 0;
     for (int i = 1; i <= niveles; i++) {
         for (int j = 0; j < anillos[i].size(); j++) {
@@ -132,8 +178,8 @@ void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & 
         }
     }
     for (int i = 1; i <= niveles; i++) {
-        for (int j = 0; j < anillos[i].size(); j++){
-            if ((anillos[i][j].evaluacionHuir > mayor) && mapa->pos_valida(anillos[i][j].fila,anillos[i][j].columna,toneladas)) {
+        for (int j = 0; j < anillos[i].size(); j++) {
+            if ((anillos[i][j].evaluacionHuir >= mayor) && mapa->pos_valida(anillos[i][j].fila, anillos[i][j].columna, toneladas)) {
                 mayor = anillos[i][j].evaluacionHuir;
                 fil_dest = anillos[i][j].fila;
                 col_dest = anillos[i][j].columna;
@@ -143,9 +189,12 @@ void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & 
 
 }
 
-void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc,infoMapa * mapa) {
+void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc, infoMapa * mapa) {
 
+    fil_dest=anillos[0][0].fila;
+            col_dest=anillos[0][0].columna;
 
+    
     float mayor = 0;
     for (int i = 1; i <= niveles; i++) {
         for (int j = 0; j < anillos[i].size(); j++) {
@@ -155,9 +204,9 @@ void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, i
         }
     }
     for (int i = 1; i <= niveles; i++) {
-        for (int j = 0; j < anillos[i].size(); j++){
-            if (anillos[i][j].evaluacionHuir > mayor && check_salto(anillos[0][0],anillos[i][j],mapa)) {
-                cout<<"Puedo saltar"<<endl;
+        for (int j = 0; j < anillos[i].size(); j++) {
+            if (anillos[i][j].evaluacionHuir >= mayor && check_salto(anillos[0][0], anillos[i][j], mapa)) {
+                cout << "Puedo saltar" << endl;
                 mayor = anillos[i][j].evaluacionHuir;
                 fil_dest = anillos[i][j].fila;
                 col_dest = anillos[i][j].columna;
@@ -222,14 +271,14 @@ bool check_mov_salto(const vector<nodoArea>& nodos, int PS, infoMapa * mapa) {
     return false;
 }
 
-bool check_salto(const nodoArea & ini, const nodoArea & dest, infoMapa *mapa) {
+bool check_salto(const nodoArea & ini, const nodoArea & dest, infoMapa * mapa) {
     int toneladas = mapa->info_mechs->mechJugador->defMechInfo->toneladas;
-    if (!mapa->pos_valida(dest.fila,dest.columna,toneladas))
+    if (!mapa->pos_valida(dest.fila, dest.columna, toneladas))
         return false;
-    int numJ=mapa->info_mechs->mechJugador->numJ;
-    int PS=mapa->info_mechs->mechJugador->dmj->PM_saltar;
-    
-    return check_mov_salto(check_linea(ini,dest,numJ),PS,mapa);
+    int numJ = mapa->info_mechs->mechJugador->numJ;
+    int PS = mapa->info_mechs->mechJugador->dmj->PM_saltar;
+
+    return check_mov_salto(check_linea(ini, dest, numJ), PS, mapa);
 
 }
 

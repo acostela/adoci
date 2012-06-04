@@ -118,11 +118,18 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
     int tipo_mov;
     char cad[255];
     int f, c, lado;
+    cout << "Get destino" << endl;
+    cin.get();
+
     int ind_objetivo = mechs->mechJugador->buscar_objetivo(mechs->iMechVector, mechs->mechJugador->numJ, mechs->nMechs);
     int f_obj = mechs->iMechVector[ind_objetivo]->pos_Hexagono.fila;
     int c_obj = mechs->iMechVector[ind_objetivo]->pos_Hexagono.columna;
     int enc_obj = mechs->iMechVector[ind_objetivo]->encaramiento_mech;
 
+
+    cout << "Objetivo Jugador" << mechs->iMechVector[ind_objetivo]->numJ << endl;
+
+    cin.get();
     int pm_corriendo = mechs->mechJugador->dmj->PM_correr;
     int niveles = pm_corriendo / 4;
 
@@ -166,10 +173,21 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
         case ATACAR:
 
             nodoEnEspalda(f_obj, c_obj, enc_obj, f, c);
+            if (!mapa->pos_valida(f, c, mapa->info_mechs->mechJugador->defMechInfo->toneladas)) {
+
+                anillos = getAnillos(nodoArea(fil_mech, col_mech, -1), mapa); //Anillos mech
+                vector<nodeVector> anillosObj = getAnillos(nodoArea(f_obj, c_obj, -1), mapa);
+                posAtaque(niveles, anillos, anillosObj, f, c, mapa);
+
+
+            }
+
 
             fil_dest = f;
             col_dest = c;
-            lado_dest = enc_obj;
+            encarar_objetivo(f_obj, c_obj, fil_dest, col_dest, lado_dest);
+
+            //lado_dest = enc_obj;
             tipo_mov = CORRER;
             //Pos mas cercana al mas cercano
             break;
@@ -219,26 +237,26 @@ int movimiento_t::estrategiaPorPeso() {
     int tonEnemigo = mechs->iMechVector[ind_objetivo]->defMechInfo->toneladas;
     if (tonJ >= 80) {//Asalto
         estrategia = ATACAR;
-    }else if(tonJ >=60){//Pesados
+    } else if (tonJ >= 60) {//Pesados
         //Atacamos siempre a no ser que nos enfrentemos a un mech de asalto
-        if(tonEnemigo>=80){
+        if (tonEnemigo >= 80) {
             estrategia = DEFENDER;
-        }else{
+        } else {
             estrategia = ATACAR;
         }
-    }else if(tonJ>=40){//Medios
-        if(tonEnemigo < tonJ+15)
+    } else if (tonJ >= 40) {//Medios
+        if (tonEnemigo < tonJ + 15)
             estrategia = ATACAR;
         else
             estrategia = DEFENDER;
-    }else if(tonJ >= 0){//Ligeros
+    } else if (tonJ >= 0) {//Ligeros
         //Huimos del enemigo si pesa 10 ton o + mas que nosotros.
-        if(tonEnemigo < tonJ+10)
-            estrategia=ATACAR;
+        if (tonEnemigo < tonJ + 10)
+            estrategia = ATACAR;
         else
-            estrategia=DEFENDER;
+            estrategia = DEFENDER;
     }
-    
+
     if (estrategia == ATACAR) {
         sprintf(cad, "%s : Estrategia de Ataque. \n\n", ctime(&tiempo));
         flog += cad;
@@ -254,9 +272,9 @@ int movimiento_t::estrategiaPorPeso() {
 }
 
 int movimiento_t::estrategia_movimiento() {
-//    int estrat;
-//    cin >> estrat;
-//    return estrat;
+    //    int estrat;
+    //    cin >> estrat;
+    //    return estrat;
     char cad[255];
     mechs->mechJugador->dmj->Heridas_MW;
     iMech* mech = mechs->mechJugador;
@@ -394,7 +412,15 @@ void movimiento_t::logica_movimiento() {
         flog += cad;
         tipo_movimiento = INMOVIL;
         return;
+    } else if (fil_dest == fil_mech && col_dest == col_mech && lado_dest == lado_mech) {
+        sprintf(cad, "El jugador decide permanecer inmovil.\n");
+        flog += cad;
+        tipo_movimiento = INMOVIL;
+        return;
+
     }
+
+
 
     sprintf(cad, "%s : Destino final de movimiento: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_dest, col_dest, lado_dest);
     flog += cad;

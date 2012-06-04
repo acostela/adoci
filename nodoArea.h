@@ -36,7 +36,7 @@ private:
 };
 typedef vector<nodoArea> nodeVector;
 
-
+void posAtaque(int niveles, vector<nodeVector> & anillosJugador, vector<nodeVector> & anillosObjetivo, int & fil_dest, int & col_dest, infoMapa * mapa);
 void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc,infoMapa * mapa);
 void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc,infoMapa * mapa);
 vector<nodoArea> adyacentes(const vector<nodoArea> & anillo,infoMapa * mapa);
@@ -45,7 +45,7 @@ vector<nodeVector> getAnillos(const nodoArea & centro,infoMapa * mapa);//5 anill
 vector<nodoArea> check_linea(const nodoArea & ini, const nodoArea & dest, int numJ);
 bool check_mov_salto(const vector<nodoArea>& nodos,int PS,infoMapa * mapa);
 bool check_salto(const nodoArea & ini, const nodoArea & dest, infoMapa *mapa);
-
+bool perteneceAnillos(int niveles, vector<nodeVector> & anillos, int f, int c);
 
 void showNodosArea(const std::vector<nodoArea> & nodosArea);
 #endif	/* NODOAREA_H */

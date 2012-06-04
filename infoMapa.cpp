@@ -234,6 +234,8 @@ int infoMapa::coste_mov_ady(int f_origen, int c_origen, int f_objetivo, int c_ob
 }
 
 bool infoMapa::pos_valida(int f, int c, int peso) {
+    if(f<1 || f>=filas || c<1 || c>=columnas)
+        return false;
     if ((mapa[f][c]->FCE < peso) &&
         (mapa[f][c]->objetoTerreno==E_LIGERO ||
          mapa[f][c]->objetoTerreno==E_MEDIO ||
