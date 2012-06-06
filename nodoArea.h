@@ -14,6 +14,8 @@
 #include "hexagono_position.h"
 #include <sstream>
 
+#define NUM_ANILLOS 8
+
 
 class nodoArea {
 public:
