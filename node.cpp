@@ -6,6 +6,8 @@
  */
 
 #include "node.h"
+#include <algorithm>
+using namespace std;
 
 node::node() {
 

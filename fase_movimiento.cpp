@@ -6,6 +6,7 @@
  */
 
 #include "fase_movimiento.h"
+#include <time.h>
 
 movimiento_t::movimiento_t(infoMapa* inf_mapa, infoMechs * inf_mechs) {
     mapa = inf_mapa;

@@ -110,6 +110,7 @@ void acciones::ataque_arma() {
     int col_jugador = informacion_mechs->mechJugador->pos_Hexagono.columna;
     int fil_jugador = informacion_mechs->mechJugador->pos_Hexagono.fila;
     int adyacentes [6][2];
+    int localizacion;
     bool ene_adyacente = false;
     int objetivo_mech, angulo;
 
@@ -147,7 +148,55 @@ void acciones::ataque_arma() {
             sum_nivel_or = 1;
         if (!informacion_mechs->iMechVector[objetivo_mech]->enElSuelo)
             sum_nivel_dest = 1;
-        if (linea_vision(informacion_mechs->mechJugador->numJ, informacion_mechs->mechJugador->pos_Hexagono, sum_nivel_or, informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono, sum_nivel_dest) == true && (informacion_mechs->mechJugador->temp_actual < 10));
+        if (linea_vision(informacion_mechs->mechJugador->numJ, informacion_mechs->mechJugador->pos_Hexagono, sum_nivel_or, informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono, sum_nivel_dest) == true && (informacion_mechs->mechJugador->temp_actual < 10)){
+            for (int i = 0; i < informacion_mechs->mechJugador->defMechInfo->num_componentes; i++) {
+                if ((informacion_mechs->mechJugador->defMechInfo->componentes->clase == ARMA) && (informacion_mechs->mechJugador->defMechInfo->componentes[i].operativo == TRUE) && (informacion_mechs->mechJugador->defMechInfo->componentes[i].distanciaLarga >= informacion_mapa->distancia_casillas(informacion_mechs->mechJugador->pos_Hexagono, informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono))&& ((informacion_mechs->mechJugador->defMechInfo->componentes[i].tipo == ENERGIA) || (queda_municion(*informacion_mechs->mechJugador, informacion_mechs->mechJugador->defMechInfo->componentes[i].codigo)) == TRUE)) {
+                    if ((
+                            ((informacion_mechs->mechJugador->defMechInfo->componentes[i].localizacion == 6) ||
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].localizacion == 1) ||
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].localizacion == 4) ||
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].localizacion == 7) ||
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].localizacion == 2) ||
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].localizacion == 3)) &&
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].trasera == FALSE) &&
+                            (angulo == FRONTAL)
+                            ) ||
+                            (
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].localizacion == 0) &&
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].trasera == FALSE) &&
+                            ((angulo == FRONTAL) ||
+                            (angulo == IZQUIERDO))
+                            ) ||
+                            (
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].localizacion == 5) &&
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].trasera == FALSE) &&
+                            ((angulo == FRONTAL) ||
+                            (angulo == DERECHO))
+                            ) ||
+                            (
+                            (informacion_mechs->mechJugador->defMechInfo->componentes[i].trasera == TRUE) &&
+                            (angulo == TRASERO)
+                            )) {
+                        localizacion = informacion_mechs->mechJugador->defMechInfo->componentes[i].localizacion;
+                        armas->armas_mech[armas->num_armas].localizacion = localizacion;
+                        for (int j = 0; j < informacion_mechs->mechJugador->defMechInfo->localizaciones[localizacion].slots_ocupados; ++j) {
+                            if (informacion_mechs->mechJugador->defMechInfo->localizaciones[localizacion].slots[j].codigo == informacion_mechs->mechJugador->defMechInfo->componentes[i].codigo)
+                                armas->armas_mech[armas->num_armas].slot = j;
+                        }
+                        armas->armas_mech[armas->num_armas].doble_cadencia = FALSE;
+                        if (informacion_mechs->mechJugador->defMechInfo->componentes[i].tipo != ENERGIA) {
+
+
+                            buscar_municion(*informacion_mechs->mechJugador, informacion_mechs->mechJugador->defMechInfo->componentes[i].codigo);
+                        }
+                        armas->armas_mech[armas->num_armas].objetivo.columna = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
+                        armas->armas_mech[armas->num_armas].objetivo.fila = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
+                        armas->armas_mech[armas->num_armas].tipo_objetivo = MECH;
+                        armas->num_armas++;
+                    }
+                }
+            }        
+        }
         //comprueba_LV(int jugador, hexagono_pos cas_origen, int nivel_or, hexagono_pos cas_destino, int nivel_des)
 
         // Llamamos al programa auxiliar LDVyC
@@ -461,7 +510,8 @@ int acciones::objetivoArmas() {
         auxFila = informacion_mechs->iMechVector[i]->pos_Hexagono.fila;
         if (informacion_mechs->iMechVector[i]->operativo == true) {
             //Se pone como Score la distancia del Mech con respecto al nuestro
-            score_objetivo[i] = distancia = sqrtf((float) pow((columnaJugador - auxColumna), 2)+(float) pow((filaJugador - auxFila), 2));
+            score_objetivo[i] = distancia_hexagonal(filaJugador, columnaJugador, auxFila, auxColumna);
+            //score_objetivo[i] = distancia = sqrtf((float) pow((columnaJugador - auxColumna), 2)+(float) pow((filaJugador - auxFila), 2));
         }
         armaduraux += informacion_mechs->iMechVector[i]->blindaje.BD;
         armaduraux += informacion_mechs->iMechVector[i]->blindaje.BI;
@@ -942,11 +992,11 @@ int acciones::buscar_municion(iMech mech, int cod_arma) {
 
 int acciones::queda_municion(iMech mech, int codigo) {
 
-    for (int i = 0; i < mech.defMechInfo->num_componentes; ++i) {
-        if ((mech.defMechInfo->componentes[i].clase == MUNICION) &&
-                (mech.defMechInfo->componentes[i].codigoArma == codigo) &&
-                (mech.defMechInfo->componentes[i].cantidad > 0) &&
-                (mech.defMechInfo->componentes[i].operativo == TRUE))
+    for (int k = 0; k < mech.defMechInfo->num_componentes; ++k) {
+        if ((mech.defMechInfo->componentes[k].clase == MUNICION) &&
+                (mech.defMechInfo->componentes[k].codigoArma == codigo) &&
+                (mech.defMechInfo->componentes[k].cantidad > 0) &&
+                (mech.defMechInfo->componentes[k].operativo == TRUE))
             return TRUE;
     }
     return FALSE;
