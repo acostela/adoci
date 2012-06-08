@@ -23,87 +23,6 @@ acciones::acciones(string numJ, infoMapa* mapa, infoMechs* mechs, OpcionesJuego*
 acciones::acciones(const acciones& orig) {
 }
 
-void acciones::reaccion_accion() {
-    int colum_ene, colum_jug;
-    int fila_ene, fila_jug;
-    int objetivo_mech;
-    reaccion->encaramiento = informacion_mechs->mechJugador->encaramiento_mech;
-
-    objetivo_mech = objetivoArmas();
-    colum_jug = informacion_mechs->mechJugador->pos_Hexagono.columna;
-    fila_jug = informacion_mechs->mechJugador->pos_Hexagono.fila;
-    colum_ene = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
-    fila_ene = informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
-
-    if (fila_ene > fila_jug) { //Hay que girarse hacia 5-4-3
-        if (colum_ene == colum_jug) { //Hay que girarse a 4
-            if (reaccion->encaramiento < 4)
-                reaccion->encaramiento = ENC_DERECHA;
-            else if (reaccion->encaramiento == 4)
-                reaccion->encaramiento = ENC_IGUAL;
-            else
-                reaccion->encaramiento = ENC_IZQUIERDA;
-        } else if (colum_ene > colum_jug) { //Hay que girarse a 3
-            if (reaccion->encaramiento == 3)
-                reaccion->encaramiento = ENC_IGUAL;
-            else if (reaccion->encaramiento > 3) {
-                reaccion->encaramiento = ENC_DERECHA;
-            } else {
-                reaccion->encaramiento = ENC_IZQUIERDA;
-            }
-        } else if (colum_ene < colum_jug) { //Hay que girarse hacia 5
-            if (reaccion->encaramiento == 5)
-                reaccion->encaramiento = ENC_IGUAL;
-            else if (reaccion->encaramiento == 6 || reaccion->encaramiento == 1)
-                reaccion->encaramiento = ENC_IZQUIERDA;
-            else
-                reaccion->encaramiento = ENC_DERECHA;
-        }
-
-    } else if (fila_ene < fila_jug) { //Hay que girarse hacia 6-1-2
-        if (colum_ene == colum_jug) { //Hay que girarse hacia 1
-            if (reaccion->encaramiento == 1)
-                reaccion->encaramiento = ENC_IGUAL;
-            else if (reaccion->encaramiento == 2 || reaccion->encaramiento == 3)
-                reaccion->encaramiento = ENC_IZQUIERDA;
-            else
-                reaccion->encaramiento = ENC_DERECHA;
-        } else if (colum_ene > colum_jug) { //Hay que girarse hacia 2
-            if (reaccion->encaramiento == 2)
-                reaccion->encaramiento = ENC_IGUAL;
-            else if (reaccion->encaramiento == 3 || reaccion->encaramiento == 4)
-                reaccion->encaramiento = ENC_IZQUIERDA;
-            else
-                reaccion->encaramiento = ENC_DERECHA;
-        } else if (colum_ene < colum_jug) { //Hay que girarse hacia 6
-            if (reaccion->encaramiento == 6)
-                reaccion->encaramiento = ENC_IGUAL;
-            else if (reaccion->encaramiento == 1 || reaccion->encaramiento == 2)
-                reaccion->encaramiento = ENC_IZQUIERDA;
-            else
-                reaccion->encaramiento = ENC_DERECHA;
-        }
-    } else if (fila_ene == fila_jug) { //hay que girarse a 2-3 o 6-5
-        if (colum_ene > colum_jug) { //Hay que girarse a 2-3
-            if (reaccion->encaramiento == 2 || reaccion->encaramiento == 3)
-                reaccion->encaramiento = ENC_IGUAL;
-            else if (reaccion->encaramiento == 4 || reaccion->encaramiento == 5)
-                reaccion->encaramiento = ENC_IZQUIERDA;
-            else
-                reaccion->encaramiento = ENC_DERECHA;
-        } else if (colum_ene < colum_jug) { //Hay que girarse a 6-5
-            if (reaccion->encaramiento == 6 || reaccion->encaramiento == 5)
-                reaccion->encaramiento = ENC_IGUAL;
-            else if (reaccion->encaramiento == 1 || reaccion->encaramiento == 2)
-                reaccion->encaramiento = ENC_IZQUIERDA;
-            else
-                reaccion->encaramiento = ENC_DERECHA;
-        }
-
-    }
-
-
-}
 
 void acciones::ataque_arma() {
     int filaux, colaux;
@@ -112,7 +31,7 @@ void acciones::ataque_arma() {
     int adyacentes [6][2];
     int localizacion;
     bool ene_adyacente = false;
-    int objetivo_mech, angulo;
+    int objetivo_mech, angulo;                
 
     posiciones_adyacentes(fil_jugador, col_jugador, adyacentes);
 
@@ -148,9 +67,13 @@ void acciones::ataque_arma() {
             sum_nivel_or = 1;
         if (!informacion_mechs->iMechVector[objetivo_mech]->enElSuelo)
             sum_nivel_dest = 1;
+        
+       // mechJugAux = new iMech();
         if (linea_vision(informacion_mechs->mechJugador->numJ, informacion_mechs->mechJugador->pos_Hexagono, sum_nivel_or, informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono, sum_nivel_dest) == true && (informacion_mechs->mechJugador->temp_actual < 10)){
             for (int i = 0; i < informacion_mechs->mechJugador->defMechInfo->num_componentes; i++) {
-                if ((informacion_mechs->mechJugador->defMechInfo->componentes->clase == ARMA) && (informacion_mechs->mechJugador->defMechInfo->componentes[i].operativo == true) && (informacion_mechs->mechJugador->defMechInfo->componentes[i].distanciaLarga >= informacion_mapa->distancia_casillas(informacion_mechs->mechJugador->pos_Hexagono, informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono))&& ((informacion_mechs->mechJugador->defMechInfo->componentes[i].tipo == ENERGIA)/* || (queda_municion(*informacion_mechs->mechJugador, informacion_mechs->mechJugador->defMechInfo->componentes[i].codigo)) == true*/)) {
+                //mechJugAux = informacion_mechs->mechJugador;
+                //codigoAux=informacion_mechs->mechJugador->defMechInfo->componentes[i].codigo;
+                if ((informacion_mechs->mechJugador->defMechInfo->componentes->clase == ARMA) && (informacion_mechs->mechJugador->defMechInfo->componentes[i].operativo == true) && (informacion_mechs->mechJugador->defMechInfo->componentes[i].distanciaLarga >= informacion_mapa->distancia_casillas(informacion_mechs->mechJugador->pos_Hexagono, informacion_mechs->iMechVector[objetivo_mech]->pos_Hexagono))&& ((informacion_mechs->mechJugador->defMechInfo->componentes[i].tipo == ENERGIA) || (queda_municion(*informacion_mechs->mechJugador, informacion_mechs->mechJugador->defMechInfo->componentes[i].codigo)) == true)) {
                // if(informacion_mechs->mechJugador->defMechInfo->componentes->clase == ARMA){
                         if ((
                             ((informacion_mechs->mechJugador->defMechInfo->componentes[i].localizacion == 6) ||
@@ -421,8 +344,8 @@ void acciones::salida(string cad) {
         mov->salida(numeroJugador);
     }
     if (cad == "Reaccion") {
-        reaccion = new reaccion_t;
-        reaccion_accion();
+        reaccion = new reaccion_t(informacion_mapa,informacion_mechs);
+        reaccion->reaccion_accion();
         reaccion->salida(numeroJugador);
     }
     if (cad == "AtaqueArmas") {
@@ -967,7 +890,7 @@ int acciones::angulo_mech(int mech_obj) {
 
 }
 
-bool acciones::buscar_municion(iMech mech, int cod_arma) {
+bool acciones::buscar_municion(const iMech &mech, int cod_arma) {
     int cod_municion = 0;
 
     for (int i = 0; i < mech.defMechInfo->num_componentes; ++i) { //Si encuentra el código parar
@@ -989,7 +912,7 @@ bool acciones::buscar_municion(iMech mech, int cod_arma) {
     return false;
 }
 
-bool acciones::queda_municion(iMech mech, int codigo) {
+bool acciones::queda_municion(const iMech &mech, int codigo) {
 
     for (int k = 0; k < mech.defMechInfo->num_componentes; ++k) {
         if ((mech.defMechInfo->componentes[k].clase == MUNICION) &&

@@ -53,8 +53,8 @@ public:
     int obtenerLocalizacionMunicion(iMech mech, Componente_Mech arma);
     int obtenerSlotArma(iMech mech, Componente_Mech arma);
     int angulo_mech(int mech_obj);
-    bool buscar_municion(iMech mech, int cod_arma);
-    bool queda_municion(iMech mech, int codigo);
+    bool buscar_municion(const iMech &mech, int cod_arma);
+    bool queda_municion(const iMech &mech, int codigo);
     //Movimiento
     int estrategia_movimiento();
     void reglas_movimiento();

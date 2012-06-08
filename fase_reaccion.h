@@ -10,6 +10,8 @@
 #include "funcs.h"
 #include <iostream>
 #include <fstream>
+#include "infoMapa.h"
+#include "infoMechs.h"
 
 using namespace std;
 
@@ -17,8 +19,12 @@ using namespace std;
 class reaccion_t {
 public:
     int encaramiento;
-
-    reaccion_t();
+    infoMapa* mapa;
+    infoMechs * mechs;
+    
+    reaccion_t(infoMapa* inf_mapa, infoMechs * inf_mechs);
+    void reaccion_accion() ;
+    int objetivoEncaramiento();
     void salida(string numJ);
 };
 
