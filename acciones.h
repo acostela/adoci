@@ -53,24 +53,24 @@ public:
     int obtenerLocalizacionMunicion(iMech mech, Componente_Mech arma);
     int obtenerSlotArma(iMech mech, Componente_Mech arma);
     int angulo_mech(int mech_obj);
-    int buscar_municion(iMech mech, int cod_arma);
-    int queda_municion(iMech mech, int codigo);
+    bool buscar_municion(iMech mech, int cod_arma);
+    bool queda_municion(iMech mech, int codigo);
     //Movimiento
     int estrategia_movimiento();
     void reglas_movimiento();
     void confirmar_mov(int tipo_movimiento, hexagono_pos destino, int lado, int MASC, int tipo, int veces);
     void mov_huir(int num_jugador, int num_jugadores, int PM_INI, int tipo_mov);
-    void actualizar_mov_candidatos(int PM, hexagono_pos casilla, int *candidatos, int toneladas, int tipo_mov);
+    void actualizar_mov_candidatos(int PM, hexagono_pos casilla, bool *candidatos, int toneladas, int tipo_mov);
     int func_direccion_giro (int encaramiento, int dir_objetivo);
     int func_coste_giro (int encaramiento, int dir_objetivo, int dir_giro);
     int lado_final_giro (int enc_ini, int dir_giro, int veces);
-    int paso_huir(int* candidatos, int num_jugador, int mech_objetivo, int primer_mov);
+    int paso_huir(bool* candidatos, int num_jugador, int mech_objetivo, int primer_mov);
     int obt_valor_obstaculos(hexagono_pos pos);
     int es_mejor(int LV1, int valor1, int LV2, int valor2);
     bool linea_vision(int num_jugador, hexagono_pos origen, int nivel_origen,hexagono_pos destino, int nivel_destino);
     void mov_atacar(int num_jugador, int num_jugadores, int PM, int tipo_mov);
     int casilla_ocupada(int num_jugadores, hexagono_pos casilla);
-    int mov_acercarse(int num_jugador, int mech_objetivo, int *candidatos, int PM);
+    int mov_acercarse(int num_jugador, int mech_objetivo, bool *candidatos, int PM);
     int obt_paso_anterior(int direccion);
 
  
