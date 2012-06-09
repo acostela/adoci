@@ -36,7 +36,7 @@ void OpcionesJuego::leeFich(string fichero){
 
     direccion_viento = atoi(cad.c_str());//INT 1 y 6 o -1
 
-    if(direccion_viento!=-1 && (direccion_viento<1 || direccion_viento>6)){
+    if(direccion_viento!=-1 && (direccion_viento<0 || direccion_viento>6)){
         cerr << "\nValor de dirección del viento incorrecto, debe de estar entre 1 y 6 o ser -1:"<<endl;
         cin.get();
         exit(1);

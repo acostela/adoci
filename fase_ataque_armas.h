@@ -10,6 +10,8 @@
 #include "hexagono_position.h"
 #include "funcs.h"
 #include <fstream>
+#include "infoMapa.h"
+#include "infoMechs.h"
 
 using namespace std;
 /* Datos para el disparo de un arma */
@@ -22,7 +24,7 @@ public:
     int slot_municion;
     hexagono_pos objetivo;
     int tipo_objetivo;
-
+   
     arma_fuego() {
         localizacion = 0;
         slot = 0;
@@ -42,8 +44,17 @@ public:
     hexagono_pos objetivo;
     int num_armas;
     arma_fuego armas_mech[20];
-
-    ataque_armas_t();
+    infoMapa* mapa;
+    infoMechs * mechs;
+    
+    ataque_armas_t(infoMapa* inf_mapa, infoMechs * inf_mechs);
+    void posiciones_adyacentes(int f, int c, int adyacentes[][2]);
+    int angulo_mech(int mech_obj);
+    int objetivoArmas();
+    bool queda_municion(const iMech &mech, int codigo);
+    bool buscar_municion(const iMech &mech, int cod_arma);
+    bool linea_vision(int num_jugador, hexagono_pos origen, int nivel_origen, hexagono_pos destino, int nivel_destino);
+    void ataque_arma();
     void salida(string numJ);
 };
 
