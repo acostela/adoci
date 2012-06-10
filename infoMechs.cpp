@@ -325,6 +325,12 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         }
     } // Final de la lectura de las localizaciones
     //TERMINA DE LEER DEFMECH
+    leeLinea(in,auxiliar,'\n');
+    leeLinea(in,auxiliar,'\n');
+    leeLinea(in,auxiliar,'\n');
+    leeLinea(in,auxiliar,'\n');
+
+    mech->defMechInfo->tipoRadiadores = atoi(auxiliar.c_str());
 }
 
 void infoMechs::leeDatosPPal(ifstream & in) {

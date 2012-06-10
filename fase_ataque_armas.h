@@ -54,6 +54,8 @@ public:
     bool queda_municion(const iMech &mech, int codigo);
     bool buscar_municion(const iMech &mech, int cod_arma);
     bool linea_vision(int num_jugador, hexagono_pos origen, int nivel_origen, hexagono_pos destino, int nivel_destino);
+    int obtenerLocalizacionMunicion(iMech *&mech, Componente_Mech arma);
+    int obtenerSlotArma(iMech *&mech, Componente_Mech arma);
     void ataque_arma();
     void salida(string numJ);
 };

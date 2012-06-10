@@ -104,6 +104,7 @@ typedef struct {
     bool *brazos; // Cada casilla corresponde a una parte del brazo
     int num_armas; // Numero de armas del mech
     int num_actuadores; // Numero de actuadores del mech
+    int tipoRadiadores;
     Actuador_Mech *actuadores;
     Localizacion_Mech *localizaciones;
 } defMechStruct;
