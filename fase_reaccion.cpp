@@ -63,6 +63,7 @@ int reaccion_t::objetivoEncaramiento(){
 
    // score_objetivo[mech_mas_debil] -= 1; //Si hay dos mechs a igual distancia pero uno esta mas daÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±ado que otro disparamos a ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©ste.
     scoreaux = score_objetivo[0];
+	objetivo = 0;
 
     for (int i = 1; i < mechs->nMechs; i++) {
         if (score_objetivo[i] < scoreaux) {

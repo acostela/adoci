@@ -26,7 +26,6 @@ string cadtoStr(char* cad) {
 }
 
 int main(int argc, char** argv) {
-
     if (argc != 3) {
         cerr << "Error, numero de argumentos incorrecto." << endl;
         return (EXIT_FAILURE);
@@ -70,8 +69,8 @@ int main(int argc, char** argv) {
 
     inf_mapa.leeFich(f_map);
 
-
     acs.salida(nombreFase);
+
  /*
   
   //   usleep(2000000);
@@ -93,10 +92,13 @@ int main(int argc, char** argv) {
         flog += cad;
 
     sprintf(cad, "--------------------------------------------------\n");
-
+    
     flog+=cad;
     out_log<<flog;
     out_log.close();
+    //cin.get();
+    //cout << "PRUEBA\n ";
+    
     return (EXIT_SUCCESS);
 }
 
