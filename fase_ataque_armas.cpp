@@ -664,145 +664,145 @@ void ataque_armas_t::ataque_arma() {
         objetivo.fila = 0;
         num_armas = 0;
     } else { //Si no vamos a pegar fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­sicamente usamos armas
-//        objetivo_mech = objetivoArmas();
-//        objetivo.fila = mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
-//        objetivo.columna = mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
-//
-//        angulo = angulo_mech(objetivo_mech);
-//
-//        filaux = mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
-//        colaux = mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
-//        int sum_nivel_or = 0;
-//        int sum_nivel_dest = 0;
-//
-//        if (!mechs->mechJugador->enElSuelo)
-//            sum_nivel_or = 1;
-//        if (!mechs->iMechVector[objetivo_mech]->enElSuelo)
-//            sum_nivel_dest = 1;
-//        
-//        if (linea_vision(mechs->mechJugador->numJ, mechs->mechJugador->pos_Hexagono, sum_nivel_or, mechs->iMechVector[objetivo_mech]->pos_Hexagono, sum_nivel_dest) == true && (mechs->mechJugador->temp_actual < 10)){
-//            for (int i = 0; i < mechs->mechJugador->defMechInfo->num_componentes; i++) {
-//                if ((mechs->mechJugador->defMechInfo->componentes->clase == ARMA) && (mechs->mechJugador->defMechInfo->componentes[i].operativo == true) && (mechs->mechJugador->defMechInfo->componentes[i].distanciaLarga >= mapa->distancia_casillas(mechs->mechJugador->pos_Hexagono, mechs->iMechVector[objetivo_mech]->pos_Hexagono))&& ((mechs->mechJugador->defMechInfo->componentes[i].tipo == ENERGIA) || (queda_municion(*mechs->mechJugador, mechs->mechJugador->defMechInfo->componentes[i].codigo)) == true)) {
-//                        if ((
-//                            ((mechs->mechJugador->defMechInfo->componentes[i].localizacion == 6) ||
-//                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 1) ||
-//                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 4) ||
-//                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 7) ||
-//                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 2) ||
-//                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 3)) &&
-//                            (mechs->mechJugador->defMechInfo->componentes[i].trasera == false) &&
-//                            (angulo == FRONTAL)
-//                            ) ||
-//                            (
-//                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 0) &&
-//                            (mechs->mechJugador->defMechInfo->componentes[i].trasera == false) &&
-//                            ((angulo == FRONTAL) ||
-//                            (angulo == IZQUIERDO))
-//                            ) ||
-//                            (
-//                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 5) &&
-//                            (mechs->mechJugador->defMechInfo->componentes[i].trasera == false) &&
-//                            ((angulo == FRONTAL) ||
-//                            (angulo == DERECHO))
-//                            ) ||
-//                            (
-//                            (mechs->mechJugador->defMechInfo->componentes[i].trasera == true) &&
-//                            (angulo == TRASERO)
-//                            )) {
-//                        localizacion = mechs->mechJugador->defMechInfo->componentes[i].localizacion;
-//                        armas_mech[num_armas].localizacion = localizacion;
-//                        for (int j = 0; j < mechs->mechJugador->defMechInfo->localizaciones[localizacion].slots_ocupados; ++j) {
-//                            if (mechs->mechJugador->defMechInfo->localizaciones[localizacion].slots[j].codigo == mechs->mechJugador->defMechInfo->componentes[i].codigo)
-//                                armas_mech[num_armas].slot = j;
-//                        }
-//                        armas_mech[num_armas].doble_cadencia = true;
-//                        if (mechs->mechJugador->defMechInfo->componentes[i].tipo != ENERGIA) {
-//                            buscar_municion(*mechs->mechJugador, mechs->mechJugador->defMechInfo->componentes[i].codigo);
-//                        }
-//                        armas_mech[num_armas].objetivo.columna = mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
-//                        armas_mech[num_armas].objetivo.fila = mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
-//                        armas_mech[num_armas].tipo_objetivo = MECH;
-//                        num_armas++;
-//                    }
-//                }
-//            }       
-//        }
-       
-        /*PRUEBA DE NUEVA ESTRATEGIA*/
-        int num_mech_objetivo;
-        num_mech_objetivo=objetivoArmas(); //seleccionamos objetivo4
-        //Calculamos el nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de armas del mech
-        int numero_armas=0;
-        int contador=0;
-        
-        Componente_Mech *armasMech = new Componente_Mech[mechs->mechJugador->defMechInfo->num_componentes];
-        for (int i=0; i < mechs->mechJugador->defMechInfo->num_componentes;i++){
-            if(mechs->mechJugador->defMechInfo->componentes[i].clase == ARMA){
-                numero_armas++;
-                armasMech[contador] = mechs->mechJugador->defMechInfo->componentes[i];
-                contador++;
-            }
-        }
-  
-        contador=0;
-        Componente_Mech *armasUtiles = new Componente_Mech[numero_armas];
-        for (int i = 0; i < numero_armas; i++){  // para cada arma del mech
-             if (armasMech[i].operativo && (obtenerLocalizacionMunicion(mechs->mechJugador,armasMech[i]) != -1 // SI esta operativo y tiene municion
-                     || armasMech[i].tipo == 1|| armasMech[i].tipo == ENERGIA)){   //O es de tipo energia o nada          
-                 armasUtiles[contador] = armasMech[i];
-                 contador++;
-             }
-        }
-        
-        int numArmasUtiles = contador;
-        int numArmasDisparar = 0;
-        int sumatoriaTemperatura = 0;
-        int calordisipado=0;
-        int calor;
-       
-        if(mechs->mechJugador->defMechInfo->tipoRadiadores == 0)
-           calordisipado = mechs->mechJugador->defMechInfo->radiadores;
-        else
-           calordisipado = 2*mechs->mechJugador->defMechInfo->radiadores;
+        objetivo_mech = objetivoArmas();
+        objetivo.fila = mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
+        objetivo.columna = mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
 
-        calor = calor - calordisipado;
-        if(calor < 0){
-            calor = 0;
+        angulo = angulo_mech(objetivo_mech);
+
+        filaux = mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
+        colaux = mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
+        int sum_nivel_or = 0;
+        int sum_nivel_dest = 0;
+
+        if (!mechs->mechJugador->enElSuelo)
+            sum_nivel_or = 1;
+        if (!mechs->iMechVector[objetivo_mech]->enElSuelo)
+            sum_nivel_dest = 1;
+        
+        if (linea_vision(mechs->mechJugador->numJ, mechs->mechJugador->pos_Hexagono, sum_nivel_or, mechs->iMechVector[objetivo_mech]->pos_Hexagono, sum_nivel_dest) == true && (mechs->mechJugador->temp_actual < 10)){
+            for (int i = 0; i < mechs->mechJugador->defMechInfo->num_componentes; i++) {
+                if ((mechs->mechJugador->defMechInfo->componentes->clase == ARMA) && (mechs->mechJugador->defMechInfo->componentes[i].operativo == true) && (mechs->mechJugador->defMechInfo->componentes[i].distanciaLarga >= mapa->distancia_casillas(mechs->mechJugador->pos_Hexagono, mechs->iMechVector[objetivo_mech]->pos_Hexagono))&& ((mechs->mechJugador->defMechInfo->componentes[i].tipo == ENERGIA) || (queda_municion(*mechs->mechJugador, mechs->mechJugador->defMechInfo->componentes[i].codigo)) == true)) {
+                        if ((
+                            ((mechs->mechJugador->defMechInfo->componentes[i].localizacion == 6) ||
+                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 1) ||
+                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 4) ||
+                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 7) ||
+                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 2) ||
+                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 3)) &&
+                            (mechs->mechJugador->defMechInfo->componentes[i].trasera == false) &&
+                            (angulo == FRONTAL)
+                            ) ||
+                            (
+                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 0) &&
+                            (mechs->mechJugador->defMechInfo->componentes[i].trasera == false) &&
+                            ((angulo == FRONTAL) ||
+                            (angulo == IZQUIERDO))
+                            ) ||
+                            (
+                            (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 5) &&
+                            (mechs->mechJugador->defMechInfo->componentes[i].trasera == false) &&
+                            ((angulo == FRONTAL) ||
+                            (angulo == DERECHO))
+                            ) ||
+                            (
+                            (mechs->mechJugador->defMechInfo->componentes[i].trasera == true) &&
+                            (angulo == TRASERO)
+                            )) {
+                        localizacion = mechs->mechJugador->defMechInfo->componentes[i].localizacion;
+                        armas_mech[num_armas].localizacion = localizacion;
+                        for (int j = 0; j < mechs->mechJugador->defMechInfo->localizaciones[localizacion].slots_ocupados; ++j) {
+                            if (mechs->mechJugador->defMechInfo->localizaciones[localizacion].slots[j].codigo == mechs->mechJugador->defMechInfo->componentes[i].codigo)
+                                armas_mech[num_armas].slot = j;
+                        }
+                        armas_mech[num_armas].doble_cadencia = true;
+                        if (mechs->mechJugador->defMechInfo->componentes[i].tipo != ENERGIA) {
+                            buscar_municion(*mechs->mechJugador, mechs->mechJugador->defMechInfo->componentes[i].codigo);
+                        }
+                        armas_mech[num_armas].objetivo.columna = mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
+                        armas_mech[num_armas].objetivo.fila = mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
+                        armas_mech[num_armas].tipo_objetivo = MECH;
+                        num_armas++;
+                    }
+                }
+            }       
         }
-       
-        Componente_Mech *armasDisparar = new Componente_Mech[numArmasUtiles];
-        contador=0;
-        bool terminar = false;
-       
-        for (int i=0; i<numArmasUtiles && !terminar ;i++){
-            if((sumatoriaTemperatura + armasUtiles->calor)>mechs->mechJugador->temp_actual){
-                terminar = true;
-            }else{
-                 sumatoriaTemperatura += armasUtiles->calor;
-                 armasDisparar[contador]=armasUtiles[i];
-                 contador ++ ; 
-            }
-         }
-         numArmasDisparar = contador;
-         coger_garrote=false; //No cogemos garrote
-         objetivo.pos=mechs->iMechVector[num_mech_objetivo]->pos_Hexagono.pos; //Hexagono Objetivo
-         num_armas = numArmasDisparar; //numero armas disparar
-        
-         int localizacionMun;
-        
-         for(int i=0; i<numArmasDisparar; i++){
-             armas_mech[i].localizacion = armasDisparar[i].localizacion;
-             armas_mech[i].slot = obtenerSlotArma(mechs->mechJugador,armasDisparar[i]); //Slot del arma
-             armas_mech[i].doble_cadencia = false; //No usamos doble cadencia
-            
-             if(armasDisparar[i].tipo == 2 || armasDisparar[i].tipo == 3){ //Si son armas que usan municiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n
-                 armas_mech[i].loc_municion = obtenerLocalizacionMunicion(mechs->mechJugador,armasDisparar[i]);
-             }else{  //Arma de energia
-                 armas_mech[i].loc_municion = -1;
-                 armas_mech[i].slot_municion = -1;
-             }
-         }
-        
+//       if (linea_vision(mechs->mechJugador->numJ, mechs->mechJugador->pos_Hexagono, sum_nivel_or, mechs->iMechVector[objetivo_mech]->pos_Hexagono, sum_nivel_dest) == true){
+//        /*PRUEBA DE NUEVA ESTRATEGIA*/
+//        int num_mech_objetivo;
+//        num_mech_objetivo=objetivoArmas(); //seleccionamos objetivo4
+//        //Calculamos el nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de armas del mech
+//        int numero_armas=0;
+//        int contador=0;
+//        
+//        Componente_Mech *armasMech = new Componente_Mech[mechs->mechJugador->defMechInfo->num_componentes];
+//        for (int i=0; i < mechs->mechJugador->defMechInfo->num_componentes;i++){
+//            if(mechs->mechJugador->defMechInfo->componentes[i].clase == ARMA){
+//                numero_armas++;
+//                armasMech[contador] = mechs->mechJugador->defMechInfo->componentes[i];
+//                contador++;
+//            }
+//        }
+//  
+//        contador=0;
+//        Componente_Mech *armasUtiles = new Componente_Mech[numero_armas];
+//        for (int i = 0; i < numero_armas; i++){  // para cada arma del mech
+//             if (armasMech[i].operativo && (obtenerLocalizacionMunicion(mechs->mechJugador,armasMech[i]) != -1 // SI esta operativo y tiene municion
+//                     || armasMech[i].tipo == 1|| armasMech[i].tipo == ENERGIA)){   //O es de tipo energia o nada          
+//                 armasUtiles[contador] = armasMech[i];
+//                 contador++;
+//             }
+//        }
+//        
+//        int numArmasUtiles = contador;
+//        int numArmasDisparar = 0;
+//        int sumatoriaTemperatura = 0;
+//        int calordisipado=0;
+//        int calor;
+//       
+//        if(mechs->mechJugador->defMechInfo->tipoRadiadores == 0)
+//           calordisipado = mechs->mechJugador->defMechInfo->radiadores;
+//        else
+//           calordisipado = 2*mechs->mechJugador->defMechInfo->radiadores;
+//
+//        calor = calor - calordisipado;
+//        if(calor < 0){
+//            calor = 0;
+//        }
+//       
+//        Componente_Mech *armasDisparar = new Componente_Mech[numArmasUtiles];
+//        contador=0;
+//        bool terminar = false;
+//       
+//        for (int i=0; i<numArmasUtiles && !terminar ;i++){
+//            if((sumatoriaTemperatura + armasUtiles->calor)>/*mechs->mechJugador->temp_actual*/ 30){
+//                terminar = true;
+//            }else{
+//                 sumatoriaTemperatura += armasUtiles->calor;
+//                 armasDisparar[contador]=armasUtiles[i];
+//                 contador ++ ; 
+//            }
+//         }
+//         numArmasDisparar = contador;
+//         coger_garrote=false; //No cogemos garrote
+//         objetivo.pos=mechs->iMechVector[num_mech_objetivo]->pos_Hexagono.pos; //Hexagono Objetivo
+//         num_armas = numArmasDisparar; //numero armas disparar
+//        
+//         int localizacionMun;
+//        
+//         for(int i=0; i<numArmasDisparar; i++){
+//             armas_mech[i].localizacion = armasDisparar[i].localizacion;
+//             armas_mech[i].slot = obtenerSlotArma(mechs->mechJugador,armasDisparar[i]); //Slot del arma
+//             armas_mech[i].doble_cadencia = false; //No usamos doble cadencia
+//            
+//             if(armasDisparar[i].tipo == 2 || armasDisparar[i].tipo == 3){ //Si son armas que usan municiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n
+//                 armas_mech[i].loc_municion = obtenerLocalizacionMunicion(mechs->mechJugador,armasDisparar[i]);
+//             }else{  //Arma de energia
+//                 armas_mech[i].loc_municion = -1;
+//                 armas_mech[i].slot_municion = -1;
+//             }
+//         }
+//       }
         
         
     }
@@ -818,111 +818,5 @@ void ataque_armas_t::ataque_arma() {
     cin.get();
 
 
-    //Nueva estrategia de ataque
-
-
-    /*int fila_mechPlayer = informacion_mechs->mechJugador->pos_Hexagono.fila;
-    int columna_mechPlayer = informacion_mechs->mechJugador->pos_Hexagono.columna;
-    int pos_adyacentes[6][2];
-    int num_mech_objetivo;
     
-    bool adyacente = false;
-    
-
-    posiciones_adyacentes(fila_mechPlayer,columna_mechPlayer,pos_adyacentes);
-     */
-    /*Compruebo si hay alguien al lado, si es asi no disparo ni me entretengo en coger garrote
-     para pegar cuerpo a cuerpo en la fase de ataque fisico*/
-    /* for(int i=0; i<6; i++){
-        for(int k=0; k<informacion_mechs->nMechs;k++){
-           if(informacion_mechs->iMechVector[k]->pos_Hexagono.fila == pos_adyacentes[i][0]
-             && informacion_mechs->iMechVector[k]->pos_Hexagono.columna == pos_adyacentes[i][1]){
-               armas->coger_garrote=false;
-               armas->objetivo.columna=0;
-               armas->objetivo.fila=0;
-               armas->num_armas=0;
-               adyacente = true;
-           }
-        }
-     }
-     */
-    /*Si no hay Mech adyacente desarrollamos estrategia disparo*/
-    /* if(!adyacente){        
-         num_mech_objetivo=objetivoArmas(); //seleccionamos objetivo4
-         //Calculamos el nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de armas del mech
-         int numero_armas=0;
-         int contador=0;
-        
-         Componente_Mech *armasMech = new Componente_Mech[informacion_mechs->mechJugador->num_componentes];
-         for (int i=0; i < informacion_mechs->mechJugador->num_componentes;i++){
-             if(informacion_mechs->mechJugador->componentes[i].clase==1){
-                 numero_armas++;
-                 armasMech[contador] = informacion_mechs->mechJugador->componentes[i];
-                 contador++;
-             }
-         }
-     
-  
-        contador=0;
-        Componente_Mech *armasUtiles = new Componente_Mech[numero_armas];
-        for (int i = 0; i < numero_armas; i++){  // para cada arma del mech
-             if (armasMech[i].operativo && (obtenerLocalizacionMunicion(*(informacion_mechs->mechJugador),armasMech[i]) != -1 // SI esta operativo y tiene municion
-                     || armasMech[i].tipo == 1|| armasMech[i].tipo == 0)){   //O es de tipo energia o nada          
-                 armasUtiles[contador] = armasMech[i];
-                 contador++;
-             }
-        }
-       
-            
-        int numArmasUtiles = contador;
-        int numArmasDisparar = 0;
-        int sumatoriaTemperatura = 0;
-        int calordisipado=0;
-        int calor;
-       
-        calor = informacion_mechs->mechJugador->temp_actual;
-       
-        if(informacion_mechs->mechJugador->tipoRadiadores == 0)
-           calordisipado = informacion_mechs->mechJugador->radiadores;
-        else
-           calordisipado = 2*informacion_mechs->mechJugador->radiadores;
-
-        calor = calor - calordisipado;
-        if(calor < 0){
-            calor = 0;
-        }
-       
-        Componente_Mech *armasDisparar = new Componente_Mech[numArmasUtiles];
-        contador=0;
-        bool terminar = false;
-       
-        for (int i=0; i<numArmasUtiles && !terminar ;i++){
-            if((sumatoriaTemperatura + armasUtiles->calor)>informacion_mechs->mechJugador->temp_actual){
-                terminar = true;
-            }else{
-                 sumatoriaTemperatura += armasUtiles->calor;
-                 armasDisparar[contador]=armasUtiles[i];
-                 contador ++ ; 
-            }
-         }
-         numArmasDisparar = contador;
-         armas->coger_garrote=false; //No cogemos garrote
-         armas->objetivo.pos=informacion_mechs->iMechVector[num_mech_objetivo]->pos_Hexagono.pos; //HexÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡gono objetivo
-         armas->num_armas = numArmasDisparar; //numero armas disparar
-        
-         int localizacionMun;
-        
-         for(int i=0; i<numArmasDisparar; i++){
-             armas->armas_mech[i].localizacion = armasDisparar[i].localizacion;
-             armas->armas_mech[i].slot = obtenerSlotArma(informacion_mechs->mechJugador,armasDisparar[i]); //Slot del arma
-             armas->armas_mech[i].doble_cadencia = false; //No usamos doble cadencia
-            
-             if(armasDisparar[i].tipo == 2 || armasDisparar[i].tipo == 3){ //Si son armas que usan municiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n
-                 armas->armas_mech[i].loc_municion = obtenerLocalizacionMunicion(informacion_mechs->mechJugador,armasDisparar[i]);
-             }else{  //Arma de energia
-                 armas->armas_mech[i].loc_municion = -1;
-                 armas->armas_mech[i].slot_municion = -1;
-             }
-         }
-     }*/
 }
