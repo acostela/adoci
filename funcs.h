@@ -116,9 +116,9 @@ enum tipo_objetivo {
 
 enum angulo {
     FRONTAL = 1,
-    TRASERO,
-    IZQUIERDO,
-    DERECHO
+    IZQUIERDO = 2,
+    DERECHO = 3,
+    TRASERO = 0
 };
 
 enum booleanos {

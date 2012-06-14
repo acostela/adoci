@@ -42,22 +42,22 @@ void ataque_armas_t::salida(string numJ) {
             break;
     }
 
-    /* Si se coge un garrote, terminar aquÃƒÆ’Ã‚Â­ */
+    /* Si se coge un garrote, terminar aquÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­ */
     if (coger_garrote == true) {
         out << accion;
         out.close();
         return;
     }
 
-    /* Linea 2: HexÃƒÆ’Ã‚Â¡gono objetivo primario */
+    /* Linea 2: HexÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡gono objetivo primario */
     accion = accion + objetivo.stringPos() + "\n";
 
-    /* Linea 3: NÃƒÆ’Ã‚Âºmero de armas que se van a disparar */
+    /* Linea 3: NÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de armas que se van a disparar */
     accion = accion + itoStr(num_armas) + "\n";
 
     /* Para cada arma a disparar */
     for (int i = 0; i < num_armas; ++i) {
-        /* LocalizaciÃƒÆ’Ã‚Â³n del arma */
+        /* LocalizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n del arma */
         switch (armas_mech[i].localizacion) {
             case 0:
                 accion = accion + "BI\n";
@@ -88,7 +88,7 @@ void ataque_armas_t::salida(string numJ) {
                 break;
         }
 
-        /* Slot del arma dentro de la localizaciÃƒÆ’Ã‚Â³n */
+        /* Slot del arma dentro de la localizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n */
         accion = accion + itoStr(armas_mech[i].slot) + "\n";
 
         /* Doble cadencia */
@@ -101,7 +101,7 @@ void ataque_armas_t::salida(string numJ) {
                 break;
         }
 
-        /* LocalizaciÃƒÆ’Ã‚Â³n de la municiÃƒÆ’Ã‚Â³n */
+        /* LocalizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n de la municiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n */
         switch (armas_mech[i].loc_municion) {
             case 0:
                 accion = accion + "BI\n";
@@ -134,10 +134,10 @@ void ataque_armas_t::salida(string numJ) {
                 accion = accion + "-1\n";
         }
 
-        /* Slot de la municiÃƒÆ’Ã‚Â³n dentro de la localizaciÃƒÆ’Ã‚Â³n */
+        /* Slot de la municion dentro de la localizaciÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n */
         accion = accion + itoStr(armas_mech[i].slot_municion) + "\n";
 
-        /* HexÃƒÆ’Ã‚Â¡gono objetivo del arma */
+        /* Hexagono objetivo del arma */
         accion = accion + armas_mech[i].objetivo.stringPos() + "\n";
 
         /* Tipo de objetivo */
@@ -146,7 +146,7 @@ void ataque_armas_t::salida(string numJ) {
                 accion = accion + "Mech\n";
                 break;
             case HEXAGONO:
-                accion = accion + "HexÃƒÆ’Ã‚Â¡gono\n";
+                accion = accion + "Hexagono\n";
                 break;
             case NINGUNO:
                 accion = accion + "Ninguno\n";
@@ -195,7 +195,7 @@ void ataque_armas_t::posiciones_adyacentes(int f, int c, int adyacentes[][2]) {
 }
 
 int ataque_armas_t::angulo_mech(int mech_obj) {
-    int alto, ancho, fila, columna, fila_init;
+    int alto, ancho, fila_init;
 
     alto = mapa->filas;
     ancho = mapa->columnas;
@@ -233,7 +233,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* Mirar toda la lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nea de casillas que tiene detrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡s */
+            /* Mirar toda la lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nea de casillas que tiene detrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡s */
             for (int i = mechs->mechJugador->pos_Hexagono.fila + 1; i < mapa->filas; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -263,14 +263,14 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* Mirar si estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ en los laterales */
+            /* Mirar si estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ en los laterales */
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna)
                 return DERECHO;
             else
                 return IZQUIERDO;
             break;
         case 2:
-            /* Comprobar el ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ngulo frontal */
+            /* Comprobar el ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ngulo frontal */
             for (int i = 1; i < mechs->mechJugador->pos_Hexagono.fila; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -496,7 +496,7 @@ int ataque_armas_t::objetivoArmas() {
     int columnaJugador;
     int filaJugador;
     int mech_mas_debil;
-    int score_objetivo[mechs->nMechs - 1]; //Aqui se guardaraÃ‚Â¡ en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
+    int score_objetivo[mechs->nMechs - 1]; //Aqui se guardaraÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
     int armaduraux = 0;
     int armaduraminima = 100000;
     int objetivo;
@@ -513,9 +513,11 @@ int ataque_armas_t::objetivoArmas() {
     for (int i = 0; i < mechs->nMechs - 1; i++) {
         auxColumna = mechs->iMechVector[i]->pos_Hexagono.columna;
         auxFila = mechs->iMechVector[i]->pos_Hexagono.fila;
-        if (mechs->iMechVector[i]->operativo == true) 
+        if (mechs->iMechVector[i]->operativo == true){ 
+            int prueba= distancia_hexagonal(filaJugador, columnaJugador, auxFila, auxColumna);
             score_objetivo[i] = distancia_hexagonal(filaJugador, columnaJugador, auxFila, auxColumna);//Se pone como Score la distancia del Mech con respecto al nuestro
-
+        
+        }
         
         armaduraux += mechs->iMechVector[i]->blindaje.BD;
         armaduraux += mechs->iMechVector[i]->blindaje.BI;
@@ -536,7 +538,7 @@ int ataque_armas_t::objetivoArmas() {
         armaduraux = 0;
     }
 
-    score_objetivo[mech_mas_debil] -= 1; //Si hay dos mechs a igual distancia pero uno esta mas daÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ado que otro disparamos a ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©ste.
+    score_objetivo[mech_mas_debil] -= 1; //Si hay dos mechs a igual distancia pero uno esta mas daÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ado que otro disparamos a ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©ste.
     scoreaux = score_objetivo[0];
     objetivo = 0;
 
@@ -589,7 +591,7 @@ bool ataque_armas_t::queda_municion(const iMech &mech, int codigo) {
 bool ataque_armas_t::buscar_municion(const iMech &mech, int cod_arma) {
     int cod_municion = 0;
 
-    for (int i = 0; i < mech.defMechInfo->num_componentes; ++i) { //Si encuentra el cÃƒÂ³digo parar
+    for (int i = 0; i < mech.defMechInfo->num_componentes; ++i) { //Si encuentra el cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³digo parar
         if (mech.defMechInfo->componentes[i].codigoArma == cod_arma)
             cod_municion = mech.defMechInfo->componentes[i].codigo;
     }
@@ -649,7 +651,7 @@ void ataque_armas_t::ataque_arma() {
 
     posiciones_adyacentes(fil_jugador, col_jugador, adyacentes);
 
-    //Consideramos enemigo adyacente si estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ en una casilla al lado y el desnivel no es mayor que 1 (Le podemos pegar cuerpo a cuerpo).
+    //Consideramos enemigo adyacente si esta en una casilla al lado y el desnivel no es mayor que 1 (Le podemos pegar cuerpo a cuerpo).
     for (int i = 0; i < mechs->nMechs - 1; i++) {
         filaux = mechs->iMechVector[i]->pos_Hexagono.fila;
         colaux = mechs->iMechVector[i]->pos_Hexagono.columna;
@@ -661,11 +663,16 @@ void ataque_armas_t::ataque_arma() {
     }
     //NUEVA estrategia armas
     if (ene_adyacente) {
+        objetivo_mech = objetivoArmas();
         coger_garrote = false;
         objetivo.columna = 0;
         objetivo.fila = 0;
         num_armas = 0;
-    } else { //Si no vamos a pegar fÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­sicamente usamos armas
+    } else { //Si no vamos a pegar fisicamente usamos armas
+        if(mechs->mechJugador->enElSuelo){ //Si esta en el suelo no puede disparar;
+           num_armas=0;
+           return;
+        }
         objetivo_mech = objetivoArmas();
         objetivo.fila = mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
         objetivo.columna = mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
@@ -738,94 +745,8 @@ void ataque_armas_t::ataque_arma() {
                         }
                 }
             }       
-        }
-//       if (linea_vision(mechs->mechJugador->numJ, mechs->mechJugador->pos_Hexagono, sum_nivel_or, mechs->iMechVector[objetivo_mech]->pos_Hexagono, sum_nivel_dest) == true){
-//        /*PRUEBA DE NUEVA ESTRATEGIA*/
-//        int num_mech_objetivo;
-//        num_mech_objetivo=objetivoArmas(); //seleccionamos objetivo4
-//        //Calculamos el nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero de armas del mech
-//        int numero_armas=0;
-//        int contador=0;
-//        
-//        Componente_Mech *armasMech = new Componente_Mech[mechs->mechJugador->defMechInfo->num_componentes];
-//        for (int i=0; i < mechs->mechJugador->defMechInfo->num_componentes;i++){
-//            if(mechs->mechJugador->defMechInfo->componentes[i].clase == ARMA){
-//                numero_armas++;
-//                armasMech[contador] = mechs->mechJugador->defMechInfo->componentes[i];
-//                contador++;
-//            }
-//        }
-//  
-//        contador=0;
-//        Componente_Mech *armasUtiles = new Componente_Mech[numero_armas];
-//        for (int i = 0; i < numero_armas; i++){  // para cada arma del mech
-//             if (armasMech[i].operativo && (obtenerLocalizacionMunicion(mechs->mechJugador,armasMech[i]) != -1 // SI esta operativo y tiene municion
-//                     || armasMech[i].tipo == 1|| armasMech[i].tipo == ENERGIA)){   //O es de tipo energia o nada          
-//                 armasUtiles[contador] = armasMech[i];
-//                 contador++;
-//             }
-//        }
-//        
-//        int numArmasUtiles = contador;
-//        int numArmasDisparar = 0;
-//        int sumatoriaTemperatura = 0;
-//        int calordisipado=0;
-//        int calor;
-//       
-//        if(mechs->mechJugador->defMechInfo->tipoRadiadores == 0)
-//           calordisipado = mechs->mechJugador->defMechInfo->radiadores;
-//        else
-//           calordisipado = 2*mechs->mechJugador->defMechInfo->radiadores;
-//
-//        calor = calor - calordisipado;
-//        if(calor < 0){
-//            calor = 0;
-//        }
-//       
-//        Componente_Mech *armasDisparar = new Componente_Mech[numArmasUtiles];
-//        contador=0;
-//        bool terminar = false;
-//       
-//        for (int i=0; i<numArmasUtiles && !terminar ;i++){
-//            if((sumatoriaTemperatura + armasUtiles->calor)>/*mechs->mechJugador->temp_actual*/ 30){
-//                terminar = true;
-//            }else{
-//                 sumatoriaTemperatura += armasUtiles->calor;
-//                 armasDisparar[contador]=armasUtiles[i];
-//                 contador ++ ; 
-//            }
-//         }
-//         numArmasDisparar = contador;
-//         coger_garrote=false; //No cogemos garrote
-//         objetivo.pos=mechs->iMechVector[num_mech_objetivo]->pos_Hexagono.pos; //Hexagono Objetivo
-//         num_armas = numArmasDisparar; //numero armas disparar
-//        
-//         int localizacionMun;
-//        
-//         for(int i=0; i<numArmasDisparar; i++){
-//             armas_mech[i].localizacion = armasDisparar[i].localizacion;
-//             armas_mech[i].slot = obtenerSlotArma(mechs->mechJugador,armasDisparar[i]); //Slot del arma
-//             armas_mech[i].doble_cadencia = false; //No usamos doble cadencia
-//            
-//             if(armasDisparar[i].tipo == 2 || armasDisparar[i].tipo == 3){ //Si son armas que usan municiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n
-//                 armas_mech[i].loc_municion = obtenerLocalizacionMunicion(mechs->mechJugador,armasDisparar[i]);
-//             }else{  //Arma de energia
-//                 armas_mech[i].loc_municion = -1;
-//                 armas_mech[i].slot_municion = -1;
-//             }
-//         }
-//       }
-        
-        
+        }  
     }
-   
-
-    //ESCRIBE FICHERO DE SALIDA
-    //cin.get();
-
-    /*string jugador;
-    jugador = itoStr(mechs->mechJugador->numJ);
-    salida(jugador);*/
     cout << "Fin de logica de disparo" << endl;
     cin.get();
 
