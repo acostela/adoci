@@ -10,9 +10,11 @@
 #include "hexagono_position.h"
 #include "funcs.h"
 #include <fstream>
+#include "infoMapa.h"
+#include "infoMechs.h"
 
 using namespace std;
-/* Datos para el uso de un arma fÃ­sica */
+/* Datos para el uso de un arma fÃƒÆ’Ã‚Â­sica */
 class arma_fisica {
 public:
     int localizacion;
@@ -30,16 +32,22 @@ public:
     }
 };
 
-/* Datos para la fase de ataque fÃ­sico */
+/* Datos para la fase de ataque fÃƒÆ’Ã‚Â­sico */
 class ataque_fisico_t {
 public:
     int num_armas;
     arma_fisica armas[4];
-
-    ataque_fisico_t() {
-        num_armas = 0;
-    }
+    infoMapa* mapa;
+    infoMechs * mechs;
+    
+    ataque_fisico_t(infoMapa* inf_mapa, infoMechs * inf_mechs);
     void salida(string numJ);
+    void posiciones_adyacentes(int f, int c, int adyacentes[][2]);
+    int objetivoFisico();
+    int angulo_torso_enemigo(int mech_obj);
+    int angulo_mech_enemigo(int mech_obj);
+    int obtenerSlotArma(iMech *&mech, Componente_Mech arma);
+    void ataque_fisico();
 };
 
 
