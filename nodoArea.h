@@ -23,6 +23,8 @@ public:
     int columna;
     float distancia;
     float evaluacionHuir;
+        float evaluacionDefensa;
+
     nodoArea();
     nodoArea(int f, int c, float d);
     nodoArea(const nodoArea& orig);
@@ -33,6 +35,8 @@ public:
     bool operator==(const nodoArea & n)const;
     bool pertenece(const vector<nodoArea> & nodos )const;
     void evaluaHuir(int f,int c, int enc);
+    void evaluaDefensa(int f_obj, int c_obj, int enc,float dist_seg,infoMapa* mapa);
+
 private:
 
 };

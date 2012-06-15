@@ -118,7 +118,30 @@ void infoMapa::encarar_objetivo(int f, int c, int f_obj, int c_obj, int & lado) 
             lado = 4;
     }
 }
+bool infoMapa::linea_vision(int num_jugador, const hexagono_pos & origen, int nivel_origen, const hexagono_pos & destino, int nivel_destino) {
+    char orden[100];
+    string linea;
+    ifstream fichero_LDV;
 
+    snprintf(orden, 99, "./LDVyC.exe mapaJ%i.sbt %02i%02i %i %02i%02i %i", num_jugador, origen.columna,
+            origen.fila, nivel_origen, destino.columna, destino.fila, nivel_destino);
+
+    system(orden);
+
+    do {
+        fichero_LDV.open("LDV.sbt");
+    } while (fichero_LDV == NULL);
+
+    leeLinea(fichero_LDV, linea, '\n');
+    leeLinea(fichero_LDV, linea, '\n');
+
+    fichero_LDV.close();
+
+    if (linea.compare(0,4,"True") == 0)
+        return true;
+    else
+        return false;
+}
 int infoMapa::direccion_objetivo(hexagono_pos origen, hexagono_pos destino) {
     /* Estrategia: Si la casilla objetivo estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ en la misma columna, la direcciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n serÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡
        1 (si estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ arriba) o 4 (si estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ abajo). Si estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ en distinta fila y distinta

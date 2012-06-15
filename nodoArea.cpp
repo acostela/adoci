@@ -123,6 +123,28 @@ void nodoArea::evaluaHuir(int f, int c, int enc) {
     evaluacionHuir = d;
 }
 
+void nodoArea::evaluaDefensa(int f_obj, int c_obj, int enc, float dist_seg, infoMapa* mapa) {
+    if (dist_seg == -1) {
+        evaluacionDefensa = -1;
+        return;
+    }
+    float d = distancia_hexagonal(fila, columna, f_obj, c_obj);
+    d -= dist_seg;
+    if (d < 0)
+        d = -d;
+    float puntuaD, puntuaLDV;
+    if (d > 2)puntuaD = 0;
+    else if (d > 1)puntuaD = 5;
+    else if (d >= 0)puntuaD = 10;
+    int numJ = mapa->info_mechs->mechJugador->numJ;
+    if (mapa->linea_vision(numJ, hexagono_pos(fila, columna), 1, hexagono_pos(f_obj, c_obj), 1))
+        puntuaLDV = 10;
+    else
+        puntuaLDV = 0;
+
+    evaluacionDefensa = (puntuaLDV + puntuaD) / 2;
+}
+
 void posAtaque(int niveles, vector<nodeVector> & anillosJugador, vector<nodeVector> & anillosObjetivo, int & fil_dest, int & col_dest, infoMapa * mapa) {
     int toneladas = mapa->info_mechs->mechJugador->defMechInfo->toneladas;
     int filAnillo, colAnillo;
@@ -180,43 +202,32 @@ void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & 
     fil_dest = anillos[0][0].fila;
     col_dest = anillos[0][0].columna;
     anillos[0][0].evaluaHuir(f_obj, c_obj, enc);
+    anillos[0][0].evaluaDefensa(f_obj, c_obj, enc, dist_seg, mapa);
 
-    int fil_anillo, col_anillo;
-
-    int fil_mech = anillos[0][0].fila,
-            col_mech = anillos[0][0].columna;
-    float dist_al_objetivo;
-    float menor = distancia_hexagonal(f_obj, c_obj, fil_mech, col_mech) - dist_seg;
-    if (menor < 0) menor = -menor;
-    float diff;
 
     if (mapa->mapa[fil_dest][col_dest]->fuego) {
-        menor = 1000;
+        anillos[0][0].evaluacionDefensa = 0;
         anillos[0][0].evaluacionHuir = 0;
     }
-
-
-
-    //                if (posMechObjetivo != 0) {
-    //                    distancia_hexagonal(posMechObjetivo->fila,posMechObjetivo->columna,
-    //                    
-    //                }
-
-    float mayor = anillos[0][0].evaluacionHuir;
-
+    float mayor;
+    if (dist_seg == -1) {
+        mayor = anillos[0][0].evaluacionHuir;
+    } else {
+        mayor = anillos[0][0].evaluacionDefensa;
+    }
     for (int i = 1; i <= niveles; i++) {
         for (int j = 0; j < anillos[i].size(); j++) {
 
             anillos[i][j].evaluaHuir(f_obj, c_obj, enc);
-
         }
     }
+
     for (int i = 1; i <= niveles; i++) {
         for (int j = 0; j < anillos[i].size(); j++) {
             filAnillo = anillos[i][j].fila;
             colAnillo = anillos[i][j].columna;
             if (dist_seg == -1) {
-                if ((anillos[i][j].evaluacionHuir >= mayor) &&
+                if ((anillos[i][j].evaluacionHuir > mayor) &&
                         mapa->pos_valida(filAnillo, colAnillo, toneladas) &&
                         !mapa->mapa[filAnillo][colAnillo]->fuego) {
                     mayor = anillos[i][j].evaluacionHuir;
@@ -224,16 +235,15 @@ void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & 
                     col_dest = anillos[i][j].columna;
                 }
             } else {
-                dist_al_objetivo = distancia_hexagonal(f_obj, c_obj, fil_anillo, col_anillo);
-                diff = dist_al_objetivo - dist_seg;
-                if (diff < 0) diff = -diff;
-                if (diff < menor &&
+
+                anillos[i][j].evaluaDefensa(f_obj, c_obj, enc, dist_seg, mapa);
+                if ((anillos[i][j].evaluacionDefensa > mayor) &&
                         mapa->pos_valida(filAnillo, colAnillo, toneladas) &&
                         !mapa->mapa[filAnillo][colAnillo]->fuego) {
-                    menor = diff;
+                    mayor = anillos[i][j].evaluacionDefensa;
                     fil_dest = anillos[i][j].fila;
                     col_dest = anillos[i][j].columna;
-                    if (diff <= 1.5)
+                    if (mayor == 10)
                         return;
 
                 }
@@ -249,7 +259,6 @@ void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, i
     if (niveles > NUM_ANILLOS)
         niveles = NUM_ANILLOS;
     int fil_anillo, col_anillo;
-
     int fil_mech = anillos[0][0].fila,
             col_mech = anillos[0][0].columna;
 
@@ -257,19 +266,21 @@ void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, i
     col_dest = col_mech;
 
     anillos[0][0].evaluaHuir(f_obj, c_obj, enc);
-    float dist_al_objetivo;
-    float menor = distancia_hexagonal(f_obj, c_obj, fil_mech, col_mech) - dist_seg;
-    if (menor < 0) menor = -menor;
-    float diff;
+    anillos[0][0].evaluaDefensa(f_obj, c_obj, enc, dist_seg, mapa);
+
     bool asignado = false;
     if (mapa->mapa[fil_dest][col_dest]->fuego) {
-        menor = 1000;
         anillos[0][0].evaluacionHuir = 0;
     }
 
 
 
-    float mayor = anillos[0][0].evaluacionHuir;
+    float mayor;
+    if (dist_seg == -1) {
+        mayor = anillos[0][0].evaluacionHuir;
+    } else {
+        mayor = anillos[0][0].evaluacionDefensa;
+    }
     for (int i = 1; i <= niveles; i++) {
         for (int j = 0; j < anillos[i].size(); j++) {
 
@@ -282,7 +293,7 @@ void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, i
             fil_anillo = anillos[i][j].fila;
             col_anillo = anillos[i][j].columna;
             if (dist_seg == -1) {
-                if (anillos[i][j].evaluacionHuir >= mayor && check_salto(anillos[0][0], anillos[i][j], mapa)) {
+                if (anillos[i][j].evaluacionHuir > mayor && check_salto(anillos[0][0], anillos[i][j], mapa)) {
                     asignado = true;
                     mayor = anillos[i][j].evaluacionHuir;
                     fil_dest = anillos[i][j].fila;
@@ -291,14 +302,16 @@ void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, i
                 if (niveles > 5 && asignado == true)
                     return;
             } else {
-                dist_al_objetivo = distancia_hexagonal(f_obj, c_obj, fil_anillo, col_anillo);
-                diff = dist_al_objetivo - dist_seg;
-                if (diff < 0) diff = -diff;
-                if (diff < menor && check_salto(anillos[0][0], anillos[i][j], mapa)) {
-                    menor = diff;
+
+
+                anillos[i][j].evaluaDefensa(f_obj, c_obj, enc, dist_seg, mapa);
+
+                if ((anillos[i][j].evaluacionDefensa > mayor) &&
+                        check_salto(anillos[0][0], anillos[i][j], mapa)) {
                     fil_dest = anillos[i][j].fila;
                     col_dest = anillos[i][j].columna;
-                    if (diff <= 1.5)
+                    mayor = anillos[i][j].evaluacionDefensa;
+                    if (mayor == 10)
                         return;
 
                 }

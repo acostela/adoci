@@ -16,6 +16,11 @@ public:
     string pos;
     int fila;
     int columna;
+    hexagono_pos(){}
+    hexagono_pos(int f,int c){
+        fila=f;
+        columna=c;
+    }
 
     void ini(string cad) {
         pos=cad;

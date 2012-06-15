@@ -58,6 +58,7 @@ public:
     int distancia_casillas(hexagono_pos casilla_ini, hexagono_pos casilla_obj);
     bool pos_valida(int f, int c, int peso);
     void encarar_objetivo(int f, int c, int f_obj, int c_obj, int & lado);
+bool linea_vision(int num_jugador, const hexagono_pos & origen, int nivel_origen, const hexagono_pos & destino, int nivel_destino);
 
     int direccion_objetivo(hexagono_pos origen, hexagono_pos destino);
     bool casilla_objetivo(hexagono_pos casilla, int direccion, hexagono_pos& objetivo);

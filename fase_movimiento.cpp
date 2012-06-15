@@ -131,7 +131,6 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
     else
         d_seguridad = MIN_DIST;
 
-    nodoArea* nodoEnemigo = new nodoArea(this->fil_enemigo, this->col_enemigo, d_seguridad);
 
     int f_obj = this->fil_enemigo;
     int c_obj = this->col_enemigo;
@@ -265,8 +264,7 @@ int movimiento_t::estrategia_movimiento() {
        del torso central y de las piernas no son bajos y tenemos armas no traseras
        con las que disparar, entonces la estrategia sera de ataque */
 
-    if ((mech->enElSuelo == FALSE) &&
-            (mechs->mechJugador->dmj->Heridas_MW < 5) && /* Para que haya como mucho una prob. de 5/6 de perder la consciencia */
+    if ((mechs->mechJugador->dmj->Heridas_MW < 5) && /* Para que haya como mucho una prob. de 5/6 de perder la consciencia */
             (mech->temp_actual < 13) && /* Para evitar la desconexiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n */
             (mech->blindaje.CAB > 2) &&
             (mech->blindaje.TC > 2) &&
@@ -371,10 +369,10 @@ void movimiento_t::logica_movimiento() {
         cout << "El jugador no tiene PM asi que permanecera inmovil." << endl;
         cin.get();
         return;
-    } else if (fil_dest == fil_mech && col_dest == col_mech && lado_dest == lado_mech) {
+    } else if (fil_dest == fil_mech && col_dest == col_mech && lado_dest == lado_mech &&!estabaEnSuelo) {
         sprintf(cad, "El jugador decide permanecer inmovil.\n");
         flog += cad;
-        cout << "El jugador decide permanecer inmovil." << endl;
+        cout << "El jugador decide permanecer inmovil.(Destino elegido pos. actual)" << endl;
         cin.get();
         tipo_movimiento = INMOVIL;
         return;
@@ -596,6 +594,7 @@ void movimiento_t::getSecuenciaPasos(const vector<node> & nodosPath, int PM) {
     }
     //Si no tenemos PM para movernos nos quedamos inmoviles
     if (nodos.size() <= 1) {
+        if(pasos==0)
         tipo_movimiento = INMOVIL;
         return;
     }

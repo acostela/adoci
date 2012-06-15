@@ -146,7 +146,7 @@ public:
     defMechStruct* defMechInfo;
     datosMechJugador* dmj;
 
-    iMech() {
+    iMech(){
         defMechInfo = new defMechStruct;
         narc = 0;
         inarc = 0;

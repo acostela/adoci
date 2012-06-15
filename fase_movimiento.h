@@ -21,7 +21,7 @@ using namespace std;
 extern string flog;
 extern time_t tiempo;
 
-#define MIN_DIST 10
+#define MIN_DIST 6
 /* Datos para la fase de movimiento */
 class movimiento_t {
 public:
