@@ -16,9 +16,10 @@
 #include "funcs.h"
 
 using namespace std;
+
 class hexagono_t {
 public:
-    hexagono_t(int f,int c);
+    hexagono_t(int f, int c);
     int fila;
     int columna;
     int nivel;
@@ -52,18 +53,19 @@ public:
     void inicializarPath();
     void inicializarMapa();
     void leeFich(string fichero);
-    int coste_mov_ady(int f_origen,int c_origen,int f_objetivo,int c_objetivo, int toneladas,int modo=DEFAULT);
-    int coste_mov_giro(int f,int c);
+    int coste_mov_ady(int f_origen, int c_origen, int f_objetivo, int c_objetivo, int toneladas, int modo = DEFAULT);
+    int coste_mov_giro(int f, int c);
     int distancia_casillas(hexagono_pos casilla_ini, hexagono_pos casilla_obj);
     bool pos_valida(int f, int c, int peso);
+    void encarar_objetivo(int f, int c, int f_obj, int c_obj, int & lado);
 
     int direccion_objetivo(hexagono_pos origen, hexagono_pos destino);
-    bool casilla_objetivo (hexagono_pos casilla, int direccion,hexagono_pos& objetivo);
+    bool casilla_objetivo(hexagono_pos casilla, int direccion, hexagono_pos& objetivo);
 
 private:
 
     bool s2bool(string cad) {
-        if (cad.compare(0,4,"True")==0)
+        if (cad.compare(0, 4, "True") == 0)
             return true;
         else
             return false;
@@ -78,6 +80,6 @@ private:
 void nodoEnEsaDireccion(int fila, int columna, int direccion, int & filaSiguiente, int & colSiguiente);
 void nodoEnEspalda(int fila, int columna, int direccion, int & filaAnterior, int & colAnterior);
 
-bool adyacente(int fila,int columna,int fila2, int columna2);
+bool adyacente(int fila, int columna, int fila2, int columna2);
 #endif	/* _INFOMAPA_H */
 

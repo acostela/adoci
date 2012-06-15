@@ -119,7 +119,7 @@ typedef struct {
     int Heridas_MW; //>=0
     bool MW_consciente;
     bool slots_impactados[78]; /* (TRUE-FALSE) indica para cada slot si fue impactado */
-    bool local_disparo_arma[8]; /* (TRUE-FALSE) Ejemplo: disparo[CABEZA] => Se disparÃƒÆ’Ã‚Â³ un arma de la cabeza */
+    bool local_disparo_arma[8]; /* (TRUE-FALSE) Ejemplo: disparo[CABEZA] => Se disparÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ un arma de la cabeza */
     int municiones_expulsar; //>0
     municion* expulsada;
 } datosMechJugador;
@@ -152,7 +152,7 @@ public:
         inarc = 0;
         dmj = 0;
     }
-    
+
     ~iMech() {
         if (narc)
             delete narc;
@@ -163,8 +163,8 @@ public:
         delete defMechInfo;
     }
 
-    /* Devuelve TRUE si el mech que se pasa como parÃƒÆ’Ã‚Â¡metro tiene
-     * municiÃƒÆ’Ã‚Â³n para el arma cuyo cÃƒÆ’Ã‚Â³digo se pasa como parÃƒÆ’Ã‚Â¡metro */
+    /* Devuelve TRUE si el mech que se pasa como parÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡metro tiene
+     * municiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n para el arma cuyo cÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³digo se pasa como parÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡metro */
     bool municion_ok(int codigo) {
         int i;
         for (i = 0; i < defMechInfo->num_componentes; ++i) {
@@ -202,7 +202,7 @@ public:
         return false;
     }
 
-        /* Devuelve TRUE si el mech es capaz de ponerse de pie y moverse */
+    /* Devuelve TRUE si el mech es capaz de ponerse de pie y moverse */
     bool equilibrio_ok() {
         int i;
 
@@ -215,7 +215,7 @@ public:
                 }
             }
         }
-        /* Hay que mirar tambiÃƒÆ’Ã‚Â©n los actuadores */
+        /* Hay que mirar tambiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©n los actuadores */
         if ((this->puntosEstructuraInterna.PI == 0) ||
                 (this->puntosEstructuraInterna.PD == 0) ||
                 ((this->actuador_ok(PI, "Cadera") == false) &&
@@ -224,35 +224,21 @@ public:
         return true;
     }
 
-    enum tipo_movimiento {
-        INMOVIL,
-        ANDAR,
-        CORRER,
-        SALTAR
-    };
-
-    int tipo_movimiento() {
-        if (dmj->PM_correr > 0)
-            return CORRER;
-        else
-            return ANDAR;
-    }
-
     int buscar_mech_cercano(iMech** mechs, int num_jugador, int num_jugadores) {
         int micol, mifil, /* columna y fila de nuestro mech */
-                objetivo = -1; /* nÃƒÆ’Ã‚Âºmero del mech objetivo. Si error, entonces -1 */
+                objetivo = -1; /* nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero del mech objetivo. Si error, entonces -1 */
 
-        float min_d = 10000, /* MÃƒÆ’Ã‚Â­nima distancia encontrada */
+        float min_d = 10000, /* MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nima distancia encontrada */
                 dist; /* variable auxiliar */
 
-        /* Estrategia: Hallar la distancia en lÃƒÆ’Ã‚Â­nea recta entre el mech num_jugador
-           y el resto de mechs y devolver el nÃƒÆ’Ã‚Âºmero del mech con menor distancia
+        /* Estrategia: Hallar la distancia en lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nea recta entre el mech num_jugador
+           y el resto de mechs y devolver el nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero del mech con menor distancia
          */
         micol = pos_Hexagono.columna;
         mifil = pos_Hexagono.fila;
         for (int i = 0; i < num_jugadores - 1; ++i) {
             if (mechs[i]->operativo) {
-                dist = distancia_hexagonal(mifil,micol,mechs[i]->pos_Hexagono.fila,mechs[i]->pos_Hexagono.columna);
+                dist = distancia_hexagonal(mifil, micol, mechs[i]->pos_Hexagono.fila, mechs[i]->pos_Hexagono.columna);
                 if (dist < min_d) {
                     objetivo = i;
                     min_d = dist;
@@ -265,20 +251,20 @@ public:
     int buscar_objetivo(iMech** mechs, int num_jugador, int num_jugadores) {
 
         int micol, mifil, /* columna y fila de nuestro mech */
-                objetivo = -1; /* nÃƒÆ’Ã‚Âºmero del mech objetivo. Si error, entonces -1 */
+                objetivo = -1; /* nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero del mech objetivo. Si error, entonces -1 */
 
-        float min_d = 10000, /* MÃƒÆ’Ã‚Â­nima distancia encontrada */
+        float min_d = 10000, /* MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nima distancia encontrada */
                 dist; /* variable auxiliar */
 
-        /* Estrategia: Hallar la distancia en lÃƒÆ’Ã‚Â­nea recta entre el mech num_jugador
-           y el resto de mechs y devolver el nÃƒÆ’Ã‚Âºmero del mech con menor distancia
+        /* Estrategia: Hallar la distancia en lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nea recta entre el mech num_jugador
+           y el resto de mechs y devolver el nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero del mech con menor distancia
          */
         micol = pos_Hexagono.columna;
         mifil = pos_Hexagono.fila;
 
         for (int i = 0; i < num_jugadores - 1; ++i) {
             if (mechs[i]->operativo) {
-                dist = distancia_hexagonal(mifil,micol,mechs[i]->pos_Hexagono.fila,mechs[i]->pos_Hexagono.columna);
+                dist = distancia_hexagonal(mifil, micol, mechs[i]->pos_Hexagono.fila, mechs[i]->pos_Hexagono.columna);
 
                 if (dist < min_d) {
                     min_d = dist;
@@ -288,7 +274,7 @@ public:
         int max_peso = 0;
         for (int i = 0; i < num_jugadores - 1; ++i) {
             if (mechs[i]->operativo) {
-                dist = distancia_hexagonal(mifil,micol,mechs[i]->pos_Hexagono.fila,mechs[i]->pos_Hexagono.columna);
+                dist = distancia_hexagonal(mifil, micol, mechs[i]->pos_Hexagono.fila, mechs[i]->pos_Hexagono.columna);
                 if ((dist < (min_d + 2)) && (mechs[i]->defMechInfo->toneladas > max_peso)) {
                     max_peso = mechs[i]->defMechInfo->toneladas;
                     objetivo = i;
@@ -299,7 +285,24 @@ public:
 
     }
 
-    /* Devuelve la mejor distancia para disparar con el arma mÃƒÆ’Ã‚Â¡s potente
+    float dist_media_disparo() {
+        int i,
+                num_armas = 0;
+        float dist = 0;
+        for (i = 0; i < defMechInfo->num_componentes; ++i) {
+            if ((defMechInfo->componentes[i].clase == ARMA) &&
+                    (defMechInfo->componentes[i].trasera == false) &&
+                    (defMechInfo->componentes[i].operativo == true)) {
+                dist += defMechInfo->componentes[i].distanciaMedia;
+                num_armas++;
+            }
+        }
+        dist = dist / num_armas;
+
+        return dist;
+    }
+
+    /* Devuelve la mejor distancia para disparar con el arma mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡s potente
      * que tiene el mech */
     int dist_disparo() {
         int i,
@@ -336,7 +339,7 @@ public:
     void leeDatosComponentes(ifstream &in, iMech *mech); //Lee los componentes de cada Mech
     void leeDatosCalor(ifstream &in, iMech *mech);
     void leeDatosNarc(ifstream & in, iMech* mech);
-    void leeDatosMech(ifstream & in, iMech* mech); //Lee los datos de una estructura iMech, menos numJ, que habrÃƒÆ’Ã‚Â¡ sido leido previamente.
+    void leeDatosMech(ifstream & in, iMech* mech); //Lee los datos de una estructura iMech, menos numJ, que habrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ sido leido previamente.
     void leeDatosPPal(ifstream & in);
     void leeDatosMechVector(ifstream & in, int indice, int numJMech);
     void leeFich(string fichero);

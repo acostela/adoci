@@ -66,13 +66,13 @@ void infoMapa::leeFich(string fichero) {
         cerr << "\nNo es posible abrir " << fichero << "\n";
         exit(1);
     }
-    fich.ignore(1000, '\n'); //Ignoramos nÃƒÆ’Ã‚Âºmero mÃƒÆ’Ã‚Â¡gico
+    fich.ignore(1000, '\n'); //Ignoramos nÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gico
 
     fich >> filas;
     filas = filas + 1;
     fich >> columnas;
     columnas = columnas + 1;
-    //Para simplificar aÃƒÆ’Ã‚Â±adiremos una fila y una columna de mÃƒÆ’Ã‚Â¡s, ya que
+    //Para simplificar aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±adiremos una fila y una columna de mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡s, ya que
     //en el mapa las filas y las columnas empiezan en 1 y en la matriz en 0
     if (!mapa)
         inicializarMapa();
@@ -102,13 +102,30 @@ void infoMapa::leeFich(string fichero) {
 
 }
 
+void infoMapa::encarar_objetivo(int f, int c, int f_obj, int c_obj, int & lado) {
+    if (f < f_obj) {//Los de arriba
+        if (c < c_obj) //los de la izq
+            lado = 6;
+        else if (c > c_obj)
+            lado = 2;
+        else lado = 1;
+    } else {//los de abajo
+        if (c < c_obj) //los de la izq
+            lado = 5;
+        else if (c > c_obj)
+            lado = 3;
+        else
+            lado = 4;
+    }
+}
+
 int infoMapa::direccion_objetivo(hexagono_pos origen, hexagono_pos destino) {
-    /* Estrategia: Si la casilla objetivo estÃƒÆ’Ã‚Â¡ en la misma columna, la direcciÃƒÆ’Ã‚Â³n serÃƒÆ’Ã‚Â¡
-       1 (si estÃƒÆ’Ã‚Â¡ arriba) o 4 (si estÃƒÆ’Ã‚Â¡ abajo). Si estÃƒÆ’Ã‚Â¡ en distinta fila y distinta
-       columna, la direcciÃƒÆ’Ã‚Â³n serÃƒÆ’Ã‚Â¡ la diagonal mÃƒÆ’Ã‚Â¡s apropiada
+    /* Estrategia: Si la casilla objetivo estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ en la misma columna, la direcciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n serÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡
+       1 (si estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ arriba) o 4 (si estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ abajo). Si estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ en distinta fila y distinta
+       columna, la direcciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n serÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ la diagonal mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡s apropiada
      */
     if (origen.columna == destino.columna) {
-        /* El mech objetivo estÃƒÆ’Ã‚Â¡ en la misma columna que el nuestro */
+        /* El mech objetivo estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ en la misma columna que el nuestro */
         if (origen.fila < destino.fila)
             return 4; /* Abajo */
         else
@@ -148,13 +165,13 @@ int infoMapa::direccion_objetivo(hexagono_pos origen, hexagono_pos destino) {
 int infoMapa::coste_mov_giro(int f, int c) {
     if (mapa[f][c]->terreno == PANTANO)
         return 2;
-    return 1; //adaptar a cada hexÃƒÆ’Ã‚Â¡gono
+    return 1; //adaptar a cada hexÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gono
 }
 
 /* Devuelve el coste del cambio de casilla. Si el movimiento es prohibido
  * devuelve 99999 (MOVIMIENTO_INVALIDO)
  */
-int infoMapa::coste_mov_ady(int f_origen, int c_origen, int f_objetivo, int c_objetivo, int toneladas,int modo) {
+int infoMapa::coste_mov_ady(int f_origen, int c_origen, int f_objetivo, int c_objetivo, int toneladas, int modo) {
 
     int coste = 0,
             col_ini = c_origen,
@@ -165,7 +182,7 @@ int infoMapa::coste_mov_ady(int f_origen, int c_origen, int f_objetivo, int c_ob
 
     /* Coste del tipo de terreno */
 
-    //Si la pos estÃƒÂ¡ ocupada, mov invalido
+    //Si la pos estÃƒÆ’Ã‚Â¡ ocupada, mov invalido
     for (int i = 0; i < info_mechs->nMechs - 1; i++)
         if (info_mechs->iMechVector[i]->pos_Hexagono.columna == c_objetivo &&
                 info_mechs->iMechVector[i]->pos_Hexagono.fila == f_objetivo)
@@ -179,12 +196,12 @@ int infoMapa::coste_mov_ady(int f_origen, int c_origen, int f_objetivo, int c_ob
             coste++;
             break;
         case 2://AGUA:
-            if(mapa[fil_obj][col_obj]->nivel>=0)
+            if (mapa[fil_obj][col_obj]->nivel >= 0)
                 coste++;
-            else if(mapa[fil_obj][col_obj]->nivel==-1)
-                coste+=2;
+            else if (mapa[fil_obj][col_obj]->nivel == -1)
+                coste += 2;
             else
-                coste+=4;
+                coste += 4;
             break;
         case 3://PANTANO:
             coste += 2;
@@ -195,7 +212,7 @@ int infoMapa::coste_mov_ady(int f_origen, int c_origen, int f_objetivo, int c_ob
     switch (mapa[fil_obj][col_obj]->objetoTerreno) {
             //0-escombros, 1-bosque ligero, 2-bosque denso,
             //3-edificio ligero,4-edificio medio, 5-edificio pesado,
-            //6-edificio reforzado, 7-bÃƒÆ’Ã‚Âºnker, 255-nada
+            //6-edificio reforzado, 7-bÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºnker, 255-nada
         case 0://ESCOMBROS:
             coste += 2;
             break;
@@ -214,9 +231,9 @@ int infoMapa::coste_mov_ady(int f_origen, int c_origen, int f_objetivo, int c_ob
                 return MOVIMIENTO_INVALIDO;
             break;
     }
-    /* Coste del cambio de elevaciÃƒÆ’Ã‚Â³n */
+    /* Coste del cambio de elevaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n */
     dif_nivel = abs(mapa[fil_ini][col_ini]->nivel - mapa[fil_obj][col_obj]->nivel);
-    if(modo==WALK && dif_nivel!=0)
+    if (modo == WALK && dif_nivel != 0)
         return MOVIMIENTO_INVALIDO;
     switch (dif_nivel) {
         case 0:
@@ -234,24 +251,24 @@ int infoMapa::coste_mov_ady(int f_origen, int c_origen, int f_objetivo, int c_ob
 }
 
 bool infoMapa::pos_valida(int f, int c, int peso) {
-    if(f<1 || f>=filas || c<1 || c>=columnas)
+    if (f < 1 || f >= filas || c < 1 || c >= columnas)
         return false;
     if ((mapa[f][c]->FCE < peso) &&
-        (mapa[f][c]->objetoTerreno==E_LIGERO ||
-         mapa[f][c]->objetoTerreno==E_MEDIO ||
-         mapa[f][c]->objetoTerreno==E_PESADO||
-         mapa[f][c]->objetoTerreno==E_REFORZADO||
-         mapa[f][c]->objetoTerreno==BUNKER))
+            (mapa[f][c]->objetoTerreno == E_LIGERO ||
+            mapa[f][c]->objetoTerreno == E_MEDIO ||
+            mapa[f][c]->objetoTerreno == E_PESADO ||
+            mapa[f][c]->objetoTerreno == E_REFORZADO ||
+            mapa[f][c]->objetoTerreno == BUNKER))
         return false;
-    for(int i=0;i<info_mechs->nMechs-1;i++)
-        if(info_mechs->iMechVector[i]->pos_Hexagono.fila == f && info_mechs->iMechVector[i]->pos_Hexagono.columna == c )
+    for (int i = 0; i < info_mechs->nMechs - 1; i++)
+        if (info_mechs->iMechVector[i]->pos_Hexagono.fila == f && info_mechs->iMechVector[i]->pos_Hexagono.columna == c)
             return false; //casilla ocupada
     return true;
 }
-/* IMPORTANTE: Que esta funciÃƒÆ’Ã‚Â³n devuelva FALSE si la casilla objetivo se sale del tablero
+/* IMPORTANTE: Que esta funciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n devuelva FALSE si la casilla objetivo se sale del tablero
  * y TRUE si no se sale */
 
-/* Esta funciÃƒÆ’Ã‚Â³n modifica el array objetivo */
+/* Esta funciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n modifica el array objetivo */
 bool infoMapa::casilla_objetivo(hexagono_pos casilla, int direccion, hexagono_pos & objetivo) {
     switch (direccion) {
         case 1:
@@ -373,7 +390,7 @@ void nodoEnEsaDireccion(int fil, int col, int direccion, int & filaSiguiente, in
                 colSiguiente = col - 1;
                 break;
             default:
-                cout<<"Orientacion "<< direccion<< "invalida"<<endl;
+                cout << "Orientacion " << direccion << "invalida" << endl;
                 exit(0);
         }
     }

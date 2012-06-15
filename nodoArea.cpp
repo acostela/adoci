@@ -125,14 +125,17 @@ void nodoArea::evaluaHuir(int f, int c, int enc) {
 
 void posAtaque(int niveles, vector<nodeVector> & anillosJugador, vector<nodeVector> & anillosObjetivo, int & fil_dest, int & col_dest, infoMapa * mapa) {
     int toneladas = mapa->info_mechs->mechJugador->defMechInfo->toneladas;
-    if(niveles > NUM_ANILLOS)
-        niveles=NUM_ANILLOS;
+    int filAnillo, colAnillo;
+    if (niveles > NUM_ANILLOS)
+        niveles = NUM_ANILLOS;
     fil_dest = anillosJugador[0][0].fila;
     col_dest = anillosJugador[0][0].columna;
     int f = -1, c = -1;
     for (int i = anillosObjetivo.size() - 1; i > 0; i--)
         for (int j = 0; j < anillosObjetivo[i].size(); j++) {
-            if (mapa->pos_valida(anillosObjetivo[i][j].fila, anillosObjetivo[i][j].columna, toneladas)) {
+            filAnillo = anillosObjetivo[i][j].fila;
+            colAnillo = anillosObjetivo[i][j].columna;
+            if (mapa->pos_valida(filAnillo, colAnillo, toneladas) && !mapa->mapa[filAnillo][colAnillo]->fuego) {
                 fil_dest = anillosObjetivo[i][j].fila;
                 col_dest = anillosObjetivo[i][j].columna;
                 if (perteneceAnillos(niveles, anillosJugador, fil_dest, col_dest)) {
@@ -161,20 +164,37 @@ bool perteneceAnillos(int niveles, vector<nodeVector> & anillos, int f, int c) {
  * 
  * @param niveles Niveles de anillos a examinar
  * @param anillos anillos que rodean al mech jugador
- * @param fil_dest DevolverÃ¡ fila dentro de estos anillos
- * @param col_dest DevolverÃ¡ columna dentro de estos anillos
+ * @param fil_dest DevolverÃƒÆ’Ã‚Â¡ fila dentro de estos anillos
+ * @param col_dest DevolverÃƒÆ’Ã‚Â¡ columna dentro de estos anillos
  * @param f_obj fila del mech objetivo
  * @param c_obj columna del mech objetivo
  * @param enc encaramiento del mech objetivo
  * @param mapa en el que nos movemos
  */
-void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc, infoMapa * mapa) {
-    if(niveles > NUM_ANILLOS)
-        niveles=NUM_ANILLOS;
+void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest,
+        int f_obj, int c_obj, int enc, infoMapa * mapa, float dist_seg) {
+    if (niveles > NUM_ANILLOS)
+        niveles = NUM_ANILLOS;
     int toneladas = mapa->info_mechs->mechJugador->defMechInfo->toneladas;
+    int filAnillo, colAnillo;
     fil_dest = anillos[0][0].fila;
     col_dest = anillos[0][0].columna;
     anillos[0][0].evaluaHuir(f_obj, c_obj, enc);
+
+        int fil_anillo,col_anillo;
+    
+    int fil_mech=anillos[0][0].fila,
+        col_mech=anillos[0][0].columna;
+    float dist_al_objetivo;
+    float menor=distancia_hexagonal(f_obj,c_obj,fil_mech,col_mech) - dist_seg;
+    if(menor < 0) menor=-menor;
+    float diff;    
+    
+    
+//                if (posMechObjetivo != 0) {
+//                    distancia_hexagonal(posMechObjetivo->fila,posMechObjetivo->columna,
+//                    
+//                }
 
     float mayor = anillos[0][0].evaluacionHuir;
 
@@ -187,23 +207,53 @@ void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & 
     }
     for (int i = 1; i <= niveles; i++) {
         for (int j = 0; j < anillos[i].size(); j++) {
-            if ((anillos[i][j].evaluacionHuir >= mayor) && mapa->pos_valida(anillos[i][j].fila, anillos[i][j].columna, toneladas)) {
-                mayor = anillos[i][j].evaluacionHuir;
-                fil_dest = anillos[i][j].fila;
-                col_dest = anillos[i][j].columna;
+            filAnillo = anillos[i][j].fila;
+            colAnillo = anillos[i][j].columna;
+            if (dist_seg == -1) {
+                if ((anillos[i][j].evaluacionHuir >= mayor) &&
+                        mapa->pos_valida(filAnillo, colAnillo, toneladas) &&
+                        !mapa->mapa[filAnillo][colAnillo]->fuego) {
+                    mayor = anillos[i][j].evaluacionHuir;
+                    fil_dest = anillos[i][j].fila;
+                    col_dest = anillos[i][j].columna;
+                }
+            } else {
+                dist_al_objetivo = distancia_hexagonal(f_obj,c_obj,fil_anillo,col_anillo);
+                diff = dist_al_objetivo - dist_seg;
+                if(diff < 0) diff=-diff;
+                if (diff < menor && check_salto(anillos[0][0], anillos[i][j], mapa)) {
+                    menor = diff;
+                    fil_dest = anillos[i][j].fila;
+                    col_dest = anillos[i][j].columna;
+                    if(diff<=1.5)
+                        return;
+
+                }
+
             }
         }
     }
 
 }
 
-void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest, int f_obj, int c_obj, int enc, infoMapa * mapa) {
-    if(niveles > NUM_ANILLOS)
-        niveles=NUM_ANILLOS;
-    fil_dest = anillos[0][0].fila;
-    col_dest = anillos[0][0].columna;
+void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest,
+        int f_obj, int c_obj, int enc, infoMapa * mapa, float dist_seg) {
+    if (niveles > NUM_ANILLOS)
+        niveles = NUM_ANILLOS;
+    int fil_anillo,col_anillo;
+    
+    int fil_mech=anillos[0][0].fila,
+        col_mech=anillos[0][0].columna;
+    
+    fil_dest = fil_mech;
+    col_dest = col_mech;
+    
     anillos[0][0].evaluaHuir(f_obj, c_obj, enc);
 
+    float dist_al_objetivo;
+    float menor=distancia_hexagonal(f_obj,c_obj,fil_mech,col_mech) - dist_seg;
+    if(menor < 0) menor=-menor;
+    float diff;
     bool asignado = false;
 
     float mayor = anillos[0][0].evaluacionHuir;
@@ -214,17 +264,33 @@ void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, i
 
         }
     }
-    for (int i = niveles; i >=1; i--) {
+    for (int i = niveles; i >= 1; i--) {
         for (int j = 0; j < anillos[i].size(); j++) {
-            if (anillos[i][j].evaluacionHuir >= mayor && check_salto(anillos[0][0], anillos[i][j], mapa)) {
-                cout << "Puedo saltar" << endl;
-                asignado=true;
-                mayor = anillos[i][j].evaluacionHuir;
-                fil_dest = anillos[i][j].fila;
-                col_dest = anillos[i][j].columna;
+            fil_anillo = anillos[i][j].fila;
+            col_anillo = anillos[i][j].columna;
+            if (dist_seg == -1) {
+                if (anillos[i][j].evaluacionHuir >= mayor && check_salto(anillos[0][0], anillos[i][j], mapa)) {
+                    asignado = true;
+                    mayor = anillos[i][j].evaluacionHuir;
+                    fil_dest = anillos[i][j].fila;
+                    col_dest = anillos[i][j].columna;
+                }
+                if (niveles > 5 && asignado == true)
+                    return;
+            } else {
+                dist_al_objetivo = distancia_hexagonal(f_obj,c_obj,fil_anillo,col_anillo);
+                diff = dist_al_objetivo - dist_seg;
+                if(diff < 0) diff=-diff;
+                if (diff < menor && check_salto(anillos[0][0], anillos[i][j], mapa)) {
+                    menor = diff;
+                    fil_dest = anillos[i][j].fila;
+                    col_dest = anillos[i][j].columna;
+                    if(diff<=1.5)
+                        return;
+
+                }
+
             }
-            if(niveles > 5 && asignado==true)
-                return;
         }
     }
 
@@ -288,6 +354,8 @@ bool check_mov_salto(const vector<nodoArea>& nodos, int PS, infoMapa * mapa) {
 bool check_salto(const nodoArea & ini, const nodoArea & dest, infoMapa * mapa) {
     int toneladas = mapa->info_mechs->mechJugador->defMechInfo->toneladas;
     if (!mapa->pos_valida(dest.fila, dest.columna, toneladas))
+        return false;
+    if (mapa->mapa[dest.fila][dest.columna]->fuego)
         return false;
     int numJ = mapa->info_mechs->mechJugador->numJ;
     int PS = mapa->info_mechs->mechJugador->dmj->PM_saltar;

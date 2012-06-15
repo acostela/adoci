@@ -47,19 +47,19 @@ void movimiento_t::salida(string numJ) {
             break;
     }
 
-    /* Si el movimiento es INMOVIL, terminar aquÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­ */
+    /* Si el movimiento es INMOVIL, terminar aquÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­ */
     if (tipo_movimiento == INMOVIL) {
         out << accion;
         out.close();
         return;
     }
 
-    /* Linea 2: HexÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡gono de destino */
+    /* Linea 2: HexÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡gono de destino */
     accion = accion + destino.stringPos() + "\n";
 
     /* Linea 3: Lado de destino */
     accion = accion + itoStr(lado) + "\n";
-    /* Si el movimiento es SALTAR, terminar aqui­ */
+    /* Si el movimiento es SALTAR, terminar aquiÃ‚Â­ */
     if (tipo_movimiento == SALTAR) {
         out << accion;
         out.close();
@@ -118,62 +118,47 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
 
     int tipo_mov;
     char cad[255];
-    int f, c, lado;
+    int f, c;
 
     int ind_objetivo = mechs->mechJugador->buscar_objetivo(mechs->iMechVector, mechs->mechJugador->numJ, mechs->nMechs);
     this->fil_enemigo = mechs->iMechVector[ind_objetivo]->pos_Hexagono.fila;
     this->col_enemigo = mechs->iMechVector[ind_objetivo]->pos_Hexagono.columna;
+    float d_disparo_enemigo = mechs->iMechVector[ind_objetivo]->dist_media_disparo();
+    float d_disparo_jugador = mechs->mechJugador->dist_media_disparo();
+    float d_seguridad;
+    if (MIN_DIST <= d_disparo_jugador)
+        d_seguridad = d_disparo_jugador;
+    else
+        d_seguridad = MIN_DIST;
 
+    nodoArea* nodoEnemigo = new nodoArea(this->fil_enemigo, this->col_enemigo, d_seguridad);
 
-    int f_obj = mechs->iMechVector[ind_objetivo]->pos_Hexagono.fila;
-    int c_obj = mechs->iMechVector[ind_objetivo]->pos_Hexagono.columna;
+    int f_obj = this->fil_enemigo;
+    int c_obj = this->col_enemigo;
+    float distancia_al_enemigo = distancia_hexagonal(f_obj, c_obj, fil_mech, col_mech);
+    printf("Mi distancia de disp. es %f, la del enemigo es %f\n", d_disparo_jugador, d_disparo_enemigo);
+    printf("La distancia al enemigo es %f\n", distancia_al_enemigo);
+
     int enc_obj = mechs->iMechVector[ind_objetivo]->encaramiento_mech;
 
     int pm_corriendo = mechs->mechJugador->dmj->PM_correr;
     int niveles = pm_corriendo / 4;
 
-    //    if (estrategia == DEFENDER) {
-    //        niveles = (float) mechs->mechJugador->dmj->PM_andar * 0.75;
-    //        if (niveles == 1) {
-    //            fil_dest = -1;
-    //            col_dest = -1;
-    //            lado_dest = -1;
-    //            return;
-    //        }
-    //    }
     vector<nodeVector> anillos;
 
 
 
-    sprintf(cad, "%s : Posición mech objetivo: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), f_obj, c_obj, enc_obj);
+    sprintf(cad, "%s : PosiciÃƒÂ³n mech objetivo: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), f_obj, c_obj, enc_obj);
     flog += cad;
-    //    switch (enc_obj) {
-    //        case 1:
-    //            lado = 4;
-    //            break;
-    //        case 2:
-    //            lado = 5;
-    //            break;
-    //        case 3:
-    //            lado = 6;
-    //            break;
-    //        case 4:
-    //            lado = 1;
-    //            break;
-    //        case 5:
-    //            lado = 2;
-    //            break;
-    //        case 6:
-    //            lado = 3;
-    //            break;
-    //    }
 
     switch (estrategia) {
         case ATACAR:
-                            anillos = getAnillos(nodoArea(fil_mech, col_mech, -1), mapa); //Anillos mech
+            anillos = getAnillos(nodoArea(fil_mech, col_mech, -1), mapa); //Anillos mech
             nodoEnEspalda(f_obj, c_obj, enc_obj, f, c);
 
-            if (!mapa->pos_valida(f, c, mapa->info_mechs->mechJugador->defMechInfo->toneladas) || !perteneceAnillos(niveles, anillos, f, c)) {
+            if (!mapa->pos_valida(f, c, mapa->info_mechs->mechJugador->defMechInfo->toneladas) ||
+                    !perteneceAnillos(niveles, anillos, f, c) ||
+                    mapa->mapa[f][c]->fuego) {
 
                 vector<nodeVector> anillosObj = getAnillos(nodoArea(f_obj, c_obj, -1), mapa);
                 posAtaque(niveles, anillos, anillosObj, f, c, mapa);
@@ -183,13 +168,28 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
 
             fil_dest = f;
             col_dest = c;
-            encarar_objetivo(f_obj, c_obj, fil_dest, col_dest, lado_dest);
+            mapa->encarar_objetivo(f_obj, c_obj, fil_dest, col_dest, lado_dest);
 
-            //lado_dest = enc_obj;
             tipo_mov = CORRER;
             //Pos mas cercana al mas cercano
             break;
         case DEFENDER:
+            anillos = getAnillos(nodoArea(fil_mech, col_mech, -1), mapa);
+
+            if (!mapa->info_mechs->mechJugador->enElSuelo && mapa->info_mechs->mechJugador->dmj->PM_saltar > 1) {
+                coberturaSalto(mapa->info_mechs->mechJugador->dmj->PM_saltar, anillos, fil_dest, col_dest, f_obj, c_obj, enc_obj, mapa,d_seguridad);
+                tipo_mov = SALTAR;
+            } else {
+                cobertura(niveles, anillos, fil_dest, col_dest, f_obj, c_obj, enc_obj, mapa,d_seguridad);
+                tipo_mov = CORRER;
+            }
+
+
+            ///////////////////////////////////
+            mapa->encarar_objetivo(f_obj, c_obj, fil_dest, col_dest, lado_dest);
+
+            break;
+        case ESCAPAR:
             anillos = getAnillos(nodoArea(fil_mech, col_mech, -1), mapa);
 
             if (!mapa->info_mechs->mechJugador->enElSuelo && mapa->info_mechs->mechJugador->dmj->PM_saltar > 1) {
@@ -202,25 +202,12 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
 
 
             ///////////////////////////////////
-            encarar_objetivo(f_obj, c_obj, fil_dest, col_dest, lado_dest);
-            //            if (f_obj < fil_dest) {//Los de arriba
-            //                if (c_obj < col_dest) //los de la izq
-            //                    lado = 6;
-            //                else lado = 2;
-            //            } else {//los de abajo
-            //                if (c_obj < col_dest) //los de la izq
-            //                    lado = 5;
-            //                else lado = 3;
-            //            }
-            //            lado_dest = lado;
-            //Huimos del mas fuerte
+            mapa->encarar_objetivo(f_obj, c_obj, fil_dest, col_dest, lado_dest);
+
             break;
     }
 
     return tipo_mov;
-    //    fil_dest = 4;
-    //    col_dest = 8;
-    //    lado_dest = 1;
 
 }
 
@@ -280,7 +267,7 @@ int movimiento_t::estrategia_movimiento() {
 
     if ((mech->enElSuelo == FALSE) &&
             (mechs->mechJugador->dmj->Heridas_MW < 5) && /* Para que haya como mucho una prob. de 5/6 de perder la consciencia */
-            (mech->temp_actual < 13) && /* Para evitar la desconexiÃƒÂ³n */
+            (mech->temp_actual < 13) && /* Para evitar la desconexiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n */
             (mech->blindaje.CAB > 2) &&
             (mech->blindaje.TC > 2) &&
             (mech->blindaje.PI > 1) &&
@@ -290,7 +277,7 @@ int movimiento_t::estrategia_movimiento() {
     } else {
         sprintf(cad, "%s : Estrategia de Huida. \n\n", ctime(&tiempo));
         flog += cad;
-        return DEFENDER;
+        return ESCAPAR;
     }
 }
 
@@ -373,7 +360,7 @@ void movimiento_t::logica_movimiento() {
 
     //ATACAR O DEFENDER
 
-    sprintf(cad, "%s : Posición mech jugador: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_mech, col_mech, lado_mech);
+    sprintf(cad, "%s : PosiciÃƒÂ³n mech jugador: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_mech, col_mech, lado_mech);
     flog += cad;
 
     int tipo_mov_get_destino = getDestino(fil_mech, col_mech, fil_dest, col_dest, lado_dest, estrategia);
@@ -430,7 +417,7 @@ void movimiento_t::logica_movimiento() {
                 flog += cad;
                 fil_dest = fil_mech;
                 col_dest = col_mech;
-                encarar_objetivo(fil_enemigo, col_enemigo, fil_mech, col_mech, lado_dest);
+                mapa->encarar_objetivo(fil_enemigo, col_enemigo, fil_mech, col_mech, lado_dest);
 
                 destino = new node(fil_dest, col_dest, lado_dest, mapa, tons);
                 inicio = new node(fil_mech, col_mech, lado_mech, destino, mapa, tons);
@@ -449,7 +436,7 @@ void movimiento_t::logica_movimiento() {
 
                 fil_dest = fil_mech;
                 col_dest = col_mech;
-                encarar_objetivo(fil_enemigo, col_enemigo, fil_mech, col_mech, lado_dest);
+                mapa->encarar_objetivo(fil_enemigo, col_enemigo, fil_mech, col_mech, lado_dest);
 
                 node *destino = new node(fil_dest, col_dest, lado_dest, mapa, tons);
                 node *inicio = new node(fil_mech, col_mech, lado_mech, destino, mapa, tons);
@@ -473,7 +460,7 @@ void movimiento_t::logica_movimiento() {
 
 
                     tipo_movimiento = SALTAR;
-                    encarar_objetivo(fil_dest, col_dest, nodos[i].fil, nodos[i].col, this->lado);
+                    mapa->encarar_objetivo(fil_dest, col_dest, nodos[i].fil, nodos[i].col, this->lado);
                     this->destino.fila = nodos[i].fil;
                     this->destino.columna = nodos[i].col;
                     //                    int f_obj = nodos[i].fil;
@@ -511,7 +498,7 @@ void movimiento_t::logica_movimiento() {
             case CORRER:
                 PM = mechs->mechJugador->dmj->PM_correr;
                 break;
-        }//Añadir saltar
+        }//AÃƒÂ±adir saltar
 
 
 
@@ -524,21 +511,6 @@ void movimiento_t::logica_movimiento() {
                 tiempo = time(&tiempo);
                 sprintf(cad, "%s : El mech %i esta en el suelo e intentara levantarse\n\n", ctime(&tiempo), mapa->info_mechs->mechJugador->numJ);
                 flog += cad;
-                /* Si la estrategia es de ataque, nos levantamos mirando al mech mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡s cercano */
-
-                //mechJ->encaramiento_mech = direccion;
-
-                /* Guardar el movimiento de levantarse. Poner en pie al mech con la direcciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n calculada */
-
-                //        tipo[pasos] = MOV_TIERRA;
-                //        veces[pasos] = 1;
-                //        pasos++;
-                //        this->destino.columna=mechs->mechJugador->pos_Hexagono.columna;
-                //        this->destino.fila = mechs->mechJugador->pos_Hexagono.fila;
-                //        this->lado = mechs->mechJugador->encaramiento_mech;
-                //    
-                //        return;
-
 
                 tipo[pasos] = MOV_LEVANTARSE;
                 veces[pasos] = nodos[0].orientacion;
@@ -549,7 +521,7 @@ void movimiento_t::logica_movimiento() {
 
 
                 /* Actualizar los PM que llevamos usados */
-                /* Para simplificar, suponemos que tenemos ambos brazos y no estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡n daÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±ados */
+                /* Para simplificar, suponemos que tenemos ambos brazos y no estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡n daÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ados */
                 PM -= 2;
             } else {
                 sprintf(cad, "%s : El mech %i no puede levantarse\n\n", ctime(&tiempo), mapa->info_mechs->mechJugador->numJ);
@@ -596,38 +568,38 @@ int movimiento_t::getTipoMov(const node & n1, const node & n2) {
         if (n2.fil == f && n2.col == c)
             return MOV_ADELANTE;
         else return MOV_ATRAS;
-        //ADELANTE O ATRÁS
+        //ADELANTE O ATRÃƒï¿½S
     }
 
 
 }
-
-void movimiento_t::encarar_objetivo(int f, int c, int f_obj, int c_obj, int & lado) {
-
-
-    if (f < f_obj) {//Los de arriba
-        if (c < c_obj) //los de la izq
-            lado = 6;
-        else if (c > c_obj)
-            lado = 2;
-        else lado = 1;
-    } else {//los de abajo
-        if (c < c_obj) //los de la izq
-            lado = 5;
-        else if (c > c_obj)
-            lado = 3;
-        else
-            lado = 4;
-    }
-}
+//
+//void movimiento_t::encarar_objetivo(int f, int c, int f_obj, int c_obj, int & lado) {
+//
+//
+//    if (f < f_obj) {//Los de arriba
+//        if (c < c_obj) //los de la izq
+//            lado = 6;
+//        else if (c > c_obj)
+//            lado = 2;
+//        else lado = 1;
+//    } else {//los de abajo
+//        if (c < c_obj) //los de la izq
+//            lado = 5;
+//        else if (c > c_obj)
+//            lado = 3;
+//        else
+//            lado = 4;
+//    }
+//}
 
 void movimiento_t::getSecuenciaPasos(const vector<node> & nodosPath, int PM) {
 
     vector<node> nodos = nodosPath;
 
     while (nodos.back().coste > PM) {
-//        cout << "PM: " << PM << endl;
-//        nodos.back().show();
+        //        cout << "PM: " << PM << endl;
+        //        nodos.back().show();
         nodos.pop_back();
     }
     //Si no tenemos PM para movernos nos quedamos inmoviles
@@ -652,7 +624,7 @@ void movimiento_t::getSecuenciaPasos(const vector<node> & nodosPath, int PM) {
     node ultimo_nodo(nodos[1]);
     nodos.erase(nodos.begin());
     nodos.erase(nodos.begin());
-    tipo[pasos] = dir_actual; //ADELANTE,ATRÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½S,IZQ,DERE,LEVANTARSE, CUERPO A TIERRA
+    tipo[pasos] = dir_actual; //ADELANTE,ATRÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½S,IZQ,DERE,LEVANTARSE, CUERPO A TIERRA
     veces[pasos] = 1;
     while (!nodos.empty()) {
         dir = getTipoMov(ultimo_nodo, nodos.front());
