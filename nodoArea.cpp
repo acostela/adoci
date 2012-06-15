@@ -181,20 +181,26 @@ void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & 
     col_dest = anillos[0][0].columna;
     anillos[0][0].evaluaHuir(f_obj, c_obj, enc);
 
-        int fil_anillo,col_anillo;
-    
-    int fil_mech=anillos[0][0].fila,
-        col_mech=anillos[0][0].columna;
+    int fil_anillo, col_anillo;
+
+    int fil_mech = anillos[0][0].fila,
+            col_mech = anillos[0][0].columna;
     float dist_al_objetivo;
-    float menor=distancia_hexagonal(f_obj,c_obj,fil_mech,col_mech) - dist_seg;
-    if(menor < 0) menor=-menor;
-    float diff;    
-    
-    
-//                if (posMechObjetivo != 0) {
-//                    distancia_hexagonal(posMechObjetivo->fila,posMechObjetivo->columna,
-//                    
-//                }
+    float menor = distancia_hexagonal(f_obj, c_obj, fil_mech, col_mech) - dist_seg;
+    if (menor < 0) menor = -menor;
+    float diff;
+
+    if (mapa->mapa[fil_dest][col_dest]->fuego) {
+        menor = 1000;
+        anillos[0][0].evaluacionHuir = 0;
+    }
+
+
+
+    //                if (posMechObjetivo != 0) {
+    //                    distancia_hexagonal(posMechObjetivo->fila,posMechObjetivo->columna,
+    //                    
+    //                }
 
     float mayor = anillos[0][0].evaluacionHuir;
 
@@ -218,14 +224,16 @@ void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & 
                     col_dest = anillos[i][j].columna;
                 }
             } else {
-                dist_al_objetivo = distancia_hexagonal(f_obj,c_obj,fil_anillo,col_anillo);
+                dist_al_objetivo = distancia_hexagonal(f_obj, c_obj, fil_anillo, col_anillo);
                 diff = dist_al_objetivo - dist_seg;
-                if(diff < 0) diff=-diff;
-                if (diff < menor && check_salto(anillos[0][0], anillos[i][j], mapa)) {
+                if (diff < 0) diff = -diff;
+                if (diff < menor &&
+                        mapa->pos_valida(filAnillo, colAnillo, toneladas) &&
+                        !mapa->mapa[filAnillo][colAnillo]->fuego) {
                     menor = diff;
                     fil_dest = anillos[i][j].fila;
                     col_dest = anillos[i][j].columna;
-                    if(diff<=1.5)
+                    if (diff <= 1.5)
                         return;
 
                 }
@@ -240,21 +248,26 @@ void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, i
         int f_obj, int c_obj, int enc, infoMapa * mapa, float dist_seg) {
     if (niveles > NUM_ANILLOS)
         niveles = NUM_ANILLOS;
-    int fil_anillo,col_anillo;
-    
-    int fil_mech=anillos[0][0].fila,
-        col_mech=anillos[0][0].columna;
-    
+    int fil_anillo, col_anillo;
+
+    int fil_mech = anillos[0][0].fila,
+            col_mech = anillos[0][0].columna;
+
     fil_dest = fil_mech;
     col_dest = col_mech;
-    
-    anillos[0][0].evaluaHuir(f_obj, c_obj, enc);
 
+    anillos[0][0].evaluaHuir(f_obj, c_obj, enc);
     float dist_al_objetivo;
-    float menor=distancia_hexagonal(f_obj,c_obj,fil_mech,col_mech) - dist_seg;
-    if(menor < 0) menor=-menor;
+    float menor = distancia_hexagonal(f_obj, c_obj, fil_mech, col_mech) - dist_seg;
+    if (menor < 0) menor = -menor;
     float diff;
     bool asignado = false;
+    if (mapa->mapa[fil_dest][col_dest]->fuego) {
+        menor = 1000;
+        anillos[0][0].evaluacionHuir = 0;
+    }
+
+
 
     float mayor = anillos[0][0].evaluacionHuir;
     for (int i = 1; i <= niveles; i++) {
@@ -278,14 +291,14 @@ void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, i
                 if (niveles > 5 && asignado == true)
                     return;
             } else {
-                dist_al_objetivo = distancia_hexagonal(f_obj,c_obj,fil_anillo,col_anillo);
+                dist_al_objetivo = distancia_hexagonal(f_obj, c_obj, fil_anillo, col_anillo);
                 diff = dist_al_objetivo - dist_seg;
-                if(diff < 0) diff=-diff;
+                if (diff < 0) diff = -diff;
                 if (diff < menor && check_salto(anillos[0][0], anillos[i][j], mapa)) {
                     menor = diff;
                     fil_dest = anillos[i][j].fila;
                     col_dest = anillos[i][j].columna;
-                    if(diff<=1.5)
+                    if (diff <= 1.5)
                         return;
 
                 }

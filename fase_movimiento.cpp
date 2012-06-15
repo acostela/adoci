@@ -161,7 +161,7 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
                     mapa->mapa[f][c]->fuego) {
 
                 vector<nodeVector> anillosObj = getAnillos(nodoArea(f_obj, c_obj, -1), mapa);
-                posAtaque(niveles, anillos, anillosObj, f, c, mapa);
+                posAtaque(niveles + 2, anillos, anillosObj, f, c, mapa);
 
             }
 
@@ -177,10 +177,10 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
             anillos = getAnillos(nodoArea(fil_mech, col_mech, -1), mapa);
 
             if (!mapa->info_mechs->mechJugador->enElSuelo && mapa->info_mechs->mechJugador->dmj->PM_saltar > 1) {
-                coberturaSalto(mapa->info_mechs->mechJugador->dmj->PM_saltar, anillos, fil_dest, col_dest, f_obj, c_obj, enc_obj, mapa,d_seguridad);
+                coberturaSalto(mapa->info_mechs->mechJugador->dmj->PM_saltar, anillos, fil_dest, col_dest, f_obj, c_obj, enc_obj, mapa, d_seguridad);
                 tipo_mov = SALTAR;
             } else {
-                cobertura(niveles, anillos, fil_dest, col_dest, f_obj, c_obj, enc_obj, mapa,d_seguridad);
+                cobertura(niveles, anillos, fil_dest, col_dest, f_obj, c_obj, enc_obj, mapa, d_seguridad);
                 tipo_mov = CORRER;
             }
 
@@ -368,10 +368,14 @@ void movimiento_t::logica_movimiento() {
         sprintf(cad, "El jugador no tiene PM asi que permanecera inmovil.\n");
         flog += cad;
         tipo_movimiento = INMOVIL;
+        cout << "El jugador no tiene PM asi que permanecera inmovil." << endl;
+        cin.get();
         return;
     } else if (fil_dest == fil_mech && col_dest == col_mech && lado_dest == lado_mech) {
         sprintf(cad, "El jugador decide permanecer inmovil.\n");
         flog += cad;
+        cout << "El jugador decide permanecer inmovil." << endl;
+        cin.get();
         tipo_movimiento = INMOVIL;
         return;
 
@@ -389,6 +393,8 @@ void movimiento_t::logica_movimiento() {
         this->destino.fila = fil_dest;
         this->destino.columna = col_dest;
         this->lado = lado_dest;
+        cout << "El jugador decide saltar a la pos "<<destino.stringPos() << endl;
+        cin.get();
         return;
 
     }
@@ -409,7 +415,7 @@ void movimiento_t::logica_movimiento() {
         delete inicio;
         delete destino;
 
-        if (nodosWalk.back().coste <= nodosDefault.back().coste) {
+        if (nodosWalk.back().coste + 1 < nodosDefault.back().coste) {
             tipo_mov = ANDAR;
             nodos = nodosWalk;
             if (nodos[1].coste >= PM) {
@@ -463,24 +469,9 @@ void movimiento_t::logica_movimiento() {
                     mapa->encarar_objetivo(fil_dest, col_dest, nodos[i].fil, nodos[i].col, this->lado);
                     this->destino.fila = nodos[i].fil;
                     this->destino.columna = nodos[i].col;
-                    //                    int f_obj = nodos[i].fil;
-                    //                    int c_obj = nodos[i].col;
-                    //                    if (f_obj < fil_dest) {//Los de arriba
-                    //                        if (c_obj < col_dest) //los de la izq
-                    //                            this->lado = 6;
-                    //                        else if (c_obj > col_dest)
-                    //                            this->lado = 2;
-                    //                        else this->lado = 1;
-                    //                    } else {//los de abajo
-                    //                        if (c_obj < col_dest) //los de la izq
-                    //                            this->lado = 5;
-                    //                        else if (c_obj > col_dest)
-                    //                            this->lado = 3;
-                    //                        else
-                    //                            this->lado = 4;
-                    //                    }
 
-
+        cout << "El jugador decide saltar a la pos "<<this->destino.stringPos() << endl;
+        cin.get();
                     return;
                 }
             }
@@ -527,7 +518,8 @@ void movimiento_t::logica_movimiento() {
                 sprintf(cad, "%s : El mech %i no puede levantarse\n\n", ctime(&tiempo), mapa->info_mechs->mechJugador->numJ);
                 flog += cad;
                 tipo_movimiento = INMOVIL;
-
+        cout << "El mech no puede levantarse " << endl;
+        cin.get();
                 return;
 
             }
