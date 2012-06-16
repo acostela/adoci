@@ -21,6 +21,7 @@ using namespace std;
 extern string flog;
 extern time_t tiempo;
 
+#define MIN_DIST 6
 /* Datos para la fase de movimiento */
 class movimiento_t {
 public:
@@ -42,7 +43,7 @@ public:
     void logica_movimiento();
     int getTipoMov(const node & n1, const node & n2);
     void getSecuenciaPasos(const vector<node> & nodos, int PM);
-    void encarar_objetivo(int f, int c, int f_obj, int c_obj, int & lado);
+//    void encarar_objetivo(int f, int c, int f_obj, int c_obj, int & lado);
 int estrategiaPorPeso();
 //    void getArea(int n, int f, int c, vector<nodoArea> & pos_vector);
 
