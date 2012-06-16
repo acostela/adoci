@@ -1,8 +1,7 @@
 /* 
  * File:   fase_ataque_armas.cpp
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  * 
- * Created on 28 de marzo de 2012, 0:35
  */
 
 #include "fase_ataque_armas.h"
@@ -42,7 +41,7 @@ void ataque_armas_t::salida(string numJ) {
             break;
     }
 
-    /* Si se coge un garrote, terminar aquÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­ */
+    /* Si se coge un garrote, terminar aquí */
 
     if (coger_garrote == true) {
         out << accion;
@@ -50,16 +49,16 @@ void ataque_armas_t::salida(string numJ) {
         return;
     }
 
-    /* Linea 2: HexÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gono objetivo primario */
+    /* Linea 2: Hexágono objetivo primario */
     accion = accion + objetivo.stringPos() + "\n";
 
-    /* Linea 3: NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºmero de armas que se van a disparar */
+    /* Linea 3: Número de armas que se van a disparar */
 
     accion = accion + itoStr(num_armas) + "\n";
 
     /* Para cada arma a disparar */
     for (int i = 0; i < num_armas; ++i) {
-        /* LocalizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n del arma */
+        /* Localización del arma */
 
         switch (armas_mech[i].localizacion) {
             case 0:
@@ -91,7 +90,7 @@ void ataque_armas_t::salida(string numJ) {
                 break;
         }
 
-        /* Slot del arma dentro de la localizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n */
+        /* Slot del arma dentro de la localización */
 
         accion = accion + itoStr(armas_mech[i].slot) + "\n";
 
@@ -105,7 +104,7 @@ void ataque_armas_t::salida(string numJ) {
                 break;
         }
 
-        /* LocalizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de la municiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n */
+        /* Localización de la munición */
 
         switch (armas_mech[i].loc_municion) {
             case 0:
@@ -139,10 +138,10 @@ void ataque_armas_t::salida(string numJ) {
                 accion = accion + "-1\n";
         }
 
-        /* Slot de la municiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n dentro de la localizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n */
+        /* Slot de la munición dentro de la localización */
         accion = accion + itoStr(armas_mech[i].slot_municion) + "\n";
 
-        /* HexÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gono objetivo del arma */
+        /* Hexágono objetivo del arma */
 
         accion = accion + armas_mech[i].objetivo.stringPos() + "\n";
 
@@ -240,7 +239,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* Mirar toda la lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nea de casillas que tiene detrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡s */
+            /* Mirar toda la línea de casillas que tiene detrás */
 
             for (int i = mechs->mechJugador->pos_Hexagono.fila + 1; i < mapa->filas; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
@@ -271,7 +270,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* Mirar si estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ en los laterales */
+            /* Mirar si está en los laterales */
 
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna)
                 return DERECHO;
@@ -279,7 +278,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                 return IZQUIERDO;
             break;
         case 2:
-            /* Comprobar el ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ngulo frontal */
+            /* Comprobar el ángulo frontal */
 
             for (int i = 1; i < mechs->mechJugador->pos_Hexagono.fila; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
@@ -297,7 +296,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* Comprobar el angulo trasero */
+            /* Comprobar el ángulo trasero */
             if ((mechs->mechJugador->pos_Hexagono.columna % 2) == 0)
                 fila_init = (mechs->mechJugador->pos_Hexagono.fila + 1)*2;
             else
@@ -309,7 +308,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* Comprobar los angulos laterales */
+            /* Comprobar los ángulos laterales */
             if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna) ||
                     (mechs->iMechVector[mech_obj]->pos_Hexagono.fila > mechs->mechJugador->pos_Hexagono.fila))
                 return DERECHO;
@@ -317,7 +316,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                 return IZQUIERDO;
             break;
         case 3:
-            /* Comprobar el angulo frontal */
+            /* Comprobar el ángulo frontal */
             for (int i = mechs->mechJugador->pos_Hexagono.fila + 1; i < mapa->filas; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -334,7 +333,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* Comprobar el angulo trasero */
+            /* Comprobar el ángulo trasero */
             if ((mechs->mechJugador->pos_Hexagono.columna % 2) == 0)
                 fila_init = mechs->mechJugador->pos_Hexagono.fila * 2;
             else
@@ -346,14 +345,14 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* Comprobar los angulos laterales */
+            /* Comprobar los ángulos laterales */
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.fila < mechs->mechJugador->pos_Hexagono.fila)
                 return IZQUIERDO;
             else
                 return DERECHO;
             break;
         case 4:
-            /* angulo frontal */
+            /* ángulo frontal */
             for (int i = mechs->mechJugador->pos_Hexagono.fila + 1; i < mapa->filas; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -384,7 +383,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                 }
             }
 
-            /* angulo trasero */
+            /* ángulo trasero */
             for (int i = 1; i < mechs->mechJugador->pos_Hexagono.fila; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -414,14 +413,14 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* angulos laterales */
+            /* ángulos laterales */
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna)
                 return IZQUIERDO;
             else
                 return DERECHO;
             break;
         case 5:
-            /* angulo frontal */
+            /* ángulo frontal */
             for (int i = mechs->mechJugador->pos_Hexagono.fila + 1; i < mapa->filas; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -439,7 +438,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* angulo trasero */
+            /* ángulo trasero */
             if ((mechs->mechJugador->pos_Hexagono.columna % 2) == 0)
                 fila_init = (mechs->mechJugador->pos_Hexagono.fila - 1)*2 - 2;
             else
@@ -451,14 +450,14 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* angulos laterales */
+            /* ángulos laterales */
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna)
                 return IZQUIERDO;
             else
                 return DERECHO;
             break;
         case 6:
-            /* angulo frontal */
+            /* ángulo frontal */
             for (int i = 1; i < mechs->mechJugador->pos_Hexagono.fila; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -476,7 +475,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* angulo trasero */
+            /* ángulo trasero */
             if ((mechs->mechJugador->pos_Hexagono.columna % 2) == 0)
                 fila_init = (mechs->mechJugador->pos_Hexagono.columna + 1)*2;
             else
@@ -488,7 +487,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* angulos laterales */
+            /* ángulos laterales */
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna)
                 return DERECHO;
             else
@@ -512,7 +511,6 @@ int ataque_armas_t::objetivoArmas() {
     int armaduraminima = 100000;
     int objetivo;
     int scoreaux;
-    float distancia;
 
     columnaJugador = mechs->mechJugador->pos_Hexagono.columna;
     filaJugador = mechs->mechJugador->pos_Hexagono.fila;
@@ -549,7 +547,7 @@ int ataque_armas_t::objetivoArmas() {
         armaduraux = 0;
     }
 
-    score_objetivo[mech_mas_debil] -= 1; //Si hay dos mechs a igual distancia pero uno esta mas daÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ado que otro disparamos a ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©ste.
+    score_objetivo[mech_mas_debil] -= 1; //Si hay dos mechs a igual distancia pero uno esta mas dañado que otro disparamos a éste.
 
     scoreaux = score_objetivo[0];
     objetivo = 0;
@@ -664,7 +662,7 @@ void ataque_armas_t::ataque_arma() {
 
     posiciones_adyacentes(fil_jugador, col_jugador, adyacentes);
 
-    //Consideramos enemigo adyacente si estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ en una casilla al lado y el desnivel no es mayor que 1 (Le podemos pegar cuerpo a cuerpo).
+    //Consideramos enemigo adyacente si está en una casilla al lado y el desnivel no es mayor que 1 (Le podemos pegar cuerpo a cuerpo).
 
     for (int i = 0; i < mechs->nMechs - 1; i++) {
         filaux = mechs->iMechVector[i]->pos_Hexagono.fila;

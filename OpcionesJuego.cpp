@@ -1,8 +1,7 @@
 /* 
  * File:   OpcionesJuego.cpp
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  * 
- * Created on 25 de mayo de 2010, 16:05
  */
 
 #include "OpcionesJuego.h"
@@ -18,7 +17,7 @@ OpcionesJuego::~OpcionesJuego() {
 
 void OpcionesJuego::leeFich(string fichero){
     string cad;
-    ifstream fich(fichero.c_str());//Creacion y apertura
+    ifstream fich(fichero.c_str());//Creación y apertura
     if(!fich){
         cerr << "\nNo es posible abrir " << fichero <<"\n";
         exit(1);

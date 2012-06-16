@@ -1,8 +1,7 @@
 /* 
  * File:   OpcionesJuego.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 25 de mayo de 2010, 16:05
  */
 
 #ifndef _OPCIONESJUEGO_H

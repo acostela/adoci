@@ -1,8 +1,7 @@
 /* 
  * File:   fase_ataque_armas.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 28 de marzo de 2012, 0:35
  */
 
 #ifndef FASE_ATAQUE_ARMAS_H

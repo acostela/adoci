@@ -1,8 +1,7 @@
 /* 
  * File:   acciones.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 31 de mayo de 2010, 14:21
  */
 
 #ifndef _ACCIONES_H

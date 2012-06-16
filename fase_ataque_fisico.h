@@ -1,8 +1,7 @@
 /* 
  * File:   fase_ataque_fisico.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 28 de marzo de 2012, 0:36
  */
 
 #ifndef FASE_ATAQUE_FISICO_H
@@ -14,7 +13,7 @@
 #include "infoMechs.h"
 
 using namespace std;
-/* Datos para el uso de un arma fÃƒÆ’Ã‚Â­sica */
+/* Datos para el uso de un arma física */
 class arma_fisica {
 public:
     int localizacion;
@@ -32,7 +31,7 @@ public:
     }
 };
 
-/* Datos para la fase de ataque fÃƒÆ’Ã‚Â­sico */
+/* Datos para la fase de ataque físico */
 class ataque_fisico_t {
 public:
     int num_armas;

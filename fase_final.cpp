@@ -1,8 +1,7 @@
 /* 
  * File:   fase_final.cpp
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  * 
- * Created on 28 de marzo de 2012, 0:36
  */
 
 #include "fase_final.h"

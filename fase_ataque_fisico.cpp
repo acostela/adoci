@@ -1,8 +1,7 @@
 /* 
  * File:   fase_ataque_fisico.cpp
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  * 
- * Created on 28 de marzo de 2012, 0:36
  */
 
 #include "fase_ataque_fisico.h"
@@ -25,7 +24,7 @@ void ataque_fisico_t::salida(string numJ) {
 
     /* Para cada arma */
     for (int i = 0; i < num_armas; ++i) {
-        /* LocalizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n del arma fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­sica */
+        /* Localización del arma física */
         switch (armas[i].localizacion) {
             case BI_A:
                 accion = accion + "BI\n";
@@ -39,7 +38,7 @@ void ataque_fisico_t::salida(string numJ) {
             case PD_A:
                 accion = accion + "PD\n";
                 break;
-            case BIBD_A://ojooooooooooooooooooo declaraciones conflictivas ...
+            case BIBD_A:
                 accion = accion + "BIBD\n";
                 break;
         }
@@ -271,7 +270,7 @@ int ataque_fisico_t::objetivoFisico() {
     int columnaJugador;
     int filaJugador;
     int mech_mas_debil;
-    int score_objetivo[mechs->nMechs - 1]; //Aqui se guardara en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
+    int score_objetivo[mechs->nMechs - 1]; //Aqui se guardará en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
     int armaduraux = 0;
     int armaduraminima = 100000;
     int objetivo;
@@ -290,18 +289,6 @@ int ataque_fisico_t::objetivoFisico() {
         if (mechs->iMechVector[i]->operativo == true) 
             score_objetivo[i] = distancia_hexagonal(filaJugador, columnaJugador, auxFila, auxColumna);//Se pone como Score la distancia del Mech con respecto al nuestro
 
-        
-//        armaduraux += mechs->iMechVector[i]->blindaje.BD;
-//        armaduraux += mechs->iMechVector[i]->blindaje.BI;
-//        armaduraux += mechs->iMechVector[i]->blindaje.CAB;
-//        armaduraux += mechs->iMechVector[i]->blindaje.PATC;
-//        armaduraux += mechs->iMechVector[i]->blindaje.PATD;
-//        armaduraux += mechs->iMechVector[i]->blindaje.PATI;
-//        armaduraux += mechs->iMechVector[i]->blindaje.PD;
-//        armaduraux += mechs->iMechVector[i]->blindaje.PI;
-//        armaduraux += mechs->iMechVector[i]->blindaje.TC;
-//        armaduraux += mechs->iMechVector[i]->blindaje.TD;
-//        armaduraux += mechs->iMechVector[i]->blindaje.TI;
     }
 
     for (int i = 0; i < mechs->nMechs; i++) {
@@ -309,7 +296,6 @@ int ataque_fisico_t::objetivoFisico() {
             objetivo = i;
         }
     }
-   // objetivo = mechs->iMechVector[objetivo]->numJ;
     return objetivo;
 }
 
@@ -343,7 +329,7 @@ void ataque_fisico_t::ataque_fisico(){
         colaux = mechs->iMechVector[i]->pos_Hexagono.columna;
         for (int j = 0; j < 6; j++) {
             if (adyacentes[j][0] == filaux && adyacentes[j][1] == colaux){
-                if (abs(mapa->mapa[fil_jugador][col_jugador]->nivel - mapa->mapa[filaux][colaux]->nivel) <= 1){ //Si hay enemigo adyacente y estÃƒÆ’Ã‚Â¡ a buena altura
+                if (abs(mapa->mapa[fil_jugador][col_jugador]->nivel - mapa->mapa[filaux][colaux]->nivel) <= 1){ //Si hay enemigo adyacente y está a buena altura
                     ene_adyacente = true; 
                 }
             }
@@ -356,7 +342,7 @@ void ataque_fisico_t::ataque_fisico(){
         colene = mechs->iMechVector[objetivo]->pos_Hexagono.columna;
         angulo = angulo_torso_enemigo(objetivo);
         if(angulo != TRASERO){
-            if(!mechs->mechJugador->defMechInfo->brazos[0]){ //Si no tiene brazos no puede pegar puÃƒÂ±etazos
+            if(!mechs->mechJugador->defMechInfo->brazos[0]){ //Si no tiene brazos no puede pegar puñetazos
                 brazo_izq = false;
                 brazo_der = false;
             }else{
@@ -537,279 +523,6 @@ void ataque_fisico_t::ataque_fisico(){
         return;
     }
     cout << "Fin de logica de cuerpo a cuerpo" << endl;
-  //  cin.get();
-
-
-
-//    // Creamos un vector del numero de ataques que podemos hacer a un objetivo
-//    int[] num_ataques = new int[3];
-//    // Creamos una matriz de los miembros con los que podemos atacar a cada uno
-//    // segun este orden: brazo izquierdo, brazo derecho, pierna izquierda y pierna derecha
-//    bool [][] miembros = new bool [adyacentes.Count][];
-//    // Creamos una lista de hexagonos que nos hara falta a la hora de escribir el fichero
-//    List<string> hexagonos = new List<string>();
-//    int objetivo = 0, nivel_objetivo=0;
-//
-//
-//    for(int i=0; i<adyacentes.Count; i++){
-//        miembros[i] = new bool [4]{false,false,false,false};
-//
-//        // Si hay un enemigo
-//        if (adyacentes[i] != -1)
-//        {
-//
-//            // Encontramos a que Mech objetivo vamos a intentar atacar
-//            for (int j = 0; j < datos.num_mechs; j++)
-//            {
-//
-//                string hexagono = "";
-//
-//                if (datos.tablero.casillas[adyacentes[i]].col < 10)
-//                    hexagono += "0" + datos.tablero.casillas[adyacentes[i]].col;
-//                else
-//                    hexagono += datos.tablero.casillas[adyacentes[i]].col;
-//
-//
-//                if (datos.tablero.casillas[adyacentes[i]].fil < 10)
-//                    hexagono += "0" + datos.tablero.casillas[adyacentes[i]].fil;
-//                else
-//                    hexagono += datos.tablero.casillas[adyacentes[i]].fil;
-//
-//                // AÃƒÆ’Ã‚Â±adimos el hexagono a la lista de hexagonos
-//                hexagonos.Add(hexagono);
-//
-//                if (datos.robots[j].pos_hexagono == hexagono)
-//                    objetivo = j;
-//            }
-//
-//            // Comprobamos el nivel en el que se encuentra el objetivo respecto a nosotros
-//
-//            if (datos.tablero.getCasilla(col, fil).nivel == datos.tablero.casillas[adyacentes[i]].nivel - 1)
-//                nivel_objetivo = 1;
-//            if (datos.tablero.getCasilla(col, fil).nivel == datos.tablero.casillas[adyacentes[i]].nivel + 1)
-//                nivel_objetivo = -1;
-//
-//
-//            // Comprobaremos el numero de ataques que podemos realizar a cada uno:
-//            // Si el Mech objetivo no se encuentra por debajo de nosotros o no esta tumbado
-//            if (!(nivel_objetivo == -1) || !datos.robots[objetivo].tumbado)
-//            {
-//
-//
-//                // Si el Mech esta a nuestra izquierda
-//                if (i == 0)
-//                {
-//
-//                    if (!datos.disp_brazo_izq)
-//                    {
-//                        if (!datos.robots[objetivo].tumbado)
-//                        {
-//                            // Si el objetivo esta a nuestra altura o mas alto
-//                            if (nivel_objetivo == 0 || nivel_objetivo == 1)
-//                            {
-//                                num_ataques[i]++;
-//                                miembros[i][0] = true;
-//                            }
-//                        }
-//                        else
-//                        {
-//                            if (nivel_objetivo == 1)
-//                            {
-//                                num_ataques[i]++;
-//                                miembros[i][0] = true;
-//                            }
-//                        }
-//                    }
-//
-//                    if (!datos.disp_pierna_izq)
-//                    {
-//                        // Si el objetivo esta a nuestra altura o mas bajo
-//                        if (nivel_objetivo == 0 || nivel_objetivo == -1)
-//                        {
-//                            num_ataques[i]++;
-//                            miembros[i][2] = true;
-//                        }
-//
-//                    }
-//                }
-//
-//                // Si el Mech esta a nuestra derecha
-//                if (i == 2)
-//                {
-//
-//                    if (!datos.disp_brazo_der)
-//                    {
-//                        if (!datos.robots[objetivo].tumbado)
-//                        {
-//                            // Si el objetivo esta a nuestra altura o mas alto
-//                            if (nivel_objetivo == 0 || nivel_objetivo == 1)
-//                            {
-//                                num_ataques[i]++;
-//                                miembros[i][0] = true;
-//                            }
-//                        }
-//                        else
-//                        {
-//                            if (nivel_objetivo == 1)
-//                            {
-//                                num_ataques[i]++;
-//                                miembros[i][1] = true;
-//                            }
-//                        }
-//                    }
-//
-//                    if (!datos.disp_pierna_der)
-//                    {
-//                        // Si el objetivo esta a nuestra altura o mas bajo
-//                        if (nivel_objetivo == 0 || nivel_objetivo == -1)
-//                        {
-//                            num_ataques[i]++;
-//                            miembros[i][3] = true;
-//                        }
-//
-//                    }
-//                }
-//
-//                // Si el Mech se encuentra enfrente nuestra
-//                if (i == 1)
-//                {
-//
-//                    if (nivel_objetivo == 0 || nivel_objetivo == 1)
-//                    {
-//                        if (!datos.disp_brazo_izq)
-//                        {
-//                            if (!datos.robots[objetivo].tumbado)
-//                            {
-//                                // Si el objetivo esta a nuestra altura o mas alto
-//                                if (nivel_objetivo == 0 || nivel_objetivo == 1)
-//                                {
-//                                    num_ataques[i]++;
-//                                    miembros[i][0] = true;
-//                                }
-//                            }
-//                            else
-//                            {
-//                                if (nivel_objetivo == 1)
-//                                {
-//                                    num_ataques[i]++;
-//                                    miembros[i][0] = true;
-//                                }
-//                            }
-//                        }
-//
-//                        if (!datos.disp_brazo_der)
-//                        {
-//                            if (!datos.robots[objetivo].tumbado)
-//                            {
-//                                // Si el objetivo esta a nuestra altura o mas alto
-//                                if (nivel_objetivo == 0 || nivel_objetivo == 1)
-//                                {
-//                                    num_ataques[i]++;
-//                                    miembros[i][1] = true;
-//                                }
-//                            }
-//                            else
-//                            {
-//                                if (nivel_objetivo == 1)
-//                                {
-//                                    num_ataques[i]++;
-//                                    miembros[i][1] = true;
-//                                }
-//                            }
-//                        }
-//
-//                    }
-//
-//                    if (nivel_objetivo == 0 || nivel_objetivo == -1)
-//                        if (!datos.disp_pierna_izq || !datos.disp_pierna_der)
-//                        {
-//                            num_ataques[i]++;
-//                            miembros[i][2] = true;
-//                            miembros[i][3] = true;
-//                        }
-//
-//                }
-//
-//            }
-//
-//        }
-//
-//        else
-//        {
-//            hexagonos.Add(null);
-//        }
-//
-//    }
-//
-//
-//    int objetivo_fijado=0, aux=0;
-//    // Averiguamos cual es el mejor Mech a atacar
-//    for(int i=0; i<num_ataques.Length; i++){
-//
-//        if(num_ataques[i] > aux){
-//            objetivo_fijado = i;
-//            aux = num_ataques[i];
-//        }
-//    }
-//
-//    // Si no tuvieramos ningun ataque que hacer a nadie, finalizamos
-//    if (num_ataques[objetivo_fijado] == 0)
-//    {
-//        finAtaqueFisico();
-//        return;
-//    }
-//
-//
-//    // --- Escribimos en el Fichero --- //
-//    bool atacado_PI = false;
-//
-//    writer_log.WriteLine("FASE DE ATAQUES FISICOS\n\n");
-//
-//    // Escribimos el numero de armas fisicas
-//    writer.WriteLine(num_ataques[objetivo_fijado]);
-//    writer_log.WriteLine("Vamos a atacar con " + num_ataques[objetivo_fijado] + " armas.\n\n");
-//
-//    // Por cada arma
-//    for(int i=0; i<4; i++){
-//
-//        // Si podemos atacar con ese miembro
-//        if(miembros[objetivo_fijado][i] == true){
-//
-//            if(i == 0){
-//                writer_log.WriteLine("Damos un punetazo con el Brazo Izquierdo al Mech objetivo en la posicion: "+hexagonos[objetivo_fijado]+".\n");
-//                writer.WriteLine("BI");
-//                writer.WriteLine("1000");
-//                writer.WriteLine(hexagonos[objetivo_fijado]);
-//                writer.WriteLine("Mech");
-//            }
-//            if(i == 1){
-//                writer_log.WriteLine("Damos un punetazo con el Brazo Derecho al Mech objetivo en la posicion: " + hexagonos[objetivo_fijado] + ".\n");
-//                writer.WriteLine("BD");
-//                writer.WriteLine("1000");
-//                writer.WriteLine(hexagonos[objetivo_fijado]);
-//                writer.WriteLine("Mech");
-//            }
-//            if(i == 2){
-//                writer_log.WriteLine("Damos una patada con la Pierna Izquierda al Mech objetivo en la posicion: " + hexagonos[objetivo_fijado] + ".\n");
-//                writer.WriteLine("PI");
-//                writer.WriteLine("2000");
-//                writer.WriteLine(hexagonos[objetivo_fijado]);
-//                writer.WriteLine("Mech");
-//                atacado_PI = true;
-//            }
-//            if(i == 3 && !atacado_PI){
-//                writer_log.WriteLine("Damos una patada con la Pierna Derecha al Mech objetivo en la posicion: " + hexagonos[objetivo_fijado] + ".\n");
-//                writer.WriteLine("PD");
-//                writer.WriteLine("2000");
-//                writer.WriteLine(hexagonos[objetivo_fijado]);
-//                writer.WriteLine("Mech");
-//            }
-//
-//        }
-//
-//    }
-//
-//    // Cerramos el fichero de acciones
-//    writer.Close();
+    //cin.get();
     
 }
