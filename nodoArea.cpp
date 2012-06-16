@@ -186,8 +186,8 @@ bool perteneceAnillos(int niveles, vector<nodeVector> & anillos, int f, int c) {
  * 
  * @param niveles Niveles de anillos a examinar
  * @param anillos anillos que rodean al mech jugador
- * @param fil_dest DevolverÃƒÆ’Ã‚Â¡ fila dentro de estos anillos
- * @param col_dest DevolverÃƒÆ’Ã‚Â¡ columna dentro de estos anillos
+ * @param fil_dest DevolverÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ fila dentro de estos anillos
+ * @param col_dest DevolverÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ columna dentro de estos anillos
  * @param f_obj fila del mech objetivo
  * @param c_obj columna del mech objetivo
  * @param enc encaramiento del mech objetivo
@@ -243,7 +243,7 @@ void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & 
                     mayor = anillos[i][j].evaluacionDefensa;
                     fil_dest = anillos[i][j].fila;
                     col_dest = anillos[i][j].columna;
-                    if (mayor == 10)
+                    if (mayor >= 7.5)
                         return;
 
                 }
@@ -311,7 +311,7 @@ void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, i
                     fil_dest = anillos[i][j].fila;
                     col_dest = anillos[i][j].columna;
                     mayor = anillos[i][j].evaluacionDefensa;
-                    if (mayor == 10)
+                    if (mayor >= 7.5)
                         return;
 
                 }
