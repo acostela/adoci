@@ -25,7 +25,7 @@ void ataque_fisico_t::salida(string numJ) {
 
     /* Para cada arma */
     for (int i = 0; i < num_armas; ++i) {
-        /* LocalizaciÃƒÆ’Ã‚Â³n del arma fÃƒÆ’Ã‚Â­sica */
+        /* LocalizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n del arma fÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­sica */
         switch (armas[i].localizacion) {
             case BI_A:
                 accion = accion + "BI\n";
@@ -343,7 +343,7 @@ void ataque_fisico_t::ataque_fisico(){
         colaux = mechs->iMechVector[i]->pos_Hexagono.columna;
         for (int j = 0; j < 6; j++) {
             if (adyacentes[j][0] == filaux && adyacentes[j][1] == colaux){
-                if (abs(mapa->mapa[fil_jugador][col_jugador]->nivel - mapa->mapa[filaux][colaux]->nivel) <= 1){ //Si hay enemigo adyacente y estÃƒÂ¡ a buena altura
+                if (abs(mapa->mapa[fil_jugador][col_jugador]->nivel - mapa->mapa[filaux][colaux]->nivel) <= 1){ //Si hay enemigo adyacente y estÃƒÆ’Ã‚Â¡ a buena altura
                     ene_adyacente = true; 
                 }
             }
@@ -356,7 +356,7 @@ void ataque_fisico_t::ataque_fisico(){
         colene = mechs->iMechVector[objetivo]->pos_Hexagono.columna;
         angulo = angulo_torso_enemigo(objetivo);
         if(angulo != TRASERO){
-            if(!mechs->mechJugador->defMechInfo->brazos[0]){ //Si no tiene brazos no puede pegar puÃ±etazos
+            if(!mechs->mechJugador->defMechInfo->brazos[0]){ //Si no tiene brazos no puede pegar puÃƒÂ±etazos
                 brazo_izq = false;
                 brazo_der = false;
             }else{
@@ -537,7 +537,7 @@ void ataque_fisico_t::ataque_fisico(){
         return;
     }
     cout << "Fin de logica de cuerpo a cuerpo" << endl;
-    cin.get();
+  //  cin.get();
 
 
 
@@ -575,7 +575,7 @@ void ataque_fisico_t::ataque_fisico(){
 //                else
 //                    hexagono += datos.tablero.casillas[adyacentes[i]].fil;
 //
-//                // AÃƒÂ±adimos el hexagono a la lista de hexagonos
+//                // AÃƒÆ’Ã‚Â±adimos el hexagono a la lista de hexagonos
 //                hexagonos.Add(hexagono);
 //
 //                if (datos.robots[j].pos_hexagono == hexagono)
