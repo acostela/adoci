@@ -1,8 +1,7 @@
 /* 
  * File:   movimiento.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 29 de febrero de 2012, 14:50
  */
 
 #ifndef MOVIMIENTO_H

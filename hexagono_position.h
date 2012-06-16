@@ -1,8 +1,7 @@
 /* 
  * File:   hexagono_position.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 28 de marzo de 2012, 1:07
  */
 
 #ifndef HEXAGONO_POSITION_H

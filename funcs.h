@@ -1,8 +1,7 @@
 /* 
  * File:   funcs.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 12 de octubre de 2011, 18:53
  */
 
 #ifndef FUNCS_H
@@ -84,7 +83,7 @@ enum local_arma {
     TI_A, /* Torso izquierda */
     TD_A, /* Torso derecha */
     CAB_A, /* Cabeza */
-    BIBD_A /* Brazo izquierdo + Brazo derecho                    (sÃƒÆ’Ã‚Â³lo para ataque fÃƒÆ’Ã‚Â­sico con garrote) */
+    BIBD_A /* Brazo izquierdo + Brazo derecho                    (sólo para ataque físico con garrote) */
 };
 
 enum estrat_mov {

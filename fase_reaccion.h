@@ -1,8 +1,7 @@
 /* 
  * File:   fase_reaccion.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 28 de marzo de 2012, 0:35
  */
 
 #ifndef FASE_REACCION_H
@@ -24,7 +23,6 @@ public:
     
     reaccion_t(infoMapa* inf_mapa, infoMechs * inf_mechs);
     void reaccion_accion() ;
-    int objetivoEncaramiento();
     void salida(string numJ);
 };
 

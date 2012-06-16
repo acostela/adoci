@@ -1,8 +1,7 @@
 /* 
  * File:   fase_movimiento.cpp
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  * 
- * Created on 28 de marzo de 2012, 0:34
  */
 
 #include "fase_movimiento.h"
@@ -47,19 +46,19 @@ void movimiento_t::salida(string numJ) {
             break;
     }
 
-    /* Si el movimiento es INMOVIL, terminar aquÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­ */
+    /* Si el movimiento es INMOVIL, terminar aquí*/
     if (tipo_movimiento == INMOVIL) {
         out << accion;
         out.close();
         return;
     }
 
-    /* Linea 2: HexÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡gono de destino */
+    /* Linea 2: Hexágono de destino */
     accion = accion + destino.stringPos() + "\n";
 
     /* Linea 3: Lado de destino */
     accion = accion + itoStr(lado) + "\n";
-    /* Si el movimiento es SALTAR, terminar aquiÃ‚Â­ */
+    /* Si el movimiento es SALTAR, terminar aquí */
     if (tipo_movimiento == SALTAR) {
         out << accion;
         out.close();
@@ -76,7 +75,7 @@ void movimiento_t::salida(string numJ) {
             break;
     }
 
-    /* Linea 5: numero de pasos */
+    /* Linea 5: número de pasos */
     accion = accion + itoStr(pasos) + "\n";
 
     /* Para cada paso */
@@ -102,7 +101,7 @@ void movimiento_t::salida(string numJ) {
                 accion = accion + "Cuerpo a Tierra\n";
                 break;
         }
-        /* Numero de veces o lado */
+        /* Número de veces o lado */
         accion = accion + itoStr(veces[i]) + "\n";
     }
 
@@ -510,7 +509,7 @@ void movimiento_t::logica_movimiento() {
 
 
                 /* Actualizar los PM que llevamos usados */
-                /* Para simplificar, suponemos que tenemos ambos brazos y no estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡n daÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ados */
+                /* Para simplificar, suponemos que tenemos ambos brazos y no están dañados */
                 PM -= 2;
             } else {
                 sprintf(cad, "%s : El mech %i no puede levantarse\n\n", ctime(&tiempo), mapa->info_mechs->mechJugador->numJ);
@@ -615,7 +614,7 @@ void movimiento_t::getSecuenciaPasos(const vector<node> & nodosPath, int PM) {
     node ultimo_nodo(nodos[1]);
     nodos.erase(nodos.begin());
     nodos.erase(nodos.begin());
-    tipo[pasos] = dir_actual; //ADELANTE,ATRÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â½S,IZQ,DERE,LEVANTARSE, CUERPO A TIERRA
+    tipo[pasos] = dir_actual; //ADELANTE,ATRÁS,IZQ,DERE,LEVANTARSE, CUERPO A TIERRA
     veces[pasos] = 1;
     while (!nodos.empty()) {
         dir = getTipoMov(ultimo_nodo, nodos.front());

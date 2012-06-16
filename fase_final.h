@@ -1,8 +1,7 @@
 /* 
  * File:   fase_final.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 28 de marzo de 2012, 0:36
  */
 
 #ifndef FASE_FINAL_H

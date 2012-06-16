@@ -11,10 +11,10 @@ void final_t::salida(string numJ) {
     string accion;
     ofstream out(cad.c_str());
     out.open(cad.c_str());
-    /* Linea 1: NÃºmero de radiadores a apagar */
+    /* Linea 1: Número de radiadores a apagar */
     accion = accion + itoStr(radiadores_off) + "\n";
 
-    /* Linea 2: NÃºmero de radiadores a encender */
+    /* Linea 2: Número de radiadores a encender */
     accion = accion + itoStr(radiadores_on) + "\n";
 
     /* Linea 3: Soltar garrote */
@@ -27,12 +27,12 @@ void final_t::salida(string numJ) {
             break;
     }
 
-    /* Linea 4: NÃºmero de municiones a expulsar */
+    /* Linea 4: Número de municiones a expulsar */
     accion = accion + itoStr(expulsar) + "\n";
 
-    /* Para cada municiÃ³n a expulsar */
+    /* Para cada munición a expulsar */
     for (int i = 0; i < expulsar; ++i) {
-        /* LocalizaciÃ³n de la municiÃ³n */
+        /* Localización de la munición */
         switch (expulsada[i].localizacion) {
             case 0:
                 accion = accion + "BI\n";
@@ -60,7 +60,7 @@ void final_t::salida(string numJ) {
                 break;
         }
 
-        /* Slot de la municiÃ³n dentro de la localizaciÃ³n */
+        /* Slot de la munición dentro de la localización */
         accion = accion + itoStr(expulsada[i].slot) + "\n";
     }
     /* Cerrar el archivo */

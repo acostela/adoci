@@ -1,8 +1,7 @@
 /* 
  * File:   funcs.cpp
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  * 
- * Created on 12 de octubre de 2011, 18:53
  */
 
 #include "funcs.h"

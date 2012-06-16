@@ -1,15 +1,14 @@
 /* 
  * File:   infoMechs.cpp
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  * 
- * Created on 25 de mayo de 2010, 17:35
  */
 
 #include "infoMechs.h"
 #include "acciones.h"
 
 using namespace std;
-infoMechs::infoMechs(int numJugadorActual) {//Nuestro numero de jugador
+infoMechs::infoMechs(int numJugadorActual) {//Nuestro número de jugador
     mechJugador = new iMech;
     mechJugador->numJ = numJugadorActual;
     iMechVector = 0;
@@ -76,22 +75,22 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
     // Leemos la potencia del mech
     leeLinea(in,auxiliar,'\n');
     mech->defMechInfo->potencia = atoi(auxiliar.c_str());
-    // Leemos el numero de radiadores internos
+    // Leemos el número de radiadores internos
     leeLinea(in,auxiliar,'\n');
     mech->defMechInfo->radiadoresInternos =  atoi(auxiliar.c_str());
-    // Leemos el numero de radiadores
+    // Leemos el número de radiadores
     leeLinea(in,auxiliar,'\n');
     mech->defMechInfo->radiadores =  atoi(auxiliar.c_str());     
     // Leemos si tiene MASC
     leeLinea(in,auxiliar,'\n');  
     mech->defMechInfo->MASC = s2bool(auxiliar);//STRING TO BOOL
-    // Las siguientes 3 lÃ­neas no nos hacen falta
+    // Las siguientes 3 líneas no nos hacen falta
 
     leeLinea(in,auxiliar,'\n');  
     leeLinea(in,auxiliar,'\n');  
     leeLinea(in,auxiliar,'\n');  
 
-    // Leemos el calor maximo del mech
+    // Leemos el calor máximo del mech
     leeLinea(in,auxiliar,'\n');  
     mech->defMechInfo->max_calor = atoi(auxiliar.c_str());
 
@@ -105,15 +104,13 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
     // Ignoramos los puntos de blindaje y de estructura interna
     for (int j = 0; j < 19; j++)
         leeLinea(in,auxiliar,'\n');
-    // Leemos el numero de componentes equipados
+    // Leemos el número de componentes equipados
    leeLinea(in,auxiliar,'\n');
    mech->defMechInfo->num_componentes=atoi(auxiliar.c_str());
     
     /* Leemos los componentes */
     mech->defMechInfo->componentes = new Componente_Mech[mech->defMechInfo->num_componentes];
     // Bucle para rellenar cada componente
-    //string cadenaAuxiliar;
-    char nombre[20];
     for (int i = 0; i < mech->defMechInfo->num_componentes; i++){           
         //Leemos el codigo
         leeLinea(in,auxiliar,'\n');
@@ -121,7 +118,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         //Leemos el nombre
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].nombre = auxiliar;
-        /* Leemos la clase, almacenÃ¡ndola de la siguiente forma
+        /* Leemos la clase, almacenándola de la siguiente forma
          * VACIO = 0
          * ARMA = 1
          * MUNICION = 2
@@ -150,7 +147,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].trasera = s2bool(auxiliar);
 
-        /* Leemos la localizaciÃ³n del componente, codificada de la siguiente forma
+        /* Leemos la localización del componente, codificada de la siguiente forma
          * BRAZO IZQ = 0
          * TORSO IZQ = 1
          * PIERNA IZQ = 2
@@ -165,14 +162,14 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         */
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].localizacion=atoi(auxiliar.c_str());
-        // Leemos la localiaciÃ³n secundaria codificada igual que la anterior
+        // Leemos la localiación secundaria codificada igual que la anterior
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].localizacion2=atoi(auxiliar.c_str());
        
         /* Leemos el tipo de arma, codificada de la siguiente forma
          * Nada = 0
-         * EnergÃ­a = 1
-         * BalÃ­stica = 2
+         * Energía = 1
+         * Balística = 2
          * Misiles = 3
         */
         leeLinea(in,auxiliar,'\n');
@@ -188,13 +185,13 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         // Leemos el calor que genera el arma
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].calor = atoi(auxiliar.c_str());
-        // Leemos el daÃ±o que produce el arma
+        // Leemos el daño que produce el arma
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].danio = atoi(auxiliar.c_str());
         // Leemos los disparos por turno del arma
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].disparos_por_turno = atoi(auxiliar.c_str());
-        // Leemos la distancia minima del arma
+        // Leemos la distancia mínima del arma
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].distanciaMinima = atoi(auxiliar.c_str());
         // Leemos la distancia corta del arma
@@ -209,13 +206,13 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         // Leemos si el componente esta operativo
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].operativo = s2bool(auxiliar); //STRING TO BOOL
-        // Leemos el codigo del arma para el que se utiliza la municion
+        // Leemos el código del arma para el que se utiliza la munición
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].codigoArma = atoi(auxiliar.c_str());
-        // Leemos la cantidad de municiÃ³n
+        // Leemos la cantidad de munición
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->componentes[i].cantidad = atoi(auxiliar.c_str());
-        // Leemos si es municiÃ³n especial
+        // Leemos si es munición especial
         leeLinea(in,auxiliar,'\n');
         if (auxiliar.compare(0,2,"No")==0){
             mech->defMechInfo->componentes[i].especial = false;
@@ -227,10 +224,10 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         mech->defMechInfo->componentes[i].modificador = atoi(auxiliar.c_str());
     }
 
-    // Leemos el numero de armas del mech 
+    // Leemos el número de armas del mech 
     leeLinea(in,auxiliar,'\n');
     mech->defMechInfo->num_armas = atoi(auxiliar.c_str());
-    // Leemos el numero de actuadores del mech
+    // Leemos el número de actuadores del mech
     leeLinea(in,auxiliar,'\n');
     mech->defMechInfo->num_actuadores = atoi(auxiliar.c_str());
     
@@ -263,7 +260,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         // Leemos si esta operativo
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->actuadores[i].operativo = s2bool(auxiliar);
-       // Leemos el nÃºmero de impactos
+       // Leemos el número de impactos
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->actuadores[i].num_impactos = atoi(auxiliar.c_str());
     }  // Fin de lectura de los activadores
@@ -307,19 +304,19 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
             leeLinea(in,auxiliar,'\n');
             mech->defMechInfo->localizaciones[i]=mech->defMechInfo->localizaciones[i];
             mech->defMechInfo->localizaciones[i].slots[j].cantidad = atoi(auxiliar.c_str());
-            // Leemos el codigo
+            // Leemos el código
             leeLinea(in,auxiliar,'\n');
             mech->defMechInfo->localizaciones[i].slots[j].codigo = atoi(auxiliar.c_str());
             // Leemos el nombre
             leeLinea(in,auxiliar,'\n');
             mech->defMechInfo->localizaciones[i].slots[j].nombre = auxiliar;
-            // Leemos el indice del componente
+            // Leemos el índice del componente
             leeLinea(in,auxiliar,'\n');
             mech->defMechInfo->localizaciones[i].slots[j].indice_componente = atoi(auxiliar.c_str());
-            // Leemos el indice del actuador
+            // Leemos el índice del actuador
             leeLinea(in,auxiliar,'\n');
             mech->defMechInfo->localizaciones[i].slots[j].indice_actuador = atoi(auxiliar.c_str());
-            // Leemos el daÃ±o de la municion
+            // Leemos el daño de la munición
             leeLinea(in,auxiliar,'\n');
             mech->defMechInfo->localizaciones[i].slots[j].danio_municion = atoi(auxiliar.c_str());
         }
@@ -469,17 +466,16 @@ void infoMechs::leeDatosMechVector(ifstream & in, int indice, int numJMech) {
 void infoMechs::leeFich(string fichero) {
     int numJ_leido;
     string cad;
-    ifstream fich(fichero.c_str()); //Creacion y apertura
+    ifstream fich(fichero.c_str()); //Creación y apertura
     if (!fich) {
         cerr << "\nNo es posible abrir " << fichero << "\n";
         exit(1);
     }
 
     leeLinea(fich,cad,'\n');
-    //fich.ignore(1000, '\n'); //Ignoramos nÃºmero mÃ¡gico
+    //fich.ignore(1000, '\n'); //Ignoramos número mágico
     leeLinea(fich, cad, '\n');
     nMechs = atoi(cad.c_str());
-   // fich >> nMechs;
     if (iMechVector == 0)
         iMechVector = new iMech*[nMechs - 1];
     for (int i = 0; i < nMechs - 1; i++)//Inicializamos el vector de iMechs

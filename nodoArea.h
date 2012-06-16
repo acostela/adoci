@@ -1,8 +1,7 @@
 /* 
  * File:   nodoArea.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 27 de mayo de 2012, 2:04
  */
 
 #ifndef NODOAREA_H

@@ -1,8 +1,7 @@
 /* 
  * File:   infoMechs.h
- * Author: asce
+ * Author: Ángel Costela Sanmiguel y David Medina Godoy
  *
- * Created on 25 de mayo de 2010, 17:35
  */
 
 #ifndef _INFOMECHS_H
@@ -20,7 +19,7 @@
 using namespace std;
 
 struct Componente_Mech {
-    int codigo; // Codigo del componente
+    int codigo; // Código del componente
     string nombre; // Nombre del arma
     componente_t clase;
     bool trasera;
@@ -36,7 +35,7 @@ struct Componente_Mech {
     int distanciaLarga;
     bool operativo;
 
-    //Si el componente es municion
+    //Si el componente es munición
     int codigoArma; // El arma que la utiliza
     int cantidad;
     bool especial;
@@ -44,11 +43,11 @@ struct Componente_Mech {
 };
 
 struct Actuador_Mech {
-    int codigo; // Codigo del actuador
+    int codigo; // Código del actuador
     string nombre; // Nombre del actuador
     int localizacion; // Esto va con los enums que definieron
     bool operativo; // INdica si el actuador esta operativo o no
-    int num_impactos; // Numero de impactos recibidos por el actuador
+    int num_impactos; // Número de impactos recibidos por el actuador
 };
 
 struct Slot_Mech {
@@ -63,7 +62,7 @@ struct Slot_Mech {
 
 struct Localizacion_Mech {
     int slots_ocupados;
-    Slot_Mech *slots; // El nmero de slots es de 12
+    Slot_Mech *slots; // El número de slots es de 12
 };
 
 struct l_blindaje {
@@ -92,18 +91,18 @@ struct l_interna {
 };
 
 typedef struct {
-    /*  Variables que estan en el archivo de los componentes de cada mech */
-    int num_componentes; // Numero de componentes del mech
+    /*  Variables que están en el archivo de los componentes de cada mech */
+    int num_componentes; // Número de componentes del mech
     Componente_Mech *componentes; // Vector en el que almacenaremos los componentes del mech (armas, municiones...)
-    int toneladas; // PEso en toneladas del mech
+    int toneladas; // Peso en toneladas del mech
     int potencia; // Potencia del mech
     int radiadoresInternos;
     int radiadores;
     bool MASC;
     int max_calor;
     bool *brazos; // Cada casilla corresponde a una parte del brazo
-    int num_armas; // Numero de armas del mech
-    int num_actuadores; // Numero de actuadores del mech
+    int num_armas; // Número de armas del mech
+    int num_actuadores; // Número de actuadores del mech
     int tipoRadiadores;
     Actuador_Mech *actuadores;
     Localizacion_Mech *localizaciones;
@@ -119,7 +118,7 @@ typedef struct {
     int Heridas_MW; //>=0
     bool MW_consciente;
     bool slots_impactados[78]; /* (TRUE-FALSE) indica para cada slot si fue impactado */
-    bool local_disparo_arma[8]; /* (TRUE-FALSE) Ejemplo: disparo[CABEZA] => Se disparÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ un arma de la cabeza */
+    bool local_disparo_arma[8]; /* (TRUE-FALSE) Ejemplo: disparo[CABEZA] => Se dispará un arma de la cabeza */
     int municiones_expulsar; //>0
     municion* expulsada;
 } datosMechJugador;
@@ -141,7 +140,7 @@ public:
     int tipo_garrote; //0 o 1
     l_blindaje blindaje;
     l_interna puntosEstructuraInterna;
-    bool* narc; //Vector de bool,que indica si el mech actual ha colocado un narc al mech cuyo numero de jugador es [indice]
+    bool* narc; //Vector de bool,que indica si el mech actual ha colocado un narc al mech cuyo número de jugador es [índice]
     bool* inarc; //Similar al anterior
     defMechStruct* defMechInfo;
     datosMechJugador* dmj;
@@ -163,8 +162,8 @@ public:
         delete defMechInfo;
     }
 
-    /* Devuelve TRUE si el mech que se pasa como parÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡metro tiene
-     * municiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n para el arma cuyo cÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³digo se pasa como parÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡metro */
+    /* Devuelve TRUE si el mech que se pasa como parámetro tiene
+     * munición para el arma cuyo código se pasa como parámetro */
     bool municion_ok(int codigo) {
         int i;
         for (i = 0; i < defMechInfo->num_componentes; ++i) {
@@ -215,7 +214,7 @@ public:
                 }
             }
         }
-        /* Hay que mirar tambiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©n los actuadores */
+        /* Hay que mirar también los actuadores */
         if ((this->puntosEstructuraInterna.PI == 0) ||
                 (this->puntosEstructuraInterna.PD == 0) ||
                 ((this->actuador_ok(PI, "Cadera") == false) &&
@@ -226,13 +225,13 @@ public:
 
     int buscar_mech_cercano(iMech** mechs, int num_jugador, int num_jugadores) {
         int micol, mifil, /* columna y fila de nuestro mech */
-                objetivo = -1; /* nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero del mech objetivo. Si error, entonces -1 */
+                objetivo = -1; /* número del mech objetivo. Si error, entonces -1 */
 
-        float min_d = 10000, /* MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nima distancia encontrada */
+        float min_d = 10000, /* Mínima distancia encontrada */
                 dist; /* variable auxiliar */
 
-        /* Estrategia: Hallar la distancia en lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nea recta entre el mech num_jugador
-           y el resto de mechs y devolver el nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero del mech con menor distancia
+        /* Estrategia: Hallar la distancia en línea recta entre el mech num_jugador
+           y el resto de mechs y devolver el número del mech con menor distancia
          */
         micol = pos_Hexagono.columna;
         mifil = pos_Hexagono.fila;
@@ -251,13 +250,13 @@ public:
     int buscar_objetivo(iMech** mechs, int num_jugador, int num_jugadores) {
 
         int micol, mifil, /* columna y fila de nuestro mech */
-                objetivo = -1; /* nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero del mech objetivo. Si error, entonces -1 */
+                objetivo = -1; /* número del mech objetivo. Si error, entonces -1 */
 
-        float min_d = 10000, /* MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nima distancia encontrada */
+        float min_d = 10000, /* Mínima distancia encontrada */
                 dist; /* variable auxiliar */
 
-        /* Estrategia: Hallar la distancia en lÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­nea recta entre el mech num_jugador
-           y el resto de mechs y devolver el nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºmero del mech con menor distancia
+        /* Estrategia: Hallar la distancia en línea recta entre el mech num_jugador
+           y el resto de mechs y devolver el número del mech con menor distancia
          */
         micol = pos_Hexagono.columna;
         mifil = pos_Hexagono.fila;
@@ -302,7 +301,7 @@ public:
         return dist;
     }
 
-    /* Devuelve la mejor distancia para disparar con el arma mÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡s potente
+    /* Devuelve la mejor distancia para disparar con el arma más potente
      * que tiene el mech */
     int dist_disparo() {
         int i,
