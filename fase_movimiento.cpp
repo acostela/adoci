@@ -146,7 +146,7 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
 
 
 
-    sprintf(cad, "%s : PosiciÃƒÂ³n mech objetivo: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), f_obj, c_obj, enc_obj);
+    sprintf(cad, "%s : PosiciÃƒÆ’Ã‚Â³n mech objetivo: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), f_obj, c_obj, enc_obj);
     flog += cad;
 
     switch (estrategia) {
@@ -264,7 +264,7 @@ int movimiento_t::estrategia_movimiento() {
        con las que disparar, entonces la estrategia sera de ataque */
 
     if ((mechs->mechJugador->dmj->Heridas_MW < 5) && /* Para que haya como mucho una prob. de 5/6 de perder la consciencia */
-            (mech->temp_actual < 13) && /* Para evitar la desconexiÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n */
+            (mech->temp_actual < 13) && /* Para evitar la desconexiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n */
             (mech->blindaje.CAB > 2) &&
             (mech->blindaje.TC > 2) &&
             (mech->blindaje.PI > 1) &&
@@ -357,7 +357,7 @@ void movimiento_t::logica_movimiento() {
 
     //ATACAR O DEFENDER
 
-    sprintf(cad, "%s : PosiciÃƒÂ³n mech jugador: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_mech, col_mech, lado_mech);
+    sprintf(cad, "%s : PosiciÃƒÆ’Ã‚Â³n mech jugador: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_mech, col_mech, lado_mech);
     flog += cad;
 
     int tipo_mov_get_destino = getDestino(fil_mech, col_mech, fil_dest, col_dest, lado_dest, estrategia);
@@ -368,7 +368,7 @@ void movimiento_t::logica_movimiento() {
         cout << "El jugador no tiene PM asi que permanecera inmovil." << endl;
         cin.get();
         return;
-    } else if (fil_dest == fil_mech && col_dest == col_mech && lado_dest == lado_mech &&!estabaEnSuelo) {
+    } else if (fil_dest == fil_mech && col_dest == col_mech && lado_dest == lado_mech && !estabaEnSuelo) {
         sprintf(cad, "El jugador decide permanecer inmovil.\n");
         flog += cad;
         cout << "El jugador decide permanecer inmovil.(Destino elegido pos. actual)" << endl;
@@ -486,7 +486,7 @@ void movimiento_t::logica_movimiento() {
             case CORRER:
                 PM = mechs->mechJugador->dmj->PM_correr;
                 break;
-        }//AÃƒÂ±adir saltar
+        }//AÃƒÆ’Ã‚Â±adir saltar
 
 
 
@@ -557,7 +557,7 @@ int movimiento_t::getTipoMov(const node & n1, const node & n2) {
         if (n2.fil == f && n2.col == c)
             return MOV_ADELANTE;
         else return MOV_ATRAS;
-        //ADELANTE O ATRÃƒï¿½S
+        //ADELANTE O ATRÃƒÆ’Ã¯Â¿Â½S
     }
 
 

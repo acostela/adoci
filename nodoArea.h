@@ -43,7 +43,7 @@ typedef vector<nodoArea> nodeVector;
 
 void posAtaque(int niveles, vector<nodeVector> & anillosJugador, vector<nodeVector> & anillosObjetivo, int & fil_dest, int & col_dest, infoMapa * mapa);
 void cobertura(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest,
-        int f_obj, int c_obj, int enc,infoMapa * mapa,float dist_seg=-1);
+        int f_obj, int c_obj, int enc,infoMapa * mapa,float dist_seg=-1.0);
 void coberturaSalto(int niveles, vector<nodeVector> & anillos, int & fil_dest, int & col_dest,
         int f_obj, int c_obj, int enc,infoMapa * mapa,float dist_seg=-1.0);
 vector<nodoArea> adyacentes(const vector<nodoArea> & anillo,infoMapa * mapa);
