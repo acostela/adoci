@@ -738,7 +738,7 @@ void ataque_armas_t::ataque_arma() {
                             (mechs->mechJugador->defMechInfo->componentes[i].trasera == true) &&
                             (angulo == TRASERO)
                             )) {
-                                if(sumatoriaTemp+mechs->mechJugador->defMechInfo->componentes[i].calor < mechs->mechJugador->defMechInfo->max_calor){
+                                if(sumatoriaTemp+mechs->mechJugador->defMechInfo->componentes[i].calor < 25){
                                     sumatoriaTemp += mechs->mechJugador->defMechInfo->componentes[i].calor;
                                     localizacion = mechs->mechJugador->defMechInfo->componentes[i].localizacion;
                                     armas_mech[num_armas].localizacion = localizacion;
