@@ -10,7 +10,6 @@ void final_t::salida(string numJ) {
     string cad = "accionJ" + numJ + ".sbt";
     string accion;
     ofstream out(cad.c_str());
-    out.open(cad.c_str());
     /* Linea 1: Número de radiadores a apagar */
     accion = accion + itoStr(radiadores_off) + "\n";
 
@@ -68,4 +67,11 @@ void final_t::salida(string numJ) {
     out.close();
 }
 
+void final_t::logicaFinal(){
+    radiadores_off=0;
+    radiadores_on=0;
+    soltar_garrote=0;
+    expulsar=0;
+    expulsada=0;
+}
 

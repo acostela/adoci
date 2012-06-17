@@ -1,4 +1,4 @@
-﻿/* 
+/* 
  * File:   movimiento.cpp
  * Author: Ángel Costela Sanmiguel y David Medina Godoy
  * 

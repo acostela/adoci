@@ -28,6 +28,7 @@ public:
         expulsar = 0;
     }
     void salida(string numJ);
+    void logicaFinal();
 };
 
 

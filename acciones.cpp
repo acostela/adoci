@@ -65,6 +65,7 @@ void acciones::salida(string cad) {
     }
     if (cad == "FinalTurno") {
         final = new final_t;
+        final->logicaFinal();
         final->salida(numeroJugador);
     }
 
