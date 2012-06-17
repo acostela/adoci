@@ -14,6 +14,9 @@
 
 using namespace std;
 
+extern string flog;
+extern time_t tiempo;
+
 /* Datos para la fase de reacción */
 class reaccion_t {
 public:

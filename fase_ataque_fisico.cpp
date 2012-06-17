@@ -14,11 +14,13 @@ ataque_fisico_t::ataque_fisico_t(infoMapa* inf_mapa, infoMechs* inf_mechs){
 }
 
 void ataque_fisico_t::salida(string numJ) {
-
+    char cad2[400];
    string cad = "accionJ" + numJ + ".sbt";
     string accion;
     ofstream out(cad.c_str());
 
+     sprintf(cad2,"%s : Vamos a usar %i armas físicas \n\n ",ctime(&tiempo),num_armas);
+     flog +=cad2;
     /* Linea 1: Numero de armas fisicas que se van a usar */
     accion = accion + itoStr(num_armas) + "\n";
 
@@ -27,37 +29,58 @@ void ataque_fisico_t::salida(string numJ) {
         /* Localización del arma física */
         switch (armas[i].localizacion) {
             case BI_A:
+                sprintf(cad2,"%s : Se pegará un puñetazo con el brazo izquierdo \n\n ",ctime(&tiempo));
+                flog +=cad2;
                 accion = accion + "BI\n";
                 break;
             case BD_A:
+                sprintf(cad2,"%s : Se pegará un puñetazo con el brazo derecho \n\n ",ctime(&tiempo));
+                flog +=cad2;
                 accion = accion + "BD\n";
                 break;
             case PI_A:
+                sprintf(cad2,"%s : Se pegará una patada con la pierna izquierda \n\n ",ctime(&tiempo));
+                flog +=cad2;
                 accion = accion + "PI\n";
                 break;
             case PD_A:
+                sprintf(cad2,"%s : Se pegará una patada con la pierna derecha \n\n ",ctime(&tiempo));
+                flog +=cad2;
                 accion = accion + "PD\n";
                 break;
             case BIBD_A:
+                sprintf(cad2,"%s : Se va a usar un garrote \n\n ",ctime(&tiempo));
+                flog +=cad2;
                 accion = accion + "BIBD\n";
                 break;
         }
 
         /* Slot del arma fisica */
+        
+        sprintf(cad2,"%s : El slot del arma %i a usar es %i \n\n ",ctime(&tiempo),i,armas[i].slot);
+        flog +=cad2;
         accion = accion + itoStr(armas[i].slot) + "\n";
 
         /* Hexagono objetivo del arma */
+        sprintf(cad2,"%s : El hexágono objetivo para el arma %i es %i%i \n\n ",ctime(&tiempo),i,armas[i].objetivo.columna,armas[i].objetivo.fila);
+        flog +=cad2;
         accion = accion + armas[i].objetivo.stringPos() + "\n";
 
         /* Tipo de objetivo */
         switch (armas[i].tipo_objetivo) {
             case MECH:
+                sprintf(cad2,"%s : El objetivo para el arma %i es un Mech \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "Mech\n";
                 break;
             case HEXAGONO:
+                sprintf(cad2,"%s : El objetivo para el arma %i es un Hexágono \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "Hexagono\n";
                 break;
             case NINGUNO:
+                sprintf(cad2,"%s : El objetivo para el arma %i es nada \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "Ninguno\n";
                 break;
         }
@@ -269,12 +292,8 @@ int ataque_fisico_t::objetivoFisico() {
     int auxFila;
     int columnaJugador;
     int filaJugador;
-    int mech_mas_debil;
     int score_objetivo[mechs->nMechs - 1]; //Aqui se guardará en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
-    int armaduraux = 0;
-    int armaduraminima = 100000;
     int objetivo;
-    int scoreaux;
 
     columnaJugador = mechs->mechJugador->pos_Hexagono.columna;
     filaJugador = mechs->mechJugador->pos_Hexagono.fila;

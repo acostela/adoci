@@ -28,15 +28,20 @@ ataque_armas_t::ataque_armas_t(infoMapa* inf_mapa, infoMechs * inf_mechs) {
 
 void ataque_armas_t::salida(string numJ) {
     /* Crear el archivo de salida */
+    char cad2[500];
     string cad = "accionJ" + numJ + ".sbt";
     string accion;
     ofstream out(cad.c_str());
     /* Linea 1: Coger garrote */
     switch (coger_garrote) {
         case true:
+            sprintf(cad2,"%s : Vamos a coger un garrote para pelear cuerpo a cuerpo\n\n ",ctime(&tiempo));
+            flog +=cad2;
             accion = accion + "True\n";
             break;
         case false:
+            sprintf(cad2,"%s : No vamos a coger un garrote para pelear cuerpo a cuerpo\n\n ",ctime(&tiempo));
+            flog +=cad2;
             accion = accion + "False\n";
             break;
     }
@@ -50,10 +55,13 @@ void ataque_armas_t::salida(string numJ) {
     }
 
     /* Linea 2: Hexágono objetivo primario */
+    sprintf(cad2,"%s : El hexágono objetivo primario es %i%i \n\n ",ctime(&tiempo),objetivo.columna,objetivo.fila);
+    flog +=cad2;
     accion = accion + objetivo.stringPos() + "\n";
 
     /* Linea 3: Número de armas que se van a disparar */
-
+    sprintf(cad2,"%s : Vamos a disparar %i armas\n\n ",ctime(&tiempo),num_armas);
+    flog +=cad2;
     accion = accion + itoStr(num_armas) + "\n";
 
     /* Para cada arma a disparar */
@@ -62,44 +70,65 @@ void ataque_armas_t::salida(string numJ) {
 
         switch (armas_mech[i].localizacion) {
             case 0:
+                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en el brazo izquierdo \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "BI\n";
                 break;
             case 1:
             case 8:
+                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en el torso izquierdo \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "TI\n";
                 break;
             case 2:
+                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en la pierna izquierda \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "PI\n";
                 break;
             case 3:
+                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en la pierna derecha \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "PD\n";
                 break;
             case 4:
             case 9:
+                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en el torso derecho \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "TD\n";
                 break;
             case 5:
+                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en el brazo derecho \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "BD\n";
                 break;
             case 6:
             case 10:
+                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en el torso central \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "TC\n";
                 break;
             case 7:
+                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en la cabeza \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "CAB\n";
                 break;
         }
 
         /* Slot del arma dentro de la localización */
-
+        sprintf(cad2,"%s : El arma número %i a disparar esta en el slot %i \n\n ",ctime(&tiempo),i,armas_mech[i].slot);
+        flog +=cad2;
         accion = accion + itoStr(armas_mech[i].slot) + "\n";
 
         /* Doble cadencia */
         switch (armas_mech[i].doble_cadencia) {
             case true:
+                sprintf(cad2,"%s : El arma número %i va a disparar con doble cadencia \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "True\n";
                 break;
             case false:
+                sprintf(cad2,"%s : El arma número %i va a disparar sin doble cadencia \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "False\n";
                 break;
         }
@@ -108,53 +137,80 @@ void ataque_armas_t::salida(string numJ) {
 
         switch (armas_mech[i].loc_municion) {
             case 0:
+                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en el brazo izquierdo \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "BI\n";
                 break;
             case 1:
             case 8:
+                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en el torso izquierdo \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "TI\n";
                 break;
             case 2:
+                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en la pierna izquierda \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "PI\n";
                 break;
             case 3:
+                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en la pierna derecha \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "PD\n";
                 break;
             case 4:
             case 9:
+                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en el torso derecho \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "TD\n";
                 break;
             case 5:
+                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en el brazo derecho \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "BD\n";
                 break;
             case 6:
             case 10:
+                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en el torso central \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "TC\n";
                 break;
             case 7:
+                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en la cabeza \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "CAB\n";
                 break;
             default:
+                sprintf(cad2,"%s : El arma número %i a disparar no tiene munición\n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "-1\n";
         }
 
         /* Slot de la munición dentro de la localización */
+        sprintf(cad2,"%s : La munición del arma %i a disparar esta en el slot %i \n\n ",ctime(&tiempo),i,armas_mech[i].slot_municion);
+        flog +=cad2;
         accion = accion + itoStr(armas_mech[i].slot_municion) + "\n";
 
         /* Hexágono objetivo del arma */
-
+        sprintf(cad2,"%s : El hexágono objetivo del arma %i a disparar es %i%i \n\n ",ctime(&tiempo),i,armas_mech[i].objetivo.columna,armas_mech[i].objetivo.fila);
+        flog +=cad2;
         accion = accion + armas_mech[i].objetivo.stringPos() + "\n";
 
         /* Tipo de objetivo */
         switch (armas_mech[i].tipo_objetivo) {
             case MECH:
+                sprintf(cad2,"%s : El tipo de objetivo para el arma %i a disparar es un mech \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "Mech\n";
                 break;
             case HEXAGONO:
-                accion = accion + "HexÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡gono\n";
+                sprintf(cad2,"%s : El tipo de objetivo para el arma %i a disparar es un hexágono \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
+                accion = accion + "Hexágono\n";
 
                 break;
             case NINGUNO:
+                sprintf(cad2,"%s : El tipo de objetivo para el arma %i a disparar es ninguno \n\n ",ctime(&tiempo),i);
+                flog +=cad2;
                 accion = accion + "Ninguno\n";
                 break;
         }

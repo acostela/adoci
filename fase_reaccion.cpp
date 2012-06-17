@@ -56,6 +56,7 @@ int der_hex(int lado) {
 
 void reaccion_t::reaccion_accion() {
     int lado;
+    char cad[200];
     int cont_izq = 0, cont_der = 0;
     int obj = mechs->mechJugador->buscar_mech_cercano(mechs->iMechVector, mechs->mechJugador->numJ, mechs->nMechs);
     int fil_mech = mechs->mechJugador->pos_Hexagono.fila,
@@ -66,7 +67,11 @@ void reaccion_t::reaccion_accion() {
     mapa->encarar_objetivo( fil_obj, col_obj,fil_mech, col_mech, lado);
 
     printf("Mi encaramiento es %i, para encarar al enemigo debe ser %i\n",enc_mech,lado);
+    sprintf(cad,"%s : El encaramiento del mech es %i, para encarar al enemigo debe ser %i\n\n ",ctime(&tiempo),enc_mech,lado);
+    flog +=cad;
     if (enc_mech == lado) {
+        sprintf(cad, "%s : Encaramiento igual\n\n",ctime(&tiempo));
+        flog+=cad;
         encaramiento = ENC_IGUAL;
         cout << "Enc. igual" << endl;
         cin.get();
@@ -83,10 +88,14 @@ void reaccion_t::reaccion_accion() {
         l = der_hex(l);
     }
     if (cont_izq < cont_der) {
+        sprintf(cad, "%s : Encaramiento izquierda\n\n",ctime(&tiempo));
+        flog+=cad;
         encaramiento = ENC_IZQUIERDA;
         cout << "Enc. izq" << endl;
         cin.get();
     } else {
+        sprintf(cad, "%s : Encaramiento derecha\n",ctime(&tiempo));
+        flog+=cad;
         encaramiento = ENC_DERECHA;
         cout << "Enc. der." << endl;
         cin.get();

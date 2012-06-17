@@ -13,6 +13,8 @@
 #include "infoMechs.h"
 
 using namespace std;
+extern string flog;
+extern time_t tiempo;
 /* Datos para el uso de un arma física */
 class arma_fisica {
 public:

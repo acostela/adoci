@@ -146,7 +146,7 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
 
 
 
-    sprintf(cad, "%s : PosiciÃƒÆ’Ã‚Â³n mech objetivo: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), f_obj, c_obj, enc_obj);
+    sprintf(cad, "%s : Posición mech objetivo: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), f_obj, c_obj, enc_obj);
     flog += cad;
 
     switch (estrategia) {
@@ -357,15 +357,15 @@ void movimiento_t::logica_movimiento() {
 
     //ATACAR O DEFENDER
 
-    sprintf(cad, "%s : PosiciÃƒÆ’Ã‚Â³n mech jugador: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_mech, col_mech, lado_mech);
+    sprintf(cad, "%s : Posición mech jugador: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_mech, col_mech, lado_mech);
     flog += cad;
 
     int tipo_mov_get_destino = getDestino(fil_mech, col_mech, fil_dest, col_dest, lado_dest, estrategia);
     if (fil_dest == -1 && col_dest == -1 && lado_dest == -1) {
-        sprintf(cad, "El jugador no tiene PM asi que permanecera inmovil.\n");
+        sprintf(cad, "El jugador no tiene PM asi que permanecerá inmóvil.\n");
         flog += cad;
         tipo_movimiento = INMOVIL;
-        cout << "El jugador no tiene PM asi que permanecera inmovil." << endl;
+        cout << "El jugador no tiene PM asi que permanecera inmóvil." << endl;
         cin.get();
         return;
     } else if (fil_dest == fil_mech && col_dest == col_mech && lado_dest == lado_mech && !estabaEnSuelo) {

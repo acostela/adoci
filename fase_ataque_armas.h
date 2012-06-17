@@ -13,6 +13,9 @@
 #include "infoMechs.h"
 
 using namespace std;
+extern string flog;
+extern time_t tiempo;
+
 /* Datos para el disparo de un arma */
 class arma_fuego {
 public:

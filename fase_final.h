@@ -10,7 +10,8 @@
 #include "funcs.h"
 #include <fstream>
 using namespace std;
-
+extern string flog;
+extern time_t tiempo;
 
 /* Datos para la fase final */
 class final_t {
