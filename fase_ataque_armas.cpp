@@ -645,10 +645,7 @@ bool ataque_armas_t::linea_vision(int num_jugador, const hexagono_pos & origen, 
 bool ataque_armas_t::queda_municion(const iMech &mech, int codigo) {
   
     for (int k = 0; k < mech.defMechInfo->num_componentes; ++k) {
-        if ((mech.defMechInfo->componentes[k].clase == MUNICION) &&
-                (mech.defMechInfo->componentes[k].codigoArma == codigo) &&
-                (mech.defMechInfo->componentes[k].cantidad > 0) &&
-                (mech.defMechInfo->componentes[k].operativo == true))
+        if ((mech.defMechInfo->componentes[k].clase == MUNICION) && (mech.defMechInfo->componentes[k].codigoArma == codigo) && (mech.defMechInfo->componentes[k].cantidad > 0) && (mech.defMechInfo->componentes[k].operativo == true))
             return true;
     }
     return false;
@@ -714,7 +711,7 @@ void ataque_armas_t::ataque_arma() {
     int calordisipado = 0;
     int sumatoriaTemp = 0;
     bool ene_adyacente = false;
-    int objetivo_mech, angulo;                
+    int objetivo_mech, angulo;          
 
     posiciones_adyacentes(fil_jugador, col_jugador, adyacentes);
 
@@ -767,7 +764,7 @@ void ataque_armas_t::ataque_arma() {
         
         if (linea_vision(mechs->mechJugador->numJ, mechs->mechJugador->pos_Hexagono, sum_nivel_or, mechs->iMechVector[objetivo_mech]->pos_Hexagono, sum_nivel_dest) == true /*&& (mechs->mechJugador->temp_actual <10)*/){
             for (int i = 0; i < mechs->mechJugador->defMechInfo->num_componentes; i++) {
-                if ((mechs->mechJugador->defMechInfo->componentes->clase == ARMA) && (mechs->mechJugador->defMechInfo->componentes[i].operativo == true) && (mechs->mechJugador->defMechInfo->componentes[i].distanciaLarga >= mapa->distancia_casillas(mechs->mechJugador->pos_Hexagono, mechs->iMechVector[objetivo_mech]->pos_Hexagono))&& ((mechs->mechJugador->defMechInfo->componentes[i].tipo == ENERGIA) || (queda_municion(*mechs->mechJugador, mechs->mechJugador->defMechInfo->componentes[i].codigo)) == true)) {
+                if ((mechs->mechJugador->defMechInfo->componentes->clase == ARMA) && (mechs->mechJugador->defMechInfo->componentes[i].operativo == true) && (mechs->mechJugador->defMechInfo->componentes[i].distanciaLarga >= mapa->distancia_casillas(mechs->mechJugador->pos_Hexagono, mechs->iMechVector[objetivo_mech]->pos_Hexagono))/*&& ((mechs->mechJugador->defMechInfo->componentes[i].tipo == ENERGIA) || (queda_municion(*mechs->mechJugador, mechs->mechJugador->defMechInfo->componentes[i].codigo)) == true)*/) {
                         if ((
                             ((mechs->mechJugador->defMechInfo->componentes[i].localizacion == 6) ||
                             (mechs->mechJugador->defMechInfo->componentes[i].localizacion == 1) ||
@@ -794,22 +791,33 @@ void ataque_armas_t::ataque_arma() {
                             (mechs->mechJugador->defMechInfo->componentes[i].trasera == true) &&
                             (angulo == TRASERO)
                             )) {
-                                if(sumatoriaTemp+mechs->mechJugador->defMechInfo->componentes[i].calor < 25){
+                                if(sumatoriaTemp+mechs->mechJugador->defMechInfo->componentes[i].calor < calordisipado){
                                     sumatoriaTemp += mechs->mechJugador->defMechInfo->componentes[i].calor;
                                     localizacion = mechs->mechJugador->defMechInfo->componentes[i].localizacion;
                                     armas_mech[num_armas].localizacion = localizacion;
-                                    for (int j = 0; j < mechs->mechJugador->defMechInfo->localizaciones[localizacion].slots_ocupados; ++j) {
-                                        if (mechs->mechJugador->defMechInfo->localizaciones[localizacion].slots[j].codigo == mechs->mechJugador->defMechInfo->componentes[i].codigo)
+                                    bool encontrado = false;
+                                    for (int j = 0; j < mechs->mechJugador->defMechInfo->localizaciones[localizacion].slots_ocupados && !encontrado ; ++j) {
+                                        if (mechs->mechJugador->defMechInfo->localizaciones[localizacion].slots[j].codigo == mechs->mechJugador->defMechInfo->componentes[i].codigo){
                                             armas_mech[num_armas].slot = j;
+                                            encontrado = true;
+                                        }
                                     }
-                                    armas_mech[num_armas].doble_cadencia = true;
-                                    if (mechs->mechJugador->defMechInfo->componentes[i].tipo != ENERGIA) {
-                                        buscar_municion(*mechs->mechJugador, mechs->mechJugador->defMechInfo->componentes[i].codigo);
-                                    }
-                                    armas_mech[num_armas].objetivo.columna = mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
-                                    armas_mech[num_armas].objetivo.fila = mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
-                                    armas_mech[num_armas].tipo_objetivo = MECH;
-                                    num_armas++;
+                                    armas_mech[num_armas].doble_cadencia = false;
+                                    if (mechs->mechJugador->defMechInfo->componentes[i].tipo != 1) {
+                                        if(queda_municion(*mechs->mechJugador, mechs->mechJugador->defMechInfo->componentes[i].codigo)){
+                                            buscar_municion(*mechs->mechJugador, mechs->mechJugador->defMechInfo->componentes[i].codigo);
+                                            armas_mech[num_armas].objetivo.columna = mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
+                                            armas_mech[num_armas].objetivo.fila = mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
+                                            armas_mech[num_armas].tipo_objetivo = MECH;
+                                            num_armas++;
+                                        }
+                                        
+                                    }else{
+                                        armas_mech[num_armas].objetivo.columna = mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
+                                        armas_mech[num_armas].objetivo.fila = mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
+                                        armas_mech[num_armas].tipo_objetivo = MECH;
+                                        num_armas++;
+                                    }  
                                 }
                         }
                 }
