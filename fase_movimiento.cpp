@@ -215,6 +215,8 @@ int movimiento_t::estrategiaPorPeso() {
     int tonJ = mechs->mechJugador->defMechInfo->toneladas;
     int ind_objetivo = mechs->mechJugador->buscar_objetivo(mechs->iMechVector, mechs->mechJugador->numJ, mechs->nMechs);
     int tonEnemigo = mechs->iMechVector[ind_objetivo]->defMechInfo->toneladas;
+    printf("Ton Enemigo: %i, ton. j: %i\n", tonEnemigo, tonJ);
+
     if (tonJ >= 80) {//Asalto
         estrategia = ATACAR;
     } else if (tonJ >= 60) {//Pesados
@@ -231,10 +233,14 @@ int movimiento_t::estrategiaPorPeso() {
             estrategia = DEFENDER;
     } else if (tonJ >= 0) {//Ligeros
         //Huimos del enemigo si pesa 10 ton o + mas que nosotros.
-        if (tonEnemigo < tonJ + 10)
+        if (tonEnemigo < tonJ + 10) {
             estrategia = ATACAR;
-        else
+            printf("Atacar\n");
+        } else {
             estrategia = DEFENDER;
+            printf("Defender\n");
+
+        }
     }
 
     if (estrategia == ATACAR) {
@@ -390,7 +396,7 @@ void movimiento_t::logica_movimiento() {
         this->destino.fila = fil_dest;
         this->destino.columna = col_dest;
         this->lado = lado_dest;
-        cout << "El jugador decide saltar a la pos "<<destino.stringPos() << endl;
+        cout << "El jugador decide saltar a la pos " << destino.stringPos() << endl;
         cin.get();
         return;
 
@@ -467,8 +473,8 @@ void movimiento_t::logica_movimiento() {
                     this->destino.fila = nodos[i].fil;
                     this->destino.columna = nodos[i].col;
 
-        cout << "El jugador decide saltar a la pos "<<this->destino.stringPos() << endl;
-        cin.get();
+                    cout << "El jugador decide saltar a la pos " << this->destino.stringPos() << endl;
+                    cin.get();
                     return;
                 }
             }
@@ -515,8 +521,8 @@ void movimiento_t::logica_movimiento() {
                 sprintf(cad, "%s : El mech %i no puede levantarse\n\n", ctime(&tiempo), mapa->info_mechs->mechJugador->numJ);
                 flog += cad;
                 tipo_movimiento = INMOVIL;
-        cout << "El mech no puede levantarse " << endl;
-        cin.get();
+                cout << "El mech no puede levantarse " << endl;
+                cin.get();
                 return;
 
             }
@@ -593,8 +599,8 @@ void movimiento_t::getSecuenciaPasos(const vector<node> & nodosPath, int PM) {
     }
     //Si no tenemos PM para movernos nos quedamos inmoviles
     if (nodos.size() <= 1) {
-        if(pasos==0)
-        tipo_movimiento = INMOVIL;
+        if (pasos == 0)
+            tipo_movimiento = INMOVIL;
         return;
     }
     /////
