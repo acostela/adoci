@@ -31,6 +31,7 @@ void ataque_armas_t::salida(string numJ) {
     char cad2[500];
     string cad = "accionJ" + numJ + ".sbt";
     string accion;
+    string hexaux;
     ofstream out(cad.c_str());
     /* Linea 1: Coger garrote */
     switch (coger_garrote) {
@@ -54,15 +55,19 @@ void ataque_armas_t::salida(string numJ) {
         return;
     }
 
+    hexaux = objetivo.stringPos(); 
+    hexaux += "\n\n";
     /* Linea 2: Hexágono objetivo primario */
-    sprintf(cad2,"%s : El hexágono objetivo primario es %i%i \n\n ",ctime(&tiempo),objetivo.columna,objetivo.fila);
+    sprintf(cad2,"%s : El hexágono objetivo primario es ",ctime(&tiempo));
     flog +=cad2;
+    flog += hexaux;
     accion = accion + objetivo.stringPos() + "\n";
 
     /* Linea 3: Número de armas que se van a disparar */
     sprintf(cad2,"%s : Vamos a disparar %i armas\n\n ",ctime(&tiempo),num_armas);
     flog +=cad2;
     accion = accion + itoStr(num_armas) + "\n";
+    
 
     /* Para cada arma a disparar */
     for (int i = 0; i < num_armas; ++i) {
@@ -825,6 +830,11 @@ void ataque_armas_t::ataque_arma() {
 
         }  
     }
+    if(num_armas == 0){
+        objetivo.fila=0;
+        objetivo.columna=0;
+    }
+        
     cout << "Fin de logica de disparo" << endl;
   //  cin.get();
 
