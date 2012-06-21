@@ -51,6 +51,8 @@ void ataque_armas_t::salida(string numJ) {
 
     if (coger_garrote == true) {
         out << accion;
+            cout<< accion <<endl;
+    cin.get();
         out.close();
         return;
     }
@@ -222,6 +224,8 @@ void ataque_armas_t::salida(string numJ) {
     }
     /* Cerrar el archivo */
     out << accion;
+    cout<< accion <<endl;
+    cin.get();
     out.close();
 }
 
@@ -836,7 +840,7 @@ void ataque_armas_t::ataque_arma() {
     }
         
     cout << "Fin de logica de disparo" << endl;
-  //  cin.get();
+    cin.get();
 
 
     

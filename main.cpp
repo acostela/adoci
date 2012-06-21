@@ -30,22 +30,26 @@ int main(int argc, char** argv) {
         return (EXIT_FAILURE);
     }
 
+    string numJ = argv[1]; //Leido desde la linea de comandos
+    string nombreFase = argv[2];
     flog = "";
     char cad[50];
     ofstream out_log;
-    out_log.open("log.txt",ios_base::app);
+    string cad_nombre_log = "logJ";
+    cad_nombre_log+=numJ;
+    cad_nombre_log+=".sbt";
+    out_log.open(cad_nombre_log.c_str(), ios_base::app);
 
 
     //    f_log = fopen("log.txt","a");
-    
+
     time(&tiempo);
     sprintf(cad, "--------------------------------------------------\n");
     flog += cad;
-    sprintf(cad, "%s : Inicio fase %s \n\n", ctime(&tiempo),argv[2]);
+    sprintf(cad, "%s : Inicio fase %s \n\n", ctime(&tiempo), argv[2]);
     flog += cad;
 
-    string numJ = argv[1]; //Leido desde la linea de comandos
-    string nombreFase = argv[2];
+
 
 
     string f_mechs = "mechsJ";
@@ -70,34 +74,34 @@ int main(int argc, char** argv) {
 
     acs.salida(nombreFase);
 
- /*
+    /*
   
-  //   usleep(2000000);
+     //   usleep(2000000);
 
 
     
-    time(&tiempo);
-    sprintf(cad,"%s : Fin de fase.\n",ctime(&tiempo));
-    flog+=cad;
-    out_log<<flog;
-    out_log.close();
-    cout<<"Fin"<<endl;
-    cin.get();
+       time(&tiempo);
+       sprintf(cad,"%s : Fin de fase.\n",ctime(&tiempo));
+       flog+=cad;
+       out_log<<flog;
+       out_log.close();
+       cout<<"Fin"<<endl;
+       cin.get();
 
      */
-    
+
     time(&tiempo);
-    sprintf(cad,"%s : Fin de fase %s.\n",ctime(&tiempo),nombreFase.c_str());
-        flog += cad;
+    sprintf(cad, "%s : Fin de fase %s.\n", ctime(&tiempo), nombreFase.c_str());
+    flog += cad;
 
     sprintf(cad, "--------------------------------------------------\n");
-    
-    flog+=cad;
-    out_log<<flog;
+
+    flog += cad;
+    out_log << flog;
     out_log.close();
     //cin.get();
     //cout << "PRUEBA\n ";
-    
+
     return (EXIT_SUCCESS);
 }
 

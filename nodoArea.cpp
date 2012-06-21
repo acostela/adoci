@@ -128,20 +128,18 @@ void nodoArea::evaluaDefensa(int f_obj, int c_obj, int enc, float dist_seg, info
         return;
     }
     float d = distancia_hexagonal(fila, columna, f_obj, c_obj);
-    d -= dist_seg;
-    if (d < 0)
-        d = -d;
     float puntuaD, puntuaLDV;
-    if (d > 2)puntuaD = 0;
-    else if (d > 1)puntuaD = 5;
-    else if (d >= 0)puntuaD = 10;
+    if (d < dist_seg/2)puntuaD = 3*(((dist_seg/2)-(dist_seg/2-d))/(dist_seg/2));//de 0 a 3
+    else if (d <= dist_seg)puntuaD = 10*((dist_seg-(dist_seg*0.7- d*0.7))/dist_seg);//de 3 a 10
+    else if (d > dist_seg)puntuaD = ((6-(d-dist_seg))/6)*10.0;//de 10 a 0
+    if(puntuaD<0)puntuaD=0;
     int numJ = mapa->info_mechs->mechJugador->numJ;
     if (mapa->linea_vision(numJ, hexagono_pos(fila, columna), 1, hexagono_pos(f_obj, c_obj), 1))
         puntuaLDV = 10;
     else
         puntuaLDV = 0;
 
-    evaluacionDefensa = (puntuaLDV + puntuaD) / 2;
+    evaluacionDefensa = puntuaLDV*0.3 + puntuaD*0.7;
 }
 
 void posAtaque(int niveles, vector<nodeVector> & anillosJugador, vector<nodeVector> & anillosObjetivo, int & fil_dest, int & col_dest, infoMapa * mapa) {
