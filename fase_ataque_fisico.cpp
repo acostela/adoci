@@ -288,33 +288,55 @@ int ataque_fisico_t::angulo_mech_enemigo(int mech_obj){
 }
 
 int ataque_fisico_t::objetivoFisico() {
-    int auxColumna;
-    int auxFila;
+    //int auxColumna;
+    //int auxFila;
     int columnaJugador;
     int filaJugador;
-    float score_objetivo[mechs->nMechs - 1]; //Aqui se guardará en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
-    int objetivo;
+    //float score_objetivo[mechs->nMechs - 1]; //Aqui se guardará en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
+    int objetivo=-1;
+    
+            
 
     columnaJugador = mechs->mechJugador->pos_Hexagono.columna;
     filaJugador = mechs->mechJugador->pos_Hexagono.fila;
-
+    vector<nodoArea> posicionesAdy = nodoArea(filaJugador,columnaJugador,-1).getAdyacentes(mapa);
+    vector<nodoArea> posMechsAdy;
+    posMechsAdy.clear();
+    int colObj;
+    int filObj;
     for (int i = 0; i < mechs->nMechs - 1; i++) {
-        score_objetivo[i] = 0;
+        filObj = mechs->iMechVector[i]->pos_Hexagono.fila;
+        colObj = mechs->iMechVector[i]->pos_Hexagono.columna;
+        if(nodoArea(filObj,colObj,-1).pertenece(posicionesAdy))
+                posMechsAdy.push_back(nodoArea(filObj,colObj,i));
     }
 
-    for (int i = 0; i < mechs->nMechs - 1; i++) {
-        auxColumna = mechs->iMechVector[i]->pos_Hexagono.columna;
-        auxFila = mechs->iMechVector[i]->pos_Hexagono.fila;
-        if (mechs->iMechVector[i]->operativo == true) 
-            score_objetivo[i] = distancia_hexagonal(filaJugador, columnaJugador, auxFila, auxColumna);//Se pone como Score la distancia del Mech con respecto al nuestro
-
+    
+    if(posMechsAdy.size()==1)
+        return (int) posMechsAdy.back().val;
+    else if(posMechsAdy.size()==0)
+        return -1;
+    else if(posMechsAdy.size()>1){
+        //Devolver al que alcancemos
+        return (int) posMechsAdy.back().val; //Devolvemos este mismo
+        //Deberiamos mirar cual es el mejor
     }
 
-    for (int i = 0; i < mechs->nMechs; i++) {
-        if (score_objetivo[i] == 1) {
-            objetivo = i;
-        }
-    }
+    
+ 
+//    for (int i = 0; i < mechs->nMechs - 1; i++) {
+//        auxColumna = mechs->iMechVector[i]->pos_Hexagono.columna;
+//        auxFila = mechs->iMechVector[i]->pos_Hexagono.fila;
+//        if (mechs->iMechVector[i]->operativo == true) 
+//            score_objetivo[i] = distancia_hexagonal(filaJugador, columnaJugador, auxFila, auxColumna);//Se pone como Score la distancia del Mech con respecto al nuestro
+//
+//    }
+//
+//    for (int i = 0; i < mechs->nMechs; i++) {
+//        if (score_objetivo[i] == 1) {
+//            objetivo = i;
+//        }
+//    }
     return objetivo;
 }
 
@@ -542,6 +564,6 @@ void ataque_fisico_t::ataque_fisico(){
         return;
     }
     cout << "Fin de logica de cuerpo a cuerpo" << endl;
-    //cin.get();
+    cin.get();
     
 }

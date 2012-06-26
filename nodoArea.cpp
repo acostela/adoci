@@ -13,13 +13,13 @@ nodoArea::nodoArea() {
 nodoArea::nodoArea(int f, int c, float d) {
     fila = f;
     columna = c;
-    distancia = d;
+    val = d;
 }
 
 nodoArea::nodoArea(const nodoArea& orig) {
     fila = orig.fila;
     columna = orig.columna;
-    distancia = orig.distancia;
+    val = orig.val;
 }
 
 nodoArea::~nodoArea() {

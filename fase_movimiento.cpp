@@ -232,8 +232,8 @@ int movimiento_t::estrategiaPorPeso() {
         else
             estrategia = DEFENDER;
     } else if (tonJ >= 0) {//Ligeros
-        //Huimos del enemigo si pesa 10 ton o + mas que nosotros.
-        if (tonEnemigo < tonJ + 10) {
+        //Huimos del enemigo si pesa 15 ton o + mas que nosotros.
+        if (tonEnemigo < tonJ + 15) {
             estrategia = ATACAR;
             printf("Atacar\n");
         } else {

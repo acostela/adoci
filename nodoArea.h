@@ -19,7 +19,7 @@ class nodoArea {
 public:
     int fila;
     int columna;
-    float distancia;
+    float val;
     float evaluacionHuir;
     float evaluacionDefensa;
 

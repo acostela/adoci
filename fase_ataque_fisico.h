@@ -11,6 +11,8 @@
 #include <fstream>
 #include "infoMapa.h"
 #include "infoMechs.h"
+#include "nodoArea.h"
+#include <vector>
 
 using namespace std;
 extern string flog;
