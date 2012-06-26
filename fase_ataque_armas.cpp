@@ -615,7 +615,7 @@ int ataque_armas_t::objetivoArmas() {
     scoreaux = score_objetivo[0];
     objetivo = 0;
 
-    for (int i = 1; i < mechs->nMechs; i++) {
+    for (int i = 1; i < mechs->nMechs-1; i++) {
         if (score_objetivo[i] < scoreaux) {
             scoreaux = score_objetivo[i];
             objetivo = i;
@@ -710,6 +710,9 @@ int ataque_armas_t::obtenerSlotArma(iMech *&mech, Componente_Mech arma){
 }
 
 void ataque_armas_t::ataque_arma() {
+    
+        mechs->iMechVector[0]->pos_Hexagono;
+
     int filaux, colaux;
     int col_jugador = mechs->mechJugador->pos_Hexagono.columna;
     int fil_jugador = mechs->mechJugador->pos_Hexagono.fila;
@@ -768,7 +771,8 @@ void ataque_armas_t::ataque_arma() {
            calordisipado = 2*mechs->mechJugador->defMechInfo->radiadores;
         
         sumatoriaTemp = mechs->mechJugador->temp_actual;
-        
+  mechs->iMechVector[objetivo_mech]->pos_Hexagono.fila;
+  mechs->iMechVector[objetivo_mech]->pos_Hexagono.columna;
         if (linea_vision(mechs->mechJugador->numJ, mechs->mechJugador->pos_Hexagono, sum_nivel_or, mechs->iMechVector[objetivo_mech]->pos_Hexagono, sum_nivel_dest) == true /*&& (mechs->mechJugador->temp_actual <10)*/){
             for (int i = 0; i < mechs->mechJugador->defMechInfo->num_componentes; i++) {
                 if ((mechs->mechJugador->defMechInfo->componentes->clase == ARMA) && (mechs->mechJugador->defMechInfo->componentes[i].operativo == true) && (mechs->mechJugador->defMechInfo->componentes[i].distanciaLarga >= mapa->distancia_casillas(mechs->mechJugador->pos_Hexagono, mechs->iMechVector[objetivo_mech]->pos_Hexagono))/*&& ((mechs->mechJugador->defMechInfo->componentes[i].tipo == ENERGIA) || (queda_municion(*mechs->mechJugador, mechs->mechJugador->defMechInfo->componentes[i].codigo)) == true)*/) {

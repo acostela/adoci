@@ -16,6 +16,12 @@ public:
     int fila;
     int columna;
     hexagono_pos(){}
+    hexagono_pos(const hexagono_pos & orig){
+        fila=orig.fila;
+        columna=orig.columna;
+        pos=orig.stringPos();
+    }
+
     hexagono_pos(int f,int c){
         fila=f;
         columna=c;
@@ -27,7 +33,7 @@ public:
         fila = atoi(cad.substr(2,2).c_str());
     }
 
-    string stringPos() {
+    string stringPos()const {
         string cad;
         if (columna < 10)//1 cifra
             cad = cad + "0";
@@ -46,7 +52,7 @@ public:
     }
 
 private:
-    string itos(int num) {
+    string itos(int num)const {
     stringstream ss;
     ss << num;
     return ss.str();

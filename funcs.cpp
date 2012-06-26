@@ -10,6 +10,8 @@ void leeLinea(istream & in, string & cad, char delim) {
     getline(in, cad, delim);
     if(cad[cad.size()-1]=='\n'){
         cad.erase(cad.end()-1);
+    }else if(cad[cad.size()-1]=='\r'){
+        cad.erase(cad.end()-1);
     }
 }
 

@@ -459,6 +459,8 @@ void infoMechs::leeDatosMech(ifstream & in, iMech* mech) {
 void infoMechs::leeDatosMechVector(ifstream & in, int indice, int numJMech) {
     iMechVector[indice]->numJ = numJMech;
     leeDatosMech(in, iMechVector[indice]);
+    iMechVector[indice]->pos_Hexagono.fila;
+    iMechVector[indice]->pos_Hexagono.columna;
     leeDatosNarc(in, iMechVector[indice]);
     leeDatosDefMech(mechJugador->numJ,numJMech,iMechVector[indice]);
 }
