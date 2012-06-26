@@ -194,7 +194,7 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
                 coberturaSalto(mapa->info_mechs->mechJugador->dmj->PM_saltar, anillos, fil_dest, col_dest, f_obj, c_obj, enc_obj, mapa);
                 tipo_mov = SALTAR;
             } else {
-                cobertura(niveles, anillos, fil_dest, col_dest, f_obj, c_obj, enc_obj, mapa);
+                cobertura(niveles+3, anillos, fil_dest, col_dest, f_obj, c_obj, enc_obj, mapa);
                 tipo_mov = CORRER;
             }
 

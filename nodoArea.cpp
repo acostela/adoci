@@ -147,6 +147,7 @@ void posAtaque(int niveles, vector<nodeVector> & anillosJugador, vector<nodeVect
     int filAnillo, colAnillo;
     if (niveles > NUM_ANILLOS)
         niveles = NUM_ANILLOS;
+    
     fil_dest = anillosJugador[0][0].fila;
     col_dest = anillosJugador[0][0].columna;
     int f = -1, c = -1;
