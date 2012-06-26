@@ -1,6 +1,6 @@
 /* 
  * File:   fase_movimiento.cpp
- * Author: Ángel Costela Sanmiguel y David Medina Godoy
+ * Author: Angel Costela Sanmiguel y David Medina Godoy
  * 
  */
 
@@ -46,19 +46,19 @@ void movimiento_t::salida(string numJ) {
             break;
     }
 
-    /* Si el movimiento es INMOVIL, terminar aquí*/
+    /* Si el movimiento es INMOVIL, terminar aqui­*/
     if (tipo_movimiento == INMOVIL) {
         out << accion;
         out.close();
         return;
     }
 
-    /* Linea 2: Hexágono de destino */
+    /* Linea 2: Hexagono de destino */
     accion = accion + destino.stringPos() + "\n";
 
     /* Linea 3: Lado de destino */
     accion = accion + itoStr(lado) + "\n";
-    /* Si el movimiento es SALTAR, terminar aquí */
+    /* Si el movimiento es SALTAR, terminar aqui­ */
     if (tipo_movimiento == SALTAR) {
         out << accion;
         out.close();
@@ -75,7 +75,7 @@ void movimiento_t::salida(string numJ) {
             break;
     }
 
-    /* Linea 5: número de pasos */
+    /* Linea 5: numero de pasos */
     accion = accion + itoStr(pasos) + "\n";
 
     /* Para cada paso */
@@ -101,7 +101,7 @@ void movimiento_t::salida(string numJ) {
                 accion = accion + "Cuerpo a Tierra\n";
                 break;
         }
-        /* Número de veces o lado */
+        /* Numero de veces o lado */
         accion = accion + itoStr(veces[i]) + "\n";
     }
 
@@ -146,7 +146,7 @@ int movimiento_t::getDestino(int fil_mech, int col_mech, int & fil_dest, int & c
 
 
 
-    sprintf(cad, "%s : Posición mech objetivo: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), f_obj, c_obj, enc_obj);
+    sprintf(cad, "%s : Posicion mech objetivo: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), f_obj, c_obj, enc_obj);
     flog += cad;
 
     switch (estrategia) {
@@ -270,7 +270,7 @@ int movimiento_t::estrategia_movimiento() {
        con las que disparar, entonces la estrategia sera de ataque */
 
     if ((mechs->mechJugador->dmj->Heridas_MW < 5) && /* Para que haya como mucho una prob. de 5/6 de perder la consciencia */
-            (mech->temp_actual < 13) && /* Para evitar la desconexiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n */
+            (mech->temp_actual < 13) && /* Para evitar la desconexion */
             (mech->blindaje.CAB > 2) &&
             (mech->blindaje.TC > 2) &&
             (mech->blindaje.PI > 1) &&
@@ -363,15 +363,15 @@ void movimiento_t::logica_movimiento() {
 
     //ATACAR O DEFENDER
 
-    sprintf(cad, "%s : Posición mech jugador: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_mech, col_mech, lado_mech);
+    sprintf(cad, "%s : Posicion mech jugador: fila: %i,columna: %i,lado: %i \n\n", ctime(&tiempo), fil_mech, col_mech, lado_mech);
     flog += cad;
 
     int tipo_mov_get_destino = getDestino(fil_mech, col_mech, fil_dest, col_dest, lado_dest, estrategia);
     if (fil_dest == -1 && col_dest == -1 && lado_dest == -1) {
-        sprintf(cad, "El jugador no tiene PM asi que permanecerá inmóvil.\n");
+        sprintf(cad, "El jugador no tiene PM asi que permanecera inmovil.\n");
         flog += cad;
         tipo_movimiento = INMOVIL;
-        cout << "El jugador no tiene PM asi que permanecera inmóvil." << endl;
+        cout << "El jugador no tiene PM asi que permanecera inmovil." << endl;
         cin.get();
         return;
     } else if (fil_dest == fil_mech && col_dest == col_mech && lado_dest == lado_mech && !estabaEnSuelo) {
@@ -492,7 +492,7 @@ void movimiento_t::logica_movimiento() {
             case CORRER:
                 PM = mechs->mechJugador->dmj->PM_correr;
                 break;
-        }//AÃƒÆ’Ã‚Â±adir saltar
+        }//Aniadir saltar
 
 
 
@@ -515,7 +515,7 @@ void movimiento_t::logica_movimiento() {
 
 
                 /* Actualizar los PM que llevamos usados */
-                /* Para simplificar, suponemos que tenemos ambos brazos y no están dañados */
+                /* Para simplificar, suponemos que tenemos ambos brazos y no estan danhados */
                 PM -= 2;
             } else {
                 sprintf(cad, "%s : El mech %i no puede levantarse\n\n", ctime(&tiempo), mapa->info_mechs->mechJugador->numJ);
@@ -563,7 +563,7 @@ int movimiento_t::getTipoMov(const node & n1, const node & n2) {
         if (n2.fil == f && n2.col == c)
             return MOV_ADELANTE;
         else return MOV_ATRAS;
-        //ADELANTE O ATRÃƒÆ’Ã¯Â¿Â½S
+        //ADELANTE O ATRAS
     }
 
 
@@ -620,7 +620,7 @@ void movimiento_t::getSecuenciaPasos(const vector<node> & nodosPath, int PM) {
     node ultimo_nodo(nodos[1]);
     nodos.erase(nodos.begin());
     nodos.erase(nodos.begin());
-    tipo[pasos] = dir_actual; //ADELANTE,ATRÁS,IZQ,DERE,LEVANTARSE, CUERPO A TIERRA
+    tipo[pasos] = dir_actual; //ADELANTE,ATRAS,IZQ,DERE,LEVANTARSE, CUERPO A TIERRA
     veces[pasos] = 1;
     while (!nodos.empty()) {
         dir = getTipoMov(ultimo_nodo, nodos.front());

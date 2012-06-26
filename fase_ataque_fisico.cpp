@@ -292,7 +292,7 @@ int ataque_fisico_t::objetivoFisico() {
     int auxFila;
     int columnaJugador;
     int filaJugador;
-    int score_objetivo[mechs->nMechs - 1]; //Aqui se guardará en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
+    float score_objetivo[mechs->nMechs - 1]; //Aqui se guardará en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
     int objetivo;
 
     columnaJugador = mechs->mechJugador->pos_Hexagono.columna;

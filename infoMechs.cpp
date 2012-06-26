@@ -242,7 +242,7 @@ void infoMechs::leeDatosComponentes(ifstream &in, iMech *mech){ //Lee los compon
         leeLinea(in,auxiliar,'\n');
         mech->defMechInfo->actuadores[i].nombre = auxiliar;
         //leeLinea(in,mech->defMechInfo->actuadores[i].nombre);
-       /* Leemos la localizaciÃ³n del actuador, codificada de la siguiente forma
+       /* Leemos la localizacion del actuador, codificada de la siguiente forma
         * BRAZO IZQ = 0
         * TORSO IZQ = 1
         * PIERNA IZQ = 2

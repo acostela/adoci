@@ -338,7 +338,7 @@ public:
     void leeDatosComponentes(ifstream &in, iMech *mech); //Lee los componentes de cada Mech
     void leeDatosCalor(ifstream &in, iMech *mech);
     void leeDatosNarc(ifstream & in, iMech* mech);
-    void leeDatosMech(ifstream & in, iMech* mech); //Lee los datos de una estructura iMech, menos numJ, que habrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ sido leido previamente.
+    void leeDatosMech(ifstream & in, iMech* mech); //Lee los datos de una estructura iMech, menos numJ, que habra sido leido previamente.
     void leeDatosPPal(ifstream & in);
     void leeDatosMechVector(ifstream & in, int indice, int numJMech);
     void leeFich(string fichero);

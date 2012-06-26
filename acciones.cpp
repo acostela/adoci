@@ -1,6 +1,6 @@
 /* 
  * File:   acciones.cpp
- * Author: Ángel Costela Sanmiguel y David Medina Godoy
+ * Author: Angel Costela Sanmiguel y David Medina Godoy
  * 
  */
 

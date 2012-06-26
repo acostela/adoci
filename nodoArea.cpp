@@ -1,6 +1,6 @@
 /* 
  * File:   nodoArea.cpp
- * Author: Ángel Costela Sanmiguel y David Medina Godoy
+ * Author: Angel Costela Sanmiguel y David Medina Godoy
  * 
  */
 
@@ -183,8 +183,8 @@ bool perteneceAnillos(int niveles, vector<nodeVector> & anillos, int f, int c) {
  * 
  * @param niveles Niveles de anillos a examinar
  * @param anillos anillos que rodean al mech jugador
- * @param fil_dest Devolverá fila dentro de estos anillos
- * @param col_dest DevolverÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ columna dentro de estos anillos
+ * @param fil_dest Devolvera fila dentro de estos anillos
+ * @param col_dest Devolvera columna dentro de estos anillos
  * @param f_obj fila del mech objetivo
  * @param c_obj columna del mech objetivo
  * @param enc encaramiento del mech objetivo

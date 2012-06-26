@@ -1,6 +1,6 @@
 /* 
  * File:   fase_movimiento.h
- * Author: Ángel Costela Sanmiguel y David Medina Godoy
+ * Author: Angel Costela Sanmiguel y David Medina Godoy
  *
  */
 

@@ -1,6 +1,6 @@
 /* 
  * File:   fase_ataque_armas.cpp
- * Author: Ángel Costela Sanmiguel y David Medina Godoy
+ * Author: Angel Costela Sanmiguel y David Medina Godoy
  * 
  */
 
@@ -47,7 +47,7 @@ void ataque_armas_t::salida(string numJ) {
             break;
     }
 
-    /* Si se coge un garrote, terminar aquí */
+    /* Si se coge un garrote, terminar aqui */
 
     if (coger_garrote == true) {
         out << accion;
@@ -59,13 +59,13 @@ void ataque_armas_t::salida(string numJ) {
 
     hexaux = objetivo.stringPos(); 
     hexaux += "\n\n";
-    /* Linea 2: Hexágono objetivo primario */
-    sprintf(cad2,"%s : El hexágono objetivo primario es ",ctime(&tiempo));
+    /* Linea 2: Hexagono objetivo primario */
+    sprintf(cad2,"%s : El hexagono objetivo primario es ",ctime(&tiempo));
     flog +=cad2;
     flog += hexaux;
     accion = accion + objetivo.stringPos() + "\n";
 
-    /* Linea 3: Número de armas que se van a disparar */
+    /* Linea 3: Numero de armas que se van a disparar */
     sprintf(cad2,"%s : Vamos a disparar %i armas\n\n ",ctime(&tiempo),num_armas);
     flog +=cad2;
     accion = accion + itoStr(num_armas) + "\n";
@@ -73,132 +73,132 @@ void ataque_armas_t::salida(string numJ) {
 
     /* Para cada arma a disparar */
     for (int i = 0; i < num_armas; ++i) {
-        /* Localización del arma */
+        /* Localizacion del arma */
 
         switch (armas_mech[i].localizacion) {
             case 0:
-                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en el brazo izquierdo \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar se encuentra en el brazo izquierdo \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "BI\n";
                 break;
             case 1:
             case 8:
-                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en el torso izquierdo \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar se encuentra en el torso izquierdo \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "TI\n";
                 break;
             case 2:
-                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en la pierna izquierda \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar se encuentra en la pierna izquierda \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "PI\n";
                 break;
             case 3:
-                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en la pierna derecha \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar se encuentra en la pierna derecha \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "PD\n";
                 break;
             case 4:
             case 9:
-                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en el torso derecho \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar se encuentra en el torso derecho \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "TD\n";
                 break;
             case 5:
-                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en el brazo derecho \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar se encuentra en el brazo derecho \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "BD\n";
                 break;
             case 6:
             case 10:
-                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en el torso central \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar se encuentra en el torso central \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "TC\n";
                 break;
             case 7:
-                sprintf(cad2,"%s : El arma número %i a disparar se encuentra en la cabeza \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar se encuentra en la cabeza \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "CAB\n";
                 break;
         }
 
-        /* Slot del arma dentro de la localización */
-        sprintf(cad2,"%s : El arma número %i a disparar esta en el slot %i \n\n ",ctime(&tiempo),i,armas_mech[i].slot);
+        /* Slot del arma dentro de la localizacion */
+        sprintf(cad2,"%s : El arma numero %i a disparar esta en el slot %i \n\n ",ctime(&tiempo),i,armas_mech[i].slot);
         flog +=cad2;
         accion = accion + itoStr(armas_mech[i].slot) + "\n";
 
         /* Doble cadencia */
         switch (armas_mech[i].doble_cadencia) {
             case true:
-                sprintf(cad2,"%s : El arma número %i va a disparar con doble cadencia \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i va a disparar con doble cadencia \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "True\n";
                 break;
             case false:
-                sprintf(cad2,"%s : El arma número %i va a disparar sin doble cadencia \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i va a disparar sin doble cadencia \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "False\n";
                 break;
         }
 
-        /* Localización de la munición */
+        /* Localizacion de la municion */
 
         switch (armas_mech[i].loc_municion) {
             case 0:
-                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en el brazo izquierdo \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar tiene la municion en el brazo izquierdo \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "BI\n";
                 break;
             case 1:
             case 8:
-                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en el torso izquierdo \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar tiene la municion en el torso izquierdo \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "TI\n";
                 break;
             case 2:
-                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en la pierna izquierda \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar tiene la municion en la pierna izquierda \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "PI\n";
                 break;
             case 3:
-                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en la pierna derecha \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar tiene la municion en la pierna derecha \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "PD\n";
                 break;
             case 4:
             case 9:
-                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en el torso derecho \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar tiene la municion en el torso derecho \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "TD\n";
                 break;
             case 5:
-                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en el brazo derecho \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar tiene la municion en el brazo derecho \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "BD\n";
                 break;
             case 6:
             case 10:
-                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en el torso central \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar tiene la municion en el torso central \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "TC\n";
                 break;
             case 7:
-                sprintf(cad2,"%s : El arma número %i a disparar tiene la munición en la cabeza \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar tiene la municion en la cabeza \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "CAB\n";
                 break;
             default:
-                sprintf(cad2,"%s : El arma número %i a disparar no tiene munición\n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El arma numero %i a disparar no tiene municion\n\n ",ctime(&tiempo),i);
                 flog +=cad2;
                 accion = accion + "-1\n";
         }
 
-        /* Slot de la munición dentro de la localización */
-        sprintf(cad2,"%s : La munición del arma %i a disparar esta en el slot %i \n\n ",ctime(&tiempo),i,armas_mech[i].slot_municion);
+        /* Slot de la municion dentro de la localizacion */
+        sprintf(cad2,"%s : La municion del arma %i a disparar esta en el slot %i \n\n ",ctime(&tiempo),i,armas_mech[i].slot_municion);
         flog +=cad2;
         accion = accion + itoStr(armas_mech[i].slot_municion) + "\n";
 
-        /* Hexágono objetivo del arma */
-        sprintf(cad2,"%s : El hexágono objetivo del arma %i a disparar es %i%i \n\n ",ctime(&tiempo),i,armas_mech[i].objetivo.columna,armas_mech[i].objetivo.fila);
+        /* Hexagono objetivo del arma */
+        sprintf(cad2,"%s : El hexagono objetivo del arma %i a disparar es %i%i \n\n ",ctime(&tiempo),i,armas_mech[i].objetivo.columna,armas_mech[i].objetivo.fila);
         flog +=cad2;
         accion = accion + armas_mech[i].objetivo.stringPos() + "\n";
 
@@ -210,9 +210,9 @@ void ataque_armas_t::salida(string numJ) {
                 accion = accion + "Mech\n";
                 break;
             case HEXAGONO:
-                sprintf(cad2,"%s : El tipo de objetivo para el arma %i a disparar es un hexágono \n\n ",ctime(&tiempo),i);
+                sprintf(cad2,"%s : El tipo de objetivo para el arma %i a disparar es un hexagono \n\n ",ctime(&tiempo),i);
                 flog +=cad2;
-                accion = accion + "Hexágono\n";
+                accion = accion + "Hexagono\n";
 
                 break;
             case NINGUNO:
@@ -304,7 +304,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* Mirar toda la línea de casillas que tiene detrás */
+            /* Mirar toda la linea de casillas que tiene detras */
 
             for (int i = mechs->mechJugador->pos_Hexagono.fila + 1; i < mapa->filas; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
@@ -335,7 +335,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* Mirar si está en los laterales */
+            /* Mirar si esta en los laterales */
 
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna)
                 return DERECHO;
@@ -343,7 +343,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                 return IZQUIERDO;
             break;
         case 2:
-            /* Comprobar el ángulo frontal */
+            /* Comprobar el angulo frontal */
 
             for (int i = 1; i < mechs->mechJugador->pos_Hexagono.fila; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
@@ -361,7 +361,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* Comprobar el ángulo trasero */
+            /* Comprobar el angulo trasero */
             if ((mechs->mechJugador->pos_Hexagono.columna % 2) == 0)
                 fila_init = (mechs->mechJugador->pos_Hexagono.fila + 1)*2;
             else
@@ -373,7 +373,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* Comprobar los ángulos laterales */
+            /* Comprobar los angulos laterales */
             if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna) ||
                     (mechs->iMechVector[mech_obj]->pos_Hexagono.fila > mechs->mechJugador->pos_Hexagono.fila))
                 return DERECHO;
@@ -381,7 +381,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                 return IZQUIERDO;
             break;
         case 3:
-            /* Comprobar el ángulo frontal */
+            /* Comprobar el angulo frontal */
             for (int i = mechs->mechJugador->pos_Hexagono.fila + 1; i < mapa->filas; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -398,7 +398,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* Comprobar el ángulo trasero */
+            /* Comprobar el angulo trasero */
             if ((mechs->mechJugador->pos_Hexagono.columna % 2) == 0)
                 fila_init = mechs->mechJugador->pos_Hexagono.fila * 2;
             else
@@ -410,14 +410,14 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* Comprobar los ángulos laterales */
+            /* Comprobar los angulos laterales */
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.fila < mechs->mechJugador->pos_Hexagono.fila)
                 return IZQUIERDO;
             else
                 return DERECHO;
             break;
         case 4:
-            /* ángulo frontal */
+            /* angulo frontal */
             for (int i = mechs->mechJugador->pos_Hexagono.fila + 1; i < mapa->filas; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -448,7 +448,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                 }
             }
 
-            /* ángulo trasero */
+            /* angulo trasero */
             for (int i = 1; i < mechs->mechJugador->pos_Hexagono.fila; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -478,14 +478,14 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* ángulos laterales */
+            /* angulos laterales */
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna)
                 return IZQUIERDO;
             else
                 return DERECHO;
             break;
         case 5:
-            /* ángulo frontal */
+            /* angulo frontal */
             for (int i = mechs->mechJugador->pos_Hexagono.fila + 1; i < mapa->filas; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -503,7 +503,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* ángulo trasero */
+            /* angulo trasero */
             if ((mechs->mechJugador->pos_Hexagono.columna % 2) == 0)
                 fila_init = (mechs->mechJugador->pos_Hexagono.fila - 1)*2 - 2;
             else
@@ -515,14 +515,14 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* ángulos laterales */
+            /* angulos laterales */
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna)
                 return IZQUIERDO;
             else
                 return DERECHO;
             break;
         case 6:
-            /* ángulo frontal */
+            /* angulo frontal */
             for (int i = 1; i < mechs->mechJugador->pos_Hexagono.fila; ++i) {
                 if ((mechs->iMechVector[mech_obj]->pos_Hexagono.columna == mechs->mechJugador->pos_Hexagono.columna) &&
                         (mechs->iMechVector[mech_obj]->pos_Hexagono.fila == i))
@@ -540,7 +540,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return FRONTAL;
                 }
             }
-            /* ángulo trasero */
+            /* angulo trasero */
             if ((mechs->mechJugador->pos_Hexagono.columna % 2) == 0)
                 fila_init = (mechs->mechJugador->pos_Hexagono.columna + 1)*2;
             else
@@ -552,7 +552,7 @@ int ataque_armas_t::angulo_mech(int mech_obj) {
                         return TRASERO;
                 }
             }
-            /* ángulos laterales */
+            /* angulos laterales */
             if (mechs->iMechVector[mech_obj]->pos_Hexagono.columna > mechs->mechJugador->pos_Hexagono.columna)
                 return DERECHO;
             else
@@ -570,12 +570,12 @@ int ataque_armas_t::objetivoArmas() {
     int columnaJugador;
     int filaJugador;
     int mech_mas_debil;
-    int score_objetivo[mechs->nMechs - 1]; //Aqui se guardaraÃƒâ€šÃ‚Â¡ en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
+    float score_objetivo[mechs->nMechs - 1]; //Aqui se guardara en cada dimension el Score de cada objetivo para elegir el mejor al que disparar
 
     int armaduraux = 0;
     int armaduraminima = 100000;
     int objetivo;
-    int scoreaux;
+    float scoreaux;
 
     columnaJugador = mechs->mechJugador->pos_Hexagono.columna;
     filaJugador = mechs->mechJugador->pos_Hexagono.fila;
@@ -588,9 +588,7 @@ int ataque_armas_t::objetivoArmas() {
         auxColumna = mechs->iMechVector[i]->pos_Hexagono.columna;
         auxFila = mechs->iMechVector[i]->pos_Hexagono.fila;
         if (mechs->iMechVector[i]->operativo == true){ 
-            int prueba= distancia_hexagonal(filaJugador, columnaJugador, auxFila, auxColumna);
             score_objetivo[i] = distancia_hexagonal(filaJugador, columnaJugador, auxFila, auxColumna);//Se pone como Score la distancia del Mech con respecto al nuestro
-        
         }
         
         armaduraux += mechs->iMechVector[i]->blindaje.BD;
@@ -612,7 +610,7 @@ int ataque_armas_t::objetivoArmas() {
         armaduraux = 0;
     }
 
-    score_objetivo[mech_mas_debil] -= 1; //Si hay dos mechs a igual distancia pero uno esta mas dañado que otro disparamos a éste.
+    score_objetivo[mech_mas_debil] -= 1; //Si hay dos mechs a igual distancia pero uno esta mas danhado que otro disparamos a este
 
     scoreaux = score_objetivo[0];
     objetivo = 0;
@@ -663,7 +661,7 @@ bool ataque_armas_t::queda_municion(const iMech &mech, int codigo) {
 bool ataque_armas_t::buscar_municion(const iMech &mech, int cod_arma) {
     int cod_municion = 0;
 
-    for (int i = 0; i < mech.defMechInfo->num_componentes; ++i) { //Si encuentra el cÃƒÆ’Ã‚Â³digo parar
+    for (int i = 0; i < mech.defMechInfo->num_componentes; ++i) { //Si encuentra el codigo parar
 
         if (mech.defMechInfo->componentes[i].codigoArma == cod_arma)
             cod_municion = mech.defMechInfo->componentes[i].codigo;
@@ -724,7 +722,7 @@ void ataque_armas_t::ataque_arma() {
 
     posiciones_adyacentes(fil_jugador, col_jugador, adyacentes);
 
-    //Consideramos enemigo adyacente si está en una casilla al lado y el desnivel no es mayor que 1 (Le podemos pegar cuerpo a cuerpo).
+    //Consideramos enemigo adyacente si esta en una casilla al lado y el desnivel no es mayor que 1 (Le podemos pegar cuerpo a cuerpo).
 
     for (int i = 0; i < mechs->nMechs - 1; i++) {
         filaux = mechs->iMechVector[i]->pos_Hexagono.fila;
